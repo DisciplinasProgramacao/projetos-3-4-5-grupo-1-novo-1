@@ -1,6 +1,6 @@
 public class Caminhao extends Veiculo {
     protected double manutencao = 0.05; //1000/20000; 
-    protected double vistoria = 0.0334; //1000/30000; 
+    protected double vistoria = calculaVistoria();  // 0.0334; //1000/30000; 
     int tanque = 250; 
     double ipva = 0.01; 
     double seguro = 0.02; 
@@ -11,7 +11,13 @@ public class Caminhao extends Veiculo {
         super(placa, valorVenda);
     }
 
+
+
     public Caminhao() {
+    }
+
+    private double calculaVistoria(){
+        return 1000/30000;
     }
 
     public double kmRodados() {
