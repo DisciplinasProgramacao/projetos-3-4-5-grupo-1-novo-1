@@ -1,23 +1,17 @@
 public class Caminhao extends Veiculo {
-    protected double manutencao = 0.05; //1000/20000; 
-    protected double vistoria = calculaVistoria();  // 0.0334; //1000/30000; 
-    int tanque = 250; 
-    double ipva = 0.01; 
-    double seguro = 0.02; 
-    double precoCombustivel = 6.5;
-    double kmPorLitro = 10;
-      
-    public Caminhao(String placa, double valorVenda) {
-        super(placa, valorVenda);
-    }
-
-
+    private static final double MANUTENCAO = 0.05;
+    private static final int TANQUE = 250;
+    private static final double IPVA = 0.01;
+    private static final double VISTORIA = 0.0334;
+    private static final double SEGURO = 0.02;
+    private static final double PRECO_COMBUSTIVEL = 6.5;
+    private static final double KM_POR_LITRO = 10;
 
     public Caminhao() {
     }
-
-    private double calculaVistoria(){
-        return 1000/30000;
+    
+    public Caminhao(String placa, double valorVenda) {
+        super(placa, valorVenda);
     }
 
     public double kmRodados() {
@@ -29,12 +23,12 @@ public class Caminhao extends Veiculo {
     }
 
     public double gastoVariavelTotal() {
-        double gastoPorKM = kmRodados() * getCustoPorKm();
+        double gastoPorKM = kmRodados() * custoPorKm();
         return gastoPorKM;
     }
 
     public double custoFixoAnual() {
-        return getIPVA() + getSeguro();
+        return calculaIPVA() + calculaSeguro();
     }
 
     public double gastoTotalacumulado() {
@@ -42,48 +36,42 @@ public class Caminhao extends Veiculo {
 
     }
 
-
-    public double getCustoPorKm() {
-        return this.manutencao + this.vistoria + this.precoCombustivel/this.kmPorLitro;
+    @Override
+    public double custoPorKm() {
+        return MANUTENCAO + VISTORIA + PRECO_COMBUSTIVEL / KM_POR_LITRO;
     }
 
     @Override
-    public int getTanque() {
-        return this.tanque;
+    public double calculaIPVA() {
+        return this.valorVenda * IPVA; // usar valorVenda local?
     }
 
     @Override
-    public double getIPVA() {
-        return super.valorVenda * this.ipva; // usar valorVenda local?
+    public double calculaSeguro() {
+        return this.valorVenda * SEGURO; // usar valorVenda local?;
     }
-
-    @Override
-    public double getSeguro() {
-        return super.valorVenda * this.seguro; // usar valorVenda local?;
-    }
-
 
     @Override
     public void imprimeVeiculoConsole() {
-        System.out.println("Caminhão    : Placa: " + super.getPlaca() + " - "
-                + " Valor de venda: " + String.format("%.2f", super.valorVenda) + "\n"
+        System.out.println("Caminhão    : Placa: " + this.placa + " - "
+                + " Valor de venda: " + String.format("%.2f", this.valorVenda) + "\n"
                 + " Capacidade Tanque: " + this.tanque  + "\n"
-                + " IPVA: " + String.format("%.2f", this.getIPVA())  + "\n"
-                + " Seguro: " + String.format("%.2f", this.getSeguro() )  + "\n"
-                + " Preço combustivel: " + String.format("%.2f", this.precoCombustivel)  + "\n"
-                + " Km por litro: " + String.format("%.2f", this.kmPorLitro)  + "\n");
-
+                + " IPVA: " + String.format("%.2f", this.calculaIPVA())  + "\n"
+                + " Seguro + Taxa: " + String.format("%.2f", this.calculaSeguro() )  + "\n"
+                + " Preço combustivel: " + String.format("%.2f", PRECO_COMBUSTIVEL)  + "\n"
+                + " Km por litro: " + String.format("%.2f", KM_POR_LITRO)  + "\n");
     }
+
 
     @Override
     public void imprimeDadosVeiculoConsole() {
-        System.out.println("Caminhão    : Placa: " + super.getPlaca() + " - "
-                + "\nValor de venda: " + String.format("%.2f", super.valorVenda) + ";"
+        System.out.println("Caminhão    : Placa: " + this.placa + " - "
+                + "\nValor de venda: " + String.format("%.2f", this.valorVenda) + ";"
                 + "\nGasto Fixo Anual: " + String.format("%.2f",  custoFixoAnual() ) + " - "
-                + "\n   Kilometros rodados: " + String.format("%.2f",  this.kmRodados() ) + " - "
-                + "\n   Gasto manutenção: " + String.format("%.2f",  this.manutencao *  this.kmRodados()  ) + " - "
-                + "\n   Gasto vistoria: " + String.format("%.2f",  this.vistoria *  kmRodados() ) + " - "
-                + "\n   Gasto combustivel: " + String.format("%.2f",  (this.precoCombustivel/this.kmPorLitro) *  kmRodados() ) + " - "
+                + "\n   Kilometros rodados: " + String.format("%.2f",  kmRodados() ) + " - "
+                + "\n   Gasto manutenção: " + String.format("%.2f",  MANUTENCAO *  kmRodados()  ) + " - "
+                + "\n   Gasto vistoria: " + String.format("%.2f",  VISTORIA *  kmRodados() ) + " - "
+                + "\n   Gasto combustivel: " + String.format("%.2f",  (PRECO_COMBUSTIVEL / KM_POR_LITRO) *  kmRodados() ) + " - "
                 + "\nGastos Variáveis Total: " + String.format("%.2f",  gastoVariavelTotal() ) + " - "
                 + "\nTotal gastos: " + String.format("%.2f",  gastoTotalacumulado() ));
 
@@ -92,10 +80,9 @@ public class Caminhao extends Veiculo {
     @Override
     public String escreveVeiculoArquivo() {
         String salvaParaArquivo = "Caminhão;"
-                + super.placa + ";"
-                + super.valorVenda;
-           return salvaParaArquivo;
-
+                + this.placa + ";"
+                + this.valorVenda;
+        return salvaParaArquivo;
     }
 
 }
