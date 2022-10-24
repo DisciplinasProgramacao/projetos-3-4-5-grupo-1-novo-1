@@ -9,11 +9,16 @@ public class VeiculoTest {
 
     @BeforeAll
     public static void Testinit() {
-        veiculo = new Carro("CAR-001", 100);
+        veiculo = new Carro("CAR-001", 180);
     }
     
     @Test
     public void TesteConstrutorVeiculo() {
         assertEquals(50, veiculo.getTanque());
+    }
+
+    @Test
+    public void name() {
+       veiculo.imprimeDadosVeiculoConsole();
     }
 }
