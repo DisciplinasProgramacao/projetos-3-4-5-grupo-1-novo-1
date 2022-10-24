@@ -8,13 +8,12 @@ public class Carro extends Veiculo {
     private static final double PRECO_COMBUSTIVEL = 5;
     private static final double KM_POR_LITRO = 12;
 
+    public Carro() {
+    }
 
     public Carro(String placa, double valorVenda) {
         super(placa, valorVenda);
         this.tanque = TANQUE;
-    }
-
-    public Carro() {
     }
 
     public double gastoVariavelTotal() {
@@ -30,7 +29,7 @@ public class Carro extends Veiculo {
         return gastoVariavelTotal() + custoFixoAnual();
     }
 
-
+    @Override
     public double custoPorKm() {
         return ALINHAMENTO + PRECO_COMBUSTIVEL / KM_POR_LITRO;
     }
@@ -62,10 +61,10 @@ public class Carro extends Veiculo {
         System.out.println("Carro    : Placa: " + this.placa + " - "
                 + "\nValor de venda: " + String.format("%.2f", this.valorVenda) + ";"
                 + "\nGasto Fixo Anual: " + String.format("%.2f",  custoFixoAnual() ) + " - "
-                + "\n   Kilometros rodados: " + String.format("%.2f",  super.kmRodados() ) + " - "
+                + "\n   Kilometros rodados: " + String.format("%.2f",  kmRodados() ) + " - "
                 + "\n   alinhamento: " + String.format("%.2f",  ALINHAMENTO ) + " - "
-                + "\n   Gasto alinhamento: " + String.format("%.2f",  ALINHAMENTO *   super.kmRodados()  ) + " - "
-                + "\n   Gasto combustivel: " + String.format("%.2f",  (PRECO_COMBUSTIVEL / KM_POR_LITRO) *   super.kmRodados() ) + " - "
+                + "\n   Gasto alinhamento: " + String.format("%.2f",  ALINHAMENTO *   kmRodados()  ) + " - "
+                + "\n   Gasto combustivel: " + String.format("%.2f",  (PRECO_COMBUSTIVEL / KM_POR_LITRO) *   kmRodados() ) + " - "
                 + "\nGastos Variáveis Total: " + String.format("%.2f",  gastoVariavelTotal() ) + " - "
                 + "\nTotal gastos: " + String.format("%.2f",  gastoTotalacumulado() ));
 
