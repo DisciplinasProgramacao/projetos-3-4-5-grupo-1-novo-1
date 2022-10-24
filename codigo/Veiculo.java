@@ -44,6 +44,8 @@ public abstract class Veiculo {
 
     public abstract double calculaSeguro();
 
+    public abstract double custoPorKm();
+
     public abstract void imprimeVeiculoConsole();
 
     public abstract void imprimeDadosVeiculoConsole();
