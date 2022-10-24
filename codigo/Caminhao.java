@@ -7,11 +7,11 @@ public class Caminhao extends Veiculo {
     private static final double PRECO_COMBUSTIVEL = 6.5;
     private static final double KM_POR_LITRO = 10;
 
+    public Caminhao() {
+    }
+    
     public Caminhao(String placa, double valorVenda) {
         super(placa, valorVenda);
-    }
-
-    public Caminhao() {
     }
 
     public double kmRodados() {
@@ -36,7 +36,7 @@ public class Caminhao extends Veiculo {
 
     }
 
-    
+    @Override
     public double custoPorKm() {
         return MANUTENCAO + VISTORIA + PRECO_COMBUSTIVEL / KM_POR_LITRO;
     }
@@ -53,7 +53,7 @@ public class Caminhao extends Veiculo {
 
     @Override
     public void imprimeVeiculoConsole() {
-        System.out.println("Carro    : Placa: " + this.placa + " - "
+        System.out.println("Caminhão    : Placa: " + this.placa + " - "
                 + " Valor de venda: " + String.format("%.2f", this.valorVenda) + "\n"
                 + " Capacidade Tanque: " + this.tanque  + "\n"
                 + " IPVA: " + String.format("%.2f", this.calculaIPVA())  + "\n"
