@@ -1,6 +1,6 @@
 
 public class Carro extends Veiculo {
-    protected double alinhamento =  0.008;  //80/10000;
+    protected double alinhamento =  80.0/ 10000.0; //0.008;  //80/10000;
     int tanque = 50;
     double ipva = 0.04;
     double taxa = 300;

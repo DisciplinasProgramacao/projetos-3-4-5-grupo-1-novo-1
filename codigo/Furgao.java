@@ -1,6 +1,6 @@
 public class Furgao extends Veiculo {
-    private double alinhamento = 0.012; //120/10000;
-    private double vistoria = 0.05; //500/1000;
+    private double alinhamento = 120.0/10000.0; //0.012; //120/10000;
+    private double vistoria = 500.0/10000.0; //0.05; //500/1000;
     int tanque = 80;
     double ipva = 0.03;
     double seguro = 0.03;
