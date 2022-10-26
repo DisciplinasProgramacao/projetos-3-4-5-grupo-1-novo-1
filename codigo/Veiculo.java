@@ -14,17 +14,11 @@ public abstract class Veiculo {
     public Veiculo(String placa, double valorVenda) {
         this.placa = placa;
         this.valorVenda = valorVenda;
-        this.tanque = getTanque();
-        this.custoFixoAnual = getIPVA() + getSeguro();
+        this.custoFixoAnual = calculaIPVA() + calculaSeguro();
     }
 
     public void addRota(Rota rota) {
         this.rotas.add(rota);
-    }
-
-    public String getPlaca() {
-        return this.placa;
-
     }
 
     public double kmRodados() {
@@ -36,11 +30,21 @@ public abstract class Veiculo {
         return kmRodados;
     }
 
-    public abstract int getTanque();
+    public String getPlaca() {
+        return this.placa;
 
-    public abstract double getIPVA();
+    }
 
-    public abstract double getSeguro();
+    public int getTanque(){
+
+        return this.tanque;
+    }
+
+    public abstract double calculaIPVA();
+
+    public abstract double calculaSeguro();
+
+    public abstract double custoPorKm();
 
     public abstract void imprimeVeiculoConsole();
 
