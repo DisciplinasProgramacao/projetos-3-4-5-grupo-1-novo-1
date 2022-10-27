@@ -16,14 +16,6 @@ public class Van extends Veiculo {
     public Van() {
     }
 
-    public double kmRodados() {
-        double kmRodados = 0;
-        for (Rota rota : rotas) {
-            kmRodados += rota.distancia;
-        }
-        return kmRodados;
-    }
-
     public double gastoVariavelTotal() {
         double gastoPorKM = kmRodados() * custoPorKm();
         return gastoPorKM;

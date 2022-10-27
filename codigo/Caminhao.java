@@ -17,14 +17,6 @@ public class Caminhao extends Veiculo {
         this.tanque = TANQUE;
     }
 
-    public double kmRodados() {
-        double kmRodados = 0;
-        for (Rota rota : rotas) {
-            kmRodados += rota.distancia;
-        }
-        return kmRodados;
-    }
-
     public double gastoVariavelTotal() {
         double gastoPorKM = kmRodados() * custoPorKm();
         return gastoPorKM;
@@ -36,7 +28,6 @@ public class Caminhao extends Veiculo {
 
     public double gastoTotalacumulado() {
         return gastoVariavelTotal() + custoFixoAnual();
-
     }
 
     @Override
@@ -77,7 +68,6 @@ public class Caminhao extends Veiculo {
                 + "\n   Gasto combustivel: " + String.format("%.2f",  (PRECO_COMBUSTIVEL / KM_POR_LITRO) *  kmRodados() ) + " - "
                 + "\nGastos Variáveis Total: " + String.format("%.2f",  gastoVariavelTotal() ) + " - "
                 + "\nTotal gastos: " + String.format("%.2f",  gastoTotalacumulado() ));
-
     }
 
     @Override
