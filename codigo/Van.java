@@ -1,25 +1,16 @@
 public class Van extends Veiculo {
-<<<<<<< HEAD
-    private double alinhamento = 120.0/10000.0; //0.012; //120/10000; 
-    private double vistoria = 500.0/10000.0; //0.05; //500/10000; 
-    int tanque = 60; 
-    double ipva = 0.03; 
-    double seguro = 0.03; 
-    double precoCombustivel = 6.5;
-    double kmPorLitro = 9;
-      
-=======
-    private static final double ALINHAMENTO = 0.012;
+
+    private static final double ALINHAMENTO = 120.0/10000.0;
     private static final int TANQUE = 60;
     private static final double IPVA = 0.03;
-    private static final double VISTORIA = 0.05;
+    private static final double VISTORIA = 500.0/10000.0;
     private static final double SEGURO = 0.03; 
     private static final double PRECO_COMBUSTIVEL = 6.5;
     private static final double KM_POR_LITRO = 9;
 
->>>>>>> cea9c9b8fdf26b480862ef6d7da0d87423cf065a
     public Van(String placa, double valorVenda) {
         super(placa, valorVenda);
+        this.tanque = TANQUE;
     }
 
     public Van() {

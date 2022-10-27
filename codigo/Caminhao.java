@@ -1,29 +1,11 @@
 public class Caminhao extends Veiculo {
-<<<<<<< HEAD
-    protected double manutencao = 1000.0/20000.0;  //0.05; //1000/20000; 
-    protected double vistoria =  1000.0/30000.0; // 0.0334; //1000/30000; 
-    int tanque = 250; 
-    double ipva = 0.01; 
-    double seguro = 0.02; 
-    double precoCombustivel = 6.5;
-    double kmPorLitro = 10;
-      
-    public Caminhao(String placa, double valorVenda) {
-        super(placa, valorVenda);
-    }
 
-
-
-    public Caminhao() {
-    }
-
-   
-=======
-    private static final double MANUTENCAO = 0.05;
+    private static final double MANUTENCAO = 1000.0/20000.0;
     private static final int TANQUE = 250;
     private static final double IPVA = 0.01;
-    private static final double VISTORIA = 0.0334;
+    private static final double VISTORIA = 1000.0/30000.0;
     private static final double SEGURO = 0.02;
+    private static final double TAXA = 2000;
     private static final double PRECO_COMBUSTIVEL = 6.5;
     private static final double KM_POR_LITRO = 10;
 
@@ -32,9 +14,9 @@ public class Caminhao extends Veiculo {
     
     public Caminhao(String placa, double valorVenda) {
         super(placa, valorVenda);
+        this.tanque = TANQUE;
     }
 
->>>>>>> cea9c9b8fdf26b480862ef6d7da0d87423cf065a
     public double kmRodados() {
         double kmRodados = 0;
         for (Rota rota : rotas) {
@@ -69,7 +51,7 @@ public class Caminhao extends Veiculo {
 
     @Override
     public double calculaSeguro() {
-        return this.valorVenda * SEGURO; // usar valorVenda local?;
+        return this.valorVenda * SEGURO + TAXA; // usar valorVenda local?;
     }
 
     @Override

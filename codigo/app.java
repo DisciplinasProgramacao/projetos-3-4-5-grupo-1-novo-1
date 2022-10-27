@@ -2,9 +2,10 @@ import java.util.Scanner;
 
 public class app {
 
-    public static void main(String[] args) throws Exception {
+    public static 
+    void main(String[] args) throws Exception {
         Scanner obj = new Scanner(System.in);
-        String localPadraoCarregar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/frota.txt";
+        String localPadraoCarregar = "//D:/Users/1216657/Desktop/codigo/frota.txt";
         String localPadraoSalvar = localPadraoCarregar; //"C:/FROTA/ListaVeiculosSalvos.txt";
         Frota virtual = new Frota();
         Veiculo veiculoLocalizar = null;
