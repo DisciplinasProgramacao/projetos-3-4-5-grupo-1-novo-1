@@ -77,5 +77,4 @@ public class Caminhao extends Veiculo {
                 + this.valorVenda;
         return salvaParaArquivo;
     }
-
 }
