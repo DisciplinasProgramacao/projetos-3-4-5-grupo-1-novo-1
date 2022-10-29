@@ -6,7 +6,7 @@ public abstract class Veiculo {
     protected int tanque;
     protected double custoFixoAnual;
     protected double custoVarKm;
-    protected   ArrayList<Rota> rotas = new ArrayList<Rota>();
+    protected ArrayList<Rota> rotas = new ArrayList<Rota>();
 
     public Veiculo() {
     };
@@ -21,17 +21,42 @@ public abstract class Veiculo {
     public void addRota(Rota rota) {
         this.rotas.add(rota);
     }
-  
-    public String getPlaca() {
-        return this.placa;
+
+    public double kmRodados() {
+        double kmRodados = 0;
+        for (Rota rota : rotas) {
+            kmRodados += rota.distancia;
+        }
+        return kmRodados;
+    }
+
+    public double gastoVariavelTotal() {
+        double gastoPorKM = kmRodados() * custoPorKm();
+        return gastoPorKM;
+    }
+
+    public double custoFixoAnual() {
+        return getIPVA() + getSeguro();
+    }
+
+    public double gastoTotalacumulado() {
+        return gastoVariavelTotal() + custoFixoAnual();
 
     }
 
-    public abstract int getTanque();
+    public String getPlaca() {
+        return this.placa;
+    }
+
+    public int getTanque(){
+        return this.tanque;
+    }
 
     public abstract double getIPVA();
 
     public abstract double getSeguro();
+    
+    public abstract double custoPorKm();
 
     public abstract void imprimeVeiculoConsole();
 

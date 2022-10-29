@@ -14,35 +14,9 @@ public class Van extends Veiculo {
     public Van() {
     }
 
-    public double kmRodados() {
-        double kmRodados = 0;
-        for (Rota rota : rotas) {
-            kmRodados += rota.distancia;
-        }
-        return kmRodados;
-    }
-
-    public double gastoVariavelTotal() {
-        double gastoPorKM = kmRodados() * getCustoPorKm();
-        return gastoPorKM;
-    }
-
-    public double custoFixoAnual() {
-        return getIPVA() + getSeguro();
-    }
-
-    public double gastoTotalacumulado() {
-        return gastoVariavelTotal() + custoFixoAnual();
-
-    }
-
-    public double getCustoPorKm() {
-        return this.alinhamento + this.precoCombustivel / this.kmPorLitro;
-    }
-
     @Override
-    public int getTanque() {
-        return this.tanque;
+    public double custoPorKm() {
+        return this.alinhamento + this.precoCombustivel / this.kmPorLitro;
     }
 
     @Override

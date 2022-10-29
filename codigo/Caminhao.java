@@ -15,40 +15,14 @@ public class Caminhao extends Veiculo {
     public Caminhao() {
     }
 
-    public double kmRodados() {
-        double kmRodados = 0;
-        for (Rota rota : rotas) {
-            kmRodados += rota.distancia;
-        }
-        return kmRodados;
-    }
-
-    public double gastoVariavelTotal() {
-        double gastoPorKM = kmRodados() * getCustoPorKm();
-        return gastoPorKM;
-    }
-
-    public double custoFixoAnual() {
-        return getIPVA() + getSeguro();
-    }
-
-    public double gastoTotalacumulado() {
-        return gastoVariavelTotal() + custoFixoAnual();
-
-    }
-
-    public double getCustoPorKm() {
+    @Override
+    public double custoPorKm() {
         return this.manutencao + this.vistoria + this.precoCombustivel / this.kmPorLitro;
     }
 
     @Override
-    public int getTanque() {
-        return this.tanque;
-    }
-
-    @Override
     public double getIPVA() {
-        return super.valorVenda * this.ipva; // usar valorVenda local?
+        return super.valorVenda * this.ipva;
     }
 
     @Override
