@@ -36,6 +36,15 @@ public abstract class Veiculo {
         return gastoPorKM;
     }
 
+    public double custoFixoAnual() {
+        return calculaIPVA() + calculaSeguro();
+    }
+
+    public double gastoTotalacumulado() {
+        return gastoVariavelTotal() + custoFixoAnual();
+
+    }
+
     public String getPlaca() {
         return this.placa;
 

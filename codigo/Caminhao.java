@@ -17,14 +17,6 @@ public class Caminhao extends Veiculo {
         this.tanque = TANQUE;
     }
 
-    public double custoFixoAnual() {
-        return calculaIPVA() + calculaSeguro();
-    }
-
-    public double gastoTotalacumulado() {
-        return gastoVariavelTotal() + custoFixoAnual();
-    }
-
     @Override
     public double custoPorKm() {
         return MANUTENCAO + VISTORIA + PRECO_COMBUSTIVEL / KM_POR_LITRO;

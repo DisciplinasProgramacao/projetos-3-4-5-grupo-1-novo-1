@@ -17,14 +17,6 @@ public class Carro extends Veiculo {
         this.tanque = TANQUE;
     }
 
-    public double custoFixoAnual() {
-        return calculaIPVA() + calculaSeguro();
-    }
-
-    public double gastoTotalacumulado() {
-        return gastoVariavelTotal() + custoFixoAnual();
-    }
-
     @Override
     public double custoPorKm() {
         return ALINHAMENTO + PRECO_COMBUSTIVEL / KM_POR_LITRO;
