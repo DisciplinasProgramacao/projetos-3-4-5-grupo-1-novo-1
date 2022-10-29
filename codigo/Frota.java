@@ -107,7 +107,7 @@ public class Frota {
 
                         break;
                 }
-               virtual.veiculos.add(novoVeiculo);
+            virtual.veiculos.add(novoVeiculo);
 
             }
             entrada.close();
