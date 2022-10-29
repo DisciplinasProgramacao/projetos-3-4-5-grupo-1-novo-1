@@ -9,6 +9,7 @@ public class Furgao extends Veiculo {
 
     public Furgao(String placa, double valorVenda) {
         super(placa, valorVenda);
+        this.tanque = TANQUE;
     }
 
     public Furgao() {
