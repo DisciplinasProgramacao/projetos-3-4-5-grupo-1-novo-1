@@ -52,9 +52,7 @@ public class Carro extends Veiculo {
                 + " Valor de venda: " + String.format("%.2f", this.valorVenda) + "\n"
                 + " Capacidade Tanque: " + this.tanque  + "\n"
                 + " IPVA: " + String.format("%.2f", this.calculaIPVA())  + "\n"
-                + " Seguro + Taxa: " + String.format("%.2f", this.calculaSeguro() )  + "\n"
-                + " Preço combustivel: " + String.format("%.2f", PRECO_COMBUSTIVEL)  + "\n"
-                + " Km por litro: " + String.format("%.2f", KM_POR_LITRO)  + "\n");
+                + " Seguro + Taxa: " + String.format("%.2f", this.calculaSeguro() )  + "\n");
     }
 
     @Override
