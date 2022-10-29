@@ -13,21 +13,17 @@ public class app {
         Data dtProducao = null;
 
         String opcao = "";
-
         opcao = menu(opcao);
 
         while (opcao != "F") {
-
             switch (opcao) {
-
                 case "1":
-
                     System.out.println("Carregar um conjunto de veículos de um arquivo:\n");
                     System.out.println("Carregando lista de veiculos em: " + localPadraoCarregar);
                     Frota.carregarVeiculosArquivo(localPadraoCarregar);
-                  // Frota.imprimeVeiculosFrota();
                     opcao = menu(opcao);
                     break;
+
                 case "2":
                     System.out.println("Salvar um conjunto de veículos em um arquivo:\n");
                     System.out.println("conjunto de veículos:" + localPadraoSalvar);
@@ -36,7 +32,6 @@ public class app {
                     break;
 
                 case "3":
-
                     System.out.println("Incluir um novo veículo:\n");
                     System.out.println("\nEntre com os dados do veiculo para incluir:");
                     System.out.print("\nPlaca:");
@@ -56,55 +51,47 @@ public class app {
                         case '1':
                             Veiculo novoCarro = new Carro(placa, valorVenda);
                             Frota.incluirVeiculo(novoCarro);
-                        //    novoCarro.imprimeVeiculoConsole();
                             break;
                         case '2':
                             Veiculo novaVan = new Van(placa, valorVenda);
                             Frota.incluirVeiculo(novaVan);
-                        //    novaVan.imprimeVeiculoConsole();
                             break;
                         case '3':
                             Veiculo novoFurgao = new Furgao(placa, valorVenda);
                             Frota.incluirVeiculo(novoFurgao);
-                        //    novoFurgao.imprimeVeiculoConsole();
                             break;
                         case '4':
                             Veiculo novoCaminhao = new Caminhao(placa, valorVenda);
                             Frota.incluirVeiculo(novoCaminhao);
-                        //    novoCaminhao.imprimeVeiculoConsole();
                             break;
                         default:
                             System.out.println("opção invalida!");
                             break;
                     }
-
-
-                   
                     opcao = menu(opcao);
                     break;
+
                 case "4":
                     System.out.println("Incluir rotas para um veículo:\n");
-                        System.out.println("\nEntre com os dados da rota para incluir:");
-                        System.out.print("\nQuilometros da rota:");
-                        kmRota = obj.nextInt();
-                        System.out.println("Entre com data para a rota formato DD/MM/AAAA: ");
-                        dtProducao = Data.verificaData(obj.nextLine());
-                        dtProducao = new Data();
-                        novaRota = new Rota(kmRota, dtProducao, Frota.localizarVeiculo(obj.nextLine()));
+                    System.out.println("\nEntre com os dados da rota para incluir:");
+                    System.out.print("\nQuilometros da rota:");
+                    kmRota = obj.nextInt();
+                    System.out.println("Entre com data para a rota formato DD/MM/AAAA: ");
+                    dtProducao = Data.verificaData(obj.nextLine());
+                    dtProducao = new Data();
+                    novaRota = new Rota(kmRota, dtProducao, Frota.localizarVeiculo(obj.nextLine()));
 
                     if (Frota.imprimeVeiculosFrota() > 0) {
-                       System.out.println("Entre com a placa do veículo para a rota:\n Procurar pela placa: ");
+                        System.out.println("Entre com a placa do veículo para a rota:\n Procurar pela placa: ");
                         veiculoLocalizar = Frota.localizarVeiculo(obj.nextLine());
                     } else {
                         System.out.println("Não há veiculo cadastrado.");
                     }
-
                     novaRota = new Rota(kmRota, dtProducao, veiculoLocalizar);
-
                     veiculoLocalizar.addRota(novaRota);
-
                     opcao = menu(opcao);
                     break;
+
                 case "5":
                     System.out.println("Localizar um veículo da frota.");
                     System.out.println("\nEntre com a placa do Veículo para localizar:");
@@ -113,6 +100,7 @@ public class app {
                     veiculoLocalizar.imprimeVeiculoConsole();
                     opcao = menu(opcao);
                     break;
+
                 case "6":
                     System.out.println("Imprimir um relatório do veículo com seus gastos até o momento.\n");
                     System.out.println("\nEntre com a placa do Veículo para imprimir gastos:");
@@ -123,10 +111,12 @@ public class app {
                     }
                     opcao = menu(opcao);
                     break;
+
                 case "F":
                     System.out.println("Finalizado!");
                     opcao = "F";
                     break;
+
                 default:
                     System.out.println("opção invalida!");
                     opcao = menu(opcao);
