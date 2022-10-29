@@ -16,11 +16,6 @@ public class Furgao extends Veiculo {
         this.tanque = TANQUE;
     }
 
-    public double gastoVariavelTotal() {
-        double gastoPorKM = kmRodados() * custoPorKm();
-        return gastoPorKM;
-    }
-
     public double custoFixoAnual() {
         return calculaIPVA() + calculaSeguro();
     }

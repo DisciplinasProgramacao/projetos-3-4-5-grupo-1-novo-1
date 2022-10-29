@@ -16,11 +16,6 @@ public class Van extends Veiculo {
     public Van() {
     }
 
-    public double gastoVariavelTotal() {
-        double gastoPorKM = kmRodados() * custoPorKm();
-        return gastoPorKM;
-    }
-
     public double custoFixoAnual() {
         return calculaIPVA() + calculaSeguro();
     }

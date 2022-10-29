@@ -6,6 +6,7 @@ public abstract class Veiculo {
     protected int tanque;
     protected double custoFixoAnual;
     protected double custoVarKm;
+    protected double outrosCustos;
     protected ArrayList<Rota> rotas = new ArrayList<Rota>();
 
     public Veiculo() {
@@ -28,6 +29,11 @@ public abstract class Veiculo {
             kmRodados += rota.distancia;
         }
         return kmRodados;
+    }
+
+    public double gastoVariavelTotal() {
+        double gastoPorKM = kmRodados() * custoPorKm();
+        return gastoPorKM;
     }
 
     public String getPlaca() {
