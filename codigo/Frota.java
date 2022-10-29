@@ -21,8 +21,8 @@ public class Frota {
 
     public static Veiculo localizarVeiculo(String placaProcurar) {
         for (Veiculo veiculo : veiculos) {
-              if (veiculo.getPlaca().compareTo(placaProcurar) == 0) {
-                 veiculo.imprimeVeiculoConsole();
+            if (veiculo.getPlaca().compareTo(placaProcurar) == 0) {
+                veiculo.imprimeVeiculoConsole();
                 return veiculo;
             }
         }
@@ -73,7 +73,7 @@ public class Frota {
     public Frota carregarVeiculosArquivo(String localArquivo, Frota virtual) {
 
         Scanner entrada;
-       Veiculo novoVeiculo=null;
+        Veiculo novoVeiculo=null;
 
         String linhaLida;
         String[] veiculoLido;

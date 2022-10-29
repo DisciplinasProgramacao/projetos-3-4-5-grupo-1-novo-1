@@ -19,6 +19,6 @@ public class VeiculoTest {
 
     @Test
     public void name() {
-       veiculo.imprimeDadosVeiculoConsole();
+        veiculo.imprimeDadosVeiculoConsole();
     }
 }
