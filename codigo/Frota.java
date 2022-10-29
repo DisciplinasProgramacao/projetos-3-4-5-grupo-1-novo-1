@@ -11,9 +11,9 @@ public class Frota {
 
     protected static ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
 
-    public Veiculo incluirVeiculo(Veiculo veiculoIncluir) {
+    public static void incluirVeiculo(Veiculo veiculoIncluir) {
         veiculos.add(veiculoIncluir);
-        return veiculos.get(veiculos.size() - 1);
+        // return veiculos.get(veiculos.size() - 1);
     }
 
     public Frota() {
@@ -29,7 +29,23 @@ public class Frota {
         return null;
     }
 
-    public void salvaVeiculosFrota(String nomeArquivo) {
+    public static int imprimeVeiculosFrota() {
+
+        for (Veiculo veiculo : veiculos) {
+            veiculo.imprimeVeiculoPlaca();
+        }
+        return Frota.veiculos.size();
+    }
+
+    public int imprimeVeiculosPlaca() {
+
+        for (Veiculo veiculo : veiculos) {
+            veiculo.imprimeVeiculoConsole();
+        }
+        return Frota.veiculos.size();
+    }
+
+    public static void salvaVeiculosFrota(String nomeArquivo) {
 
         File arquivo = new File(nomeArquivo);
         try {
@@ -37,11 +53,11 @@ public class Frota {
                 arquivo.createNewFile();
             }
 
-            FileWriter arqEscrita = new FileWriter(arquivo, true);
+            FileWriter arqEscrita = new FileWriter(arquivo, false);
             BufferedWriter escritor = new BufferedWriter(arqEscrita);
 
             for (Veiculo veiculo : veiculos) {
-                veiculo.imprimeVeiculoConsole();
+                // veiculo.imprimeVeiculoConsole();
                 escritor.write(veiculo.escreveVeiculoArquivo());
                 escritor.newLine();
             }
@@ -53,14 +69,6 @@ public class Frota {
         }
     }
 
-    public int imprimeVeiculosFrota() {
-
-        for (Veiculo veiculo : veiculos) {
-            veiculo.imprimeVeiculoConsole();
-        }
-        return Frota.veiculos.size();
-    }
-
     /**
      * @param localArquivo
      * @param virtual
@@ -70,10 +78,10 @@ public class Frota {
      *                     Retorna Frota contendo os Veiculos lidos do arquivo txt
      * @return
      */
-    public Frota carregarVeiculosArquivo(String localArquivo, Frota virtual) {
+    public static void carregarVeiculosArquivo(String localArquivo) {
 
         Scanner entrada;
-        Veiculo novoVeiculo=null;
+        Veiculo novoVeiculo = null;
 
         String linhaLida;
         String[] veiculoLido;
@@ -88,26 +96,26 @@ public class Frota {
                 switch (veiculoLido[0]) {
 
                     case ("Carro"):
-                    novoVeiculo = new Carro(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
+                        novoVeiculo = new Carro(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
 
                         break;
 
                     case ("Van"):
-                    novoVeiculo = new Van(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
+                        novoVeiculo = new Van(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
 
                         break;
 
                     case ("Furgao"):
-                    novoVeiculo = new Furgao(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
+                        novoVeiculo = new Furgao(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
 
                         break;
 
                     case ("Caminhao"):
-                    novoVeiculo = new Caminhao(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
+                        novoVeiculo = new Caminhao(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
 
                         break;
                 }
-            virtual.veiculos.add(novoVeiculo);
+                Frota.veiculos.add(novoVeiculo);
 
             }
             entrada.close();
@@ -117,6 +125,6 @@ public class Frota {
         FileNotFoundException e) {
             e.printStackTrace();
         }
-        return virtual;
+
     }
 }

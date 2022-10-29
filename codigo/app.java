@@ -2,12 +2,10 @@ import java.util.Scanner;
 
 public class app {
 
-    public static 
-    void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         Scanner obj = new Scanner(System.in);
-        String localPadraoCarregar = "//D:/Users/1216657/Desktop/codigo/frota.txt";
+        String localPadraoCarregar = "C:/FROTA/Veiculos_ler.txt";
         String localPadraoSalvar = localPadraoCarregar; //"C:/FROTA/ListaVeiculosSalvos.txt";
-        Frota virtual = new Frota();
         Veiculo veiculoLocalizar = null;
         String placaVeiculo;
         Rota novaRota = null;
@@ -26,14 +24,14 @@ public class app {
 
                     System.out.println("Carregar um conjunto de veículos de um arquivo:\n");
                     System.out.println("Carregando lista de veiculos em: " + localPadraoCarregar);
-                    virtual.carregarVeiculosArquivo(localPadraoCarregar, virtual);
-                   virtual.imprimeVeiculosFrota();
+                    Frota.carregarVeiculosArquivo(localPadraoCarregar);
+                  // Frota.imprimeVeiculosFrota();
                     opcao = menu(opcao);
                     break;
                 case "2":
                     System.out.println("Salvar um conjunto de veículos em um arquivo:\n");
                     System.out.println("conjunto de veículos:" + localPadraoSalvar);
-                    virtual.salvaVeiculosFrota(localPadraoSalvar);
+                    Frota.salvaVeiculosFrota(localPadraoSalvar);
                     opcao = menu(opcao);
                     break;
 
@@ -57,23 +55,23 @@ public class app {
                     switch (tipo) {
                         case '1':
                             Veiculo novoCarro = new Carro(placa, valorVenda);
-                            virtual.incluirVeiculo(novoCarro);
-                            novoCarro.imprimeVeiculoConsole();
+                            Frota.incluirVeiculo(novoCarro);
+                        //    novoCarro.imprimeVeiculoConsole();
                             break;
                         case '2':
                             Veiculo novaVan = new Van(placa, valorVenda);
-                            virtual.incluirVeiculo(novaVan);
-                            novaVan.imprimeVeiculoConsole();
+                            Frota.incluirVeiculo(novaVan);
+                        //    novaVan.imprimeVeiculoConsole();
                             break;
                         case '3':
                             Veiculo novoFurgao = new Furgao(placa, valorVenda);
-                            virtual.incluirVeiculo(novoFurgao);
-                            novoFurgao.imprimeVeiculoConsole();
+                            Frota.incluirVeiculo(novoFurgao);
+                        //    novoFurgao.imprimeVeiculoConsole();
                             break;
                         case '4':
                             Veiculo novoCaminhao = new Caminhao(placa, valorVenda);
-                            virtual.incluirVeiculo(novoCaminhao);
-                            novoCaminhao.imprimeVeiculoConsole();
+                            Frota.incluirVeiculo(novoCaminhao);
+                        //    novoCaminhao.imprimeVeiculoConsole();
                             break;
                         default:
                             System.out.println("opção invalida!");
@@ -94,7 +92,7 @@ public class app {
                         dtProducao = new Data();
                         novaRota = new Rota(kmRota, dtProducao, Frota.localizarVeiculo(obj.nextLine()));
 
-                    if (virtual.imprimeVeiculosFrota() > 0) {
+                    if (Frota.imprimeVeiculosFrota() > 0) {
                        System.out.println("Entre com a placa do veículo para a rota:\n Procurar pela placa: ");
                         veiculoLocalizar = Frota.localizarVeiculo(obj.nextLine());
                     } else {
