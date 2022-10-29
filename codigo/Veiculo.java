@@ -15,7 +15,7 @@ public abstract class Veiculo {
         this.placa = placa;
         this.valorVenda = valorVenda;
         this.tanque = getTanque();
-        this.custoFixoAnual = getIPVA() + getSeguro();
+        this.custoFixoAnual = calculaIPVA() + calculaSeguro();
     }
 
     public void addRota(Rota rota) {
@@ -36,7 +36,7 @@ public abstract class Veiculo {
     }
 
     public double custoFixoAnual() {
-        return getIPVA() + getSeguro();
+        return calculaIPVA() + calculaSeguro();
     }
 
     public double gastoTotalacumulado() {
@@ -52,9 +52,9 @@ public abstract class Veiculo {
         return this.tanque;
     }
 
-    public abstract double getIPVA();
+    public abstract double calculaIPVA();
 
-    public abstract double getSeguro();
+    public abstract double calculaSeguro();
     
     public abstract double custoPorKm();
 
