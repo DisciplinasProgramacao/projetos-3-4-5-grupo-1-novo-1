@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public class Van extends Veiculo {
     private static final double ALINHAMENTO = 120.0 / 10000.0;
@@ -6,8 +5,6 @@ public class Van extends Veiculo {
     private static final double IPVA = 0.03;
     private static final double VISTORIA = 500.0 / 10000.0;
     private static final double SEGURO = 0.03; 
-    protected static final ArrayList<Combustivel> TIPOS_COMBUSTIVEL = new ArrayList<Combustivel>();
-
 
     public Van(String placa, double valorVenda) {
         

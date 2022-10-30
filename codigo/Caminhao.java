@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public class Caminhao extends Veiculo {
     private static final double MANUTENCAO = 1000.0 / 20000.0;
@@ -6,7 +5,6 @@ public class Caminhao extends Veiculo {
     private static final double IPVA = 0.01;
     private static final double VISTORIA = 1000.0 / 30000.0;
     private static final double SEGURO = 0.02;
-    protected static final ArrayList<Combustivel> TIPOS_COMBUSTIVEL = new ArrayList<Combustivel>();
 
     public Caminhao(String placa, double valorVenda) {
         
@@ -53,8 +51,7 @@ public class Caminhao extends Veiculo {
                 + " Capacidade Tanque: " + this.tanque  + "\n"
                 + " IPVA: " + String.format("%.2f", this.calculaIPVA())  + "\n"
                 + " Seguro + Taxa: " + String.format("%.2f", this.calculaSeguro() )  + "\n"
-                + " Preço combustivel: " + String.format("%.2f", this.combustivelAtual.getPreco())  + "\n"
-                + " Km por litro: " + String.format("%.2f", this.combustivelAtual.getConsumo())  + "\n");
+                + " Combustíveis compatíveis: Diesel"  + "\n");
     }
 
     @Override
