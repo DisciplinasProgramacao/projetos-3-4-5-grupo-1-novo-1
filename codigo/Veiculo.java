@@ -5,8 +5,9 @@ public abstract class Veiculo {
     protected double valorVenda;
     protected int tanque;
     protected double custoFixoAnual;
-    protected double custoVarKm;
+    protected double custoVariavel;
     protected double outrosCustos;
+    protected double kilometragemTotal;
     protected Combustivel combustivelAtual;
     protected ArrayList<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
     protected ArrayList<Rota> rotas = new ArrayList<Rota>();
@@ -16,8 +17,8 @@ public abstract class Veiculo {
     public Veiculo(String placa, double valorVenda) {
         this.placa = placa;
         this.valorVenda = valorVenda;
-        this.tanque = getTanque();
-        this.custoFixoAnual = calculaIPVA() + calculaSeguro();
+        this.custoFixoAnual = custoFixoAnual();
+        this.kilometragemTotal = 0;
     }
 
     public void addRota(Rota rota) {
@@ -29,7 +30,9 @@ public abstract class Veiculo {
         for (Rota rota : rotas) {
             kmRodados += rota.distancia;
         }
-        return kmRodados;
+        this.kilometragemTotal = kmRodados;
+
+        return this.kilometragemTotal;
     }
 
     public double gastoVariavelTotal() {
