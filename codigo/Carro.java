@@ -86,7 +86,6 @@ public class Carro extends Veiculo {
     @Override
     public void imprimeVeiculoPlaca() {
         System.out.println("Carro       : Placa: " + this.placa + " - "
-                + " Capacidade Tanque: " + this.tanque + " - "
-                + " Km por litro: " + String.format("%.2f", this.combustivelAtual.getConsumo()));
+                + " Capacidade Tanque: " + this.tanque + " - ");
     }
 }

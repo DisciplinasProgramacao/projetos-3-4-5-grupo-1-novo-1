@@ -21,8 +21,12 @@ public abstract class Veiculo {
         this.kilometragemTotal = 0;
     }
 
-    public void addRota(Rota rota) {
-        this.rotas.add(rota);
+    public boolean addRota(Rota rota) {
+        if(tanqueSuficiente(rota.distancia)){
+            this.rotas.add(rota);
+            return true;
+        }
+        else{return false;}
     }
 
     public double kmRodados() {
@@ -31,7 +35,6 @@ public abstract class Veiculo {
             kmRodados += rota.distancia;
         }
         this.kilometragemTotal = kmRodados;
-
         return this.kilometragemTotal;
     }
 
@@ -58,13 +61,16 @@ public abstract class Veiculo {
     }
 
     public boolean tanqueSuficiente(double distanciaRota){
-
         double autonomiaAtual = this.combustivelAtual.getConsumo() * this.tanque;
-
         if(autonomiaAtual < distanciaRota){
             return false;
         }
         else{return true;}
+    }
+
+    public double outrosCustos(double valor){
+        this.outrosCustos += valor;
+        return this.outrosCustos;
     }
 
     public abstract boolean abastecer(int tipoCombustivel);

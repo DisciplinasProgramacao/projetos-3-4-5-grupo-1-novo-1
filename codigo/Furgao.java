@@ -80,8 +80,7 @@ public class Furgao extends Veiculo {
     @Override
     public void imprimeVeiculoPlaca() {
         System.out.println("Furgão       : Placa: " + this.placa + " - "
-        + " Capacidade Tanque: " + this.tanque + " - "
-        + " Km por litro: " + String.format("%.2f", this.combustivelAtual.getConsumo()));
+        + " Capacidade Tanque: " + this.tanque + " - ");
     }
 
 }
