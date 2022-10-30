@@ -60,7 +60,7 @@ public class Furgao extends Veiculo {
                 + " Capacidade Tanque: " + this.tanque  + "\n"
                 + " IPVA: " + String.format("%.2f", this.calculaIPVA())  + "\n"
                 + " Seguro" + String.format("%.2f", this.calculaSeguro() )
-                + " Combustíveis compatíveis: Gasolina"  + "\n"  + "\n");
+                + " Combustíveis compatíveis: Gasolina"  + "\n");
     }
 
     @Override

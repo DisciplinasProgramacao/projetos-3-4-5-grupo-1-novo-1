@@ -1,6 +1,6 @@
 
 public class Carro extends Veiculo {
-    private static final double ALINHAMENTO = 80.0 / 10000.0;
+    private static final int ALINHAMENTO = 10000;
     private static final int TANQUE_COMPLETO = 50;
     private static final double IPVA = 0.04;
     private static final double TAXA = 300;
@@ -36,9 +36,14 @@ public class Carro extends Veiculo {
         else{return false;}
     }
 
+    public int calculaAlinhamento() {
+        int alinhamento = (int)(this.kilometragemTotal/ALINHAMENTO);
+        return (alinhamento * 80);
+    }
+
     @Override
-    public double custoPorKm() {
-        return ALINHAMENTO + this.combustivelAtual.getPreco()/this.combustivelAtual.getConsumo();
+    public double outrosCustos() {
+        return calculaAlinhamento() + this.combustivelAtual.getPreco()/this.combustivelAtual.getConsumo();
     }
 
     @Override
@@ -58,8 +63,7 @@ public class Carro extends Veiculo {
                 + " Capacidade Tanque: " + this.tanque  + "\n"
                 + " IPVA: " + String.format("%.2f", this.calculaIPVA())  + "\n"
                 + " Seguro + Taxa: " + String.format("%.2f", this.calculaSeguro() )  + "\n"
-                + " Preço combustivel: " + String.format("%.2f", this.combustivelAtual.getPreco())  + "\n"
-                + " Km por litro: " + String.format("%.2f", this.combustivelAtual.getConsumo())  + "\n");
+                + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
     }
 
     @Override
@@ -68,11 +72,10 @@ public class Carro extends Veiculo {
                 + "\nValor de venda: " + String.format("%.2f", this.valorVenda) + ";"
                 + "\nGasto Fixo Anual: " + String.format("%.2f",  custoFixoAnual() ) + " - "
                 + "\n   Kilometros rodados: " + String.format("%.2f",  kmRodados() ) + " - "
-                + "\n   alinhamento: " + String.format("%.2f",  ALINHAMENTO ) + " - "
-                + "\n   Gasto alinhamento: " + String.format("%.2f",  ALINHAMENTO *   kmRodados()  ) + " - "
-                + "\n   Gasto combustivel: " + String.format("%.2f",  (this.combustivelAtual.getPreco() / this.combustivelAtual.getConsumo()) *   kmRodados() ) + " - "
+                + "\n   Gasto alinhamento: " + (calculaAlinhamento()) + " - "
+                + "\n   Gasto combustivel: " + String.format("%.2f",  gastoCombustivel()) + " - "
                 + "\nGastos Variáveis Total: " + String.format("%.2f",  gastoVariavelTotal() ) + " - "
-                + "\nTotal gastos: " + String.format("%.2f",  gastoTotalacumulado() ));
+                + "\nTotal gastos: " + String.format("%.2f",  gastoTotalacumulado()));
     }
 
     @Override
