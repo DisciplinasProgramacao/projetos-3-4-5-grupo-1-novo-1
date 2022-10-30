@@ -4,9 +4,7 @@ public abstract class Veiculo {
     protected String placa;
     protected double valorVenda;
     protected int tanque;
-    protected double custoFixoAnual;
-    protected double custoVariavel;
-    protected double outrosCustos;
+    protected double custosEsporadicos;
     protected double kilometragemTotal;
     protected Combustivel combustivelAtual;
     protected ArrayList<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
@@ -17,7 +15,6 @@ public abstract class Veiculo {
     public Veiculo(String placa, double valorVenda) {
         this.placa = placa;
         this.valorVenda = valorVenda;
-        this.custoFixoAnual = custoFixoAnual();
         this.kilometragemTotal = 0;
     }
 
@@ -38,9 +35,26 @@ public abstract class Veiculo {
         return this.kilometragemTotal;
     }
 
+    public boolean tanqueSuficiente(double distanciaRota){
+        double autonomiaAtual = this.combustivelAtual.getConsumo() * this.tanque;
+        if(autonomiaAtual < distanciaRota){
+            return false;
+        }
+        else{return true;}
+    }
+
+    public double custosEsporadicos(double valor){
+        this.custosEsporadicos += valor;
+        return this.custosEsporadicos;
+    }
+
     public double gastoVariavelTotal() {
-        double gastoPorKM = kmRodados() * custoPorKm();
+        double gastoPorKM = gastoCombustivel() + outrosCustos() + this.custosEsporadicos;
         return gastoPorKM;
+    }
+
+    public double gastoCombustivel(){
+        return (this.combustivelAtual.getPreco() * ( kmRodados() / this.combustivelAtual.getConsumo()));
     }
 
     public double custoFixoAnual() {
@@ -60,26 +74,13 @@ public abstract class Veiculo {
         return this.tanque;
     }
 
-    public boolean tanqueSuficiente(double distanciaRota){
-        double autonomiaAtual = this.combustivelAtual.getConsumo() * this.tanque;
-        if(autonomiaAtual < distanciaRota){
-            return false;
-        }
-        else{return true;}
-    }
-
-    public double outrosCustos(double valor){
-        this.outrosCustos += valor;
-        return this.outrosCustos;
-    }
-
     public abstract boolean abastecer(int tipoCombustivel);
 
     public abstract double calculaIPVA();
 
     public abstract double calculaSeguro();
     
-    public abstract double custoPorKm();
+    public abstract double outrosCustos();
 
     public abstract void imprimeVeiculoConsole();
 
