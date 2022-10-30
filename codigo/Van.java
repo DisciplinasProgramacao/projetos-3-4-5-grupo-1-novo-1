@@ -1,23 +1,50 @@
+import java.util.ArrayList;
+
 public class Van extends Veiculo {
     private static final double ALINHAMENTO = 120.0 / 10000.0;
-    private static final int TANQUE = 60;
+    private static final int TANQUE_COMPLETO = 60;
     private static final double IPVA = 0.03;
     private static final double VISTORIA = 500.0 / 10000.0;
     private static final double SEGURO = 0.03; 
-    private static final double PRECO_COMBUSTIVEL = 6.5;
-    private static final double KM_POR_LITRO = 9;
+    protected static final ArrayList<Combustivel> TIPOS_COMBUSTIVEL = new ArrayList<Combustivel>();
+
 
     public Van(String placa, double valorVenda) {
+        
         super(placa, valorVenda);
-        this.tanque = TANQUE;
+        this.tanque = TANQUE_COMPLETO;
+
+        Combustivel gasolina = new Gasolina();
+        Combustivel etanol = new Etanol();
+        this.tiposCombustivel.add(gasolina);
+        this.tiposCombustivel.add(etanol);
     }
 
     public Van() {
     }
 
     @Override
+    public boolean abastecer(int tipoCombustivel){
+
+        if (tipoCombustivel == 1) {
+            this.combustivelAtual = this.tiposCombustivel.get(0);
+            this.tanque = TANQUE_COMPLETO;
+            return true;
+        }
+        if (tipoCombustivel == 2) {
+            this.combustivelAtual = this.tiposCombustivel.get(1);
+            this.tanque = TANQUE_COMPLETO;
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+    @Override
     public double custoPorKm() {
-        return ALINHAMENTO + PRECO_COMBUSTIVEL/KM_POR_LITRO;
+        return ALINHAMENTO + this.combustivelAtual.getPreco()/this.combustivelAtual.getConsumo();
     }
 
     @Override
@@ -37,8 +64,8 @@ public class Van extends Veiculo {
                 + " Capacidade Tanque: " + this.tanque  + "\n"
                 + " IPVA: " + String.format("%.2f", this.calculaIPVA())  + "\n"
                 + " Seguro: " + String.format("%.2f", this.calculaSeguro() )  + "\n"
-                + " Preço combustivel: " + String.format("%.2f", PRECO_COMBUSTIVEL)  + "\n"
-                + " Km por litro: " + String.format("%.2f", KM_POR_LITRO)  + "\n");
+                + " Preço combustivel: " + String.format("%.2f", this.combustivelAtual.getPreco())  + "\n"
+                + " Km por litro: " + String.format("%.2f", this.combustivelAtual.getConsumo())  + "\n");
     }
 
     @Override
@@ -50,7 +77,7 @@ public class Van extends Veiculo {
                 + "\n   alinhamento: " + String.format("%.2f",  ALINHAMENTO ) + " - "
                 + "\n   Gasto alinhamento: " + String.format("%.2f",  ALINHAMENTO *   kmRodados()  ) + " - "
                 + "\n   Gasto vistoria: " + String.format("%.2f",  VISTORIA *  kmRodados() ) + " - "
-                + "\n   Gasto combustivel: " + String.format("%.2f",  (PRECO_COMBUSTIVEL / KM_POR_LITRO) *   kmRodados() ) + " - "
+                + "\n   Gasto combustivel: " + String.format("%.2f",  (this.combustivelAtual.getPreco() / this.combustivelAtual.getConsumo()) *   kmRodados() ) + " - "
                 + "\nGastos Variáveis Total: " + String.format("%.2f",  gastoVariavelTotal() ) + " - "
                 + "\nTotal gastos: " + String.format("%.2f",  gastoTotalacumulado() ));
     }
@@ -67,6 +94,6 @@ public class Van extends Veiculo {
     public void imprimeVeiculoPlaca() {
         System.out.println("Van       : Placa: " + this.placa + " - "
         + " Capacidade Tanque: " + this.tanque + " - "
-        + " Km por litro: " + String.format("%.2f", KM_POR_LITRO));
+        + " Km por litro: " + String.format("%.2f", this.combustivelAtual.getConsumo()));
     }
 }
