@@ -18,16 +18,6 @@ public class Caminhao extends Veiculo {
     public Caminhao() {
     }
 
-    public int calculaManutecao() {
-        int manutencao = (int)(this.kilometragemTotal/MANUTENCAO);
-        return (manutencao * 1000);
-    }
-
-    public int calculaVistoria() {
-        int vistoria = (int)(this.kilometragemTotal/VISTORIA);
-        return (vistoria * 1000);
-    }
-
     @Override
     public boolean abastecer(int tipoCombustivel){
         if (tipoCombustivel == 3) {
@@ -36,6 +26,16 @@ public class Caminhao extends Veiculo {
             return true;
         }
         else{return false;}
+    }
+
+    public int calculaManutecao() {
+        int manutencao = (int)(this.kilometragemTotal/MANUTENCAO);
+        return (manutencao * 1000);
+    }
+
+    public int calculaVistoria() {
+        int vistoria = (int)(this.kilometragemTotal/VISTORIA);
+        return (vistoria * 1000);
     }
 
     @Override
