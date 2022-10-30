@@ -36,11 +36,8 @@ public class Van extends Veiculo {
             this.tanque = TANQUE_COMPLETO;
             return true;
         }
-
-        return false;
+        else{return false;}
     }
-
-
 
     @Override
     public double custoPorKm() {

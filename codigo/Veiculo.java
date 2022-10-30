@@ -6,10 +6,12 @@ public abstract class Veiculo {
     protected int tanque;
     protected double custoFixoAnual;
     protected double custoVarKm;
+    protected double outrosCustos;
+    protected Combustivel combustivelAtual;
+    protected ArrayList<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
     protected ArrayList<Rota> rotas = new ArrayList<Rota>();
 
-    public Veiculo() {
-    };
+    public Veiculo() {};
 
     public Veiculo(String placa, double valorVenda) {
         this.placa = placa;
@@ -51,6 +53,18 @@ public abstract class Veiculo {
     public int getTanque(){
         return this.tanque;
     }
+
+    public boolean tanqueSuficiente(double distanciaRota){
+
+        double autonomiaAtual = this.combustivelAtual.getConsumo() * this.tanque;
+
+        if(autonomiaAtual < distanciaRota){
+            return false;
+        }
+        else{return true;}
+    }
+
+    public abstract boolean abastecer(int tipoCombustivel);
 
     public abstract double calculaIPVA();
 
