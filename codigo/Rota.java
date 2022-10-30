@@ -8,14 +8,10 @@ public class Rota {
     public Rota() {
     }
 
-    // public Rota(Veiculo VeiculoRota, int KmRota, Data DtProducao) {} // colocar
-    // Veiculo em Frota?
-
     public Rota(double distancia, Data DtProducao, Veiculo veiculo) {
         this.idRota = sequencia++;
         this.distancia = distancia;
         this.DtProducao = DtProducao;
-        this.veiculoRota = veiculo;
     }
 
     public void imprimeRota() {

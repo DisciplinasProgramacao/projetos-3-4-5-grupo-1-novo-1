@@ -1,9 +1,9 @@
 
 public class Caminhao extends Veiculo {
-    private static final double MANUTENCAO = 1000.0 / 20000.0;
+    private static final int MANUTENCAO = 20000;
     private static final int TANQUE_COMPLETO = 250;
     private static final double IPVA = 0.01;
-    private static final double VISTORIA = 1000.0 / 30000.0;
+    private static final int VISTORIA = 30000;
     private static final double SEGURO = 0.02;
 
     public Caminhao(String placa, double valorVenda) {
@@ -18,9 +18,18 @@ public class Caminhao extends Veiculo {
     public Caminhao() {
     }
 
+    public int calculaManutecao() {
+        int manutencao = (int)(this.kilometragemTotal/MANUTENCAO);
+        return (manutencao * 1000);
+    }
+
+    public int calculaVistoria() {
+        int vistoria = (int)(this.kilometragemTotal/VISTORIA);
+        return (vistoria * 1000);
+    }
+
     @Override
     public boolean abastecer(int tipoCombustivel){
-
         if (tipoCombustivel == 3) {
             this.combustivelAtual = this.tiposCombustivel.get(0);
             this.tanque = TANQUE_COMPLETO;
@@ -30,8 +39,8 @@ public class Caminhao extends Veiculo {
     }
 
     @Override
-    public double custoPorKm() {
-        return MANUTENCAO + VISTORIA + this.combustivelAtual.getPreco()/this.combustivelAtual.getConsumo();
+    public double outrosCustos() {
+        return calculaManutecao() + calculaVistoria() + this.combustivelAtual.getPreco()/this.combustivelAtual.getConsumo();
     }
 
     @Override
@@ -60,9 +69,9 @@ public class Caminhao extends Veiculo {
                 + "\nValor de venda: " + String.format("%.2f", this.valorVenda) + ";"
                 + "\nGasto Fixo Anual: " + String.format("%.2f",  custoFixoAnual() ) + " - "
                 + "\n   Kilometros rodados: " + String.format("%.2f",  kmRodados() ) + " - "
-                + "\n   Gasto manutenção: " + String.format("%.2f",  MANUTENCAO *  kmRodados()  ) + " - "
-                + "\n   Gasto vistoria: " + String.format("%.2f",  VISTORIA *  kmRodados() ) + " - "
-                + "\n   Gasto combustivel: " + String.format("%.2f",  (this.combustivelAtual.getPreco() / this.combustivelAtual.getConsumo()) *  kmRodados() ) + " - "
+                + "\n   Gasto manutenção: " + (calculaManutecao()) + " - "
+                + "\n   Gasto vistoria: " + (calculaVistoria()) + " - "
+                + "\n   Gasto combustivel: " + String.format("%.2f",  gastoCombustivel()) + " - "
                 + "\nGastos Variáveis Total: " + String.format("%.2f",  gastoVariavelTotal() ) + " - "
                 + "\nTotal gastos: " + String.format("%.2f",  gastoTotalacumulado() ));
     }
@@ -78,7 +87,6 @@ public class Caminhao extends Veiculo {
     @Override
     public void imprimeVeiculoPlaca() {
         System.out.println("Caminhão       : Placa: " + this.placa + " - "
-        + " Capacidade Tanque: " + this.tanque + " - "
-        + " Km por litro: " + String.format("%.2f", this.combustivelAtual.getConsumo()));
+        + " Capacidade Tanque: " + this.tanque + " - ");
     }
 }
