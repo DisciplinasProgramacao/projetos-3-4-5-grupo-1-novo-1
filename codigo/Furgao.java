@@ -1,6 +1,8 @@
 
 public class Furgao extends Veiculo {
     private static final int ALINHAMENTO = 10000;
+    private static final int PRECO_ALINHAMENTO = 120;
+    private static final int PRECO_VISTORIA = 500;
     private static final int TANQUE_COMPLETO = 80;
     private static final double IPVA = 0.03;
     private static final double VISTORIA = 10000;
@@ -35,12 +37,12 @@ public class Furgao extends Veiculo {
 
     public int calculaAlinhamento() {
         int alinhamento = (int)(this.kilometragemTotal/ALINHAMENTO);
-        return (alinhamento * 120);
+        return (alinhamento * PRECO_ALINHAMENTO);
     }
 
     public int calculaVistoria() {
         int vistoria = (int)(this.kilometragemTotal/VISTORIA);
-        return (vistoria * 500);
+        return (vistoria * PRECO_VISTORIA);
     }
 
     @Override

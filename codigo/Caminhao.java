@@ -1,6 +1,8 @@
 
 public class Caminhao extends Veiculo {
     private static final int MANUTENCAO = 20000;
+    private static final int PRECO_MANUTENCAO = 1000;
+    private static final int PRECO_VISTORIA = 1000;
     private static final int TANQUE_COMPLETO = 250;
     private static final double IPVA = 0.01;
     private static final int VISTORIA = 30000;
@@ -35,12 +37,12 @@ public class Caminhao extends Veiculo {
 
     public int calculaManutecao() {
         int manutencao = (int)(this.kilometragemTotal/MANUTENCAO);
-        return (manutencao * 1000);
+        return (manutencao * PRECO_MANUTENCAO);
     }
 
     public int calculaVistoria() {
         int vistoria = (int)(this.kilometragemTotal/VISTORIA);
-        return (vistoria * 1000);
+        return (vistoria * PRECO_VISTORIA);
     }
 
     @Override

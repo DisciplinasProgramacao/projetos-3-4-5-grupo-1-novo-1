@@ -1,6 +1,7 @@
 
 public class Carro extends Veiculo {
     private static final int ALINHAMENTO = 10000;
+    private static final int PRECO_ALINHAMENTO = 80;
     private static final int TANQUE_COMPLETO = 50;
     private static final double IPVA = 0.04;
     private static final double TAXA = 300;
@@ -43,7 +44,7 @@ public class Carro extends Veiculo {
 
     public int calculaAlinhamento() {
         int alinhamento = (int)(this.kilometragemTotal/ALINHAMENTO);
-        return (alinhamento * 80);
+        return (alinhamento * PRECO_ALINHAMENTO);
     }
 
     @Override
