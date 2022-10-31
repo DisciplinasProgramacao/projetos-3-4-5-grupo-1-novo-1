@@ -19,7 +19,7 @@ public abstract class Veiculo {
     }
 
     public boolean addRota(Rota rota) {
-        if(tanqueSuficiente(rota.distancia)){
+        if((rota.distancia > autonomiaMaxima()) && tanqueSuficiente(rota.distancia)){
             this.rotas.add(rota);
             this.tanque -= (rota.distancia / this.combustivelAtual.getConsumo());
             kmRodados();
@@ -69,9 +69,7 @@ public abstract class Veiculo {
     }
 
     public void exibirTiposCombustivel() {
-        
         for ( Combustivel combustivel : tiposCombustivel) {
-            
             System.out.printf("\n" + combustivel.getIdentificador() +") " + combustivel.descricao);
         } 
     }
@@ -84,6 +82,8 @@ public abstract class Veiculo {
         return this.tanque;
     }
 
+    public abstract double autonomiaMaxima();
+    
     public abstract boolean abastecer(int tipoCombustivel);
 
     public abstract double calculaIPVA();

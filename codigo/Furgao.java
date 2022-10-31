@@ -19,6 +19,11 @@ public class Furgao extends Veiculo {
     }
 
     @Override
+    public double autonomiaMaxima(){
+        return this.combustivelAtual.getConsumo() * TANQUE_COMPLETO;
+    }
+
+    @Override
     public boolean abastecer(int tipoCombustivel){
         if (tipoCombustivel == 1) {
             this.combustivelAtual = this.tiposCombustivel.get(0);
