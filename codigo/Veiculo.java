@@ -21,6 +21,8 @@ public abstract class Veiculo {
     public boolean addRota(Rota rota) {
         if(tanqueSuficiente(rota.distancia)){
             this.rotas.add(rota);
+            this.tanque -= (rota.distancia / this.combustivelAtual.getConsumo());
+            kmRodados();
             return true;
         }
         else{return false;}
