@@ -83,7 +83,7 @@ public class Caminhao extends Veiculo {
 
     @Override
     public String escreveVeiculoArquivo() {
-        String salvaParaArquivo = "Caminhão;"
+        String salvaParaArquivo = "Caminhao;"
                 + this.placa + ";"
                 + this.valorVenda;
         return salvaParaArquivo;
