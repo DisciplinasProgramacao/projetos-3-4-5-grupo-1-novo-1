@@ -7,6 +7,7 @@ public class app {
         String localPadraoCarregar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
         String localPadraoSalvar = localPadraoCarregar; //"C:/FROTA/ListaVeiculosSalvos.txt";
         Veiculo veiculoLocalizar = null;
+        boolean podeAdicionarRota = false;
         String placaVeiculo;
         Rota novaRota = null;
         double kmRota = 0;
@@ -88,7 +89,23 @@ public class app {
                         System.out.println("Não há veiculo cadastrado.");
                     }
                     novaRota = new Rota(kmRota, dtProducao, veiculoLocalizar);
-                    veiculoLocalizar.addRota(novaRota);
+
+                    if (veiculoLocalizar.combustivelAtual == null) {
+                        System.out.println("Antes de cadastrar a rota, abasteça o carro pela primeira vez\n Tipos de combustível:\n");
+                        veiculoLocalizar.exibirTiposCombustivel();  
+                        veiculoLocalizar.abastecer(obj.nextInt());
+                    }
+                    while (!podeAdicionarRota){
+                        if (veiculoLocalizar.tanqueSuficiente(kmRota)) {
+                            veiculoLocalizar.addRota(novaRota);
+                            podeAdicionarRota = true;
+                        } else {
+                            System.out.println("Esse carro não tem autonomia para essa rota. Qual combustível deseja adicionar?\n");
+                            veiculoLocalizar.exibirTiposCombustivel();
+                            veiculoLocalizar.abastecer(obj.nextInt());
+                            veiculoLocalizar.addRota(novaRota);
+                        }
+                    }
                     opcao = menu(opcao);
                     break;
 
