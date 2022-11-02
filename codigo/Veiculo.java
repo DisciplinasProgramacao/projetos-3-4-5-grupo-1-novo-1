@@ -126,31 +126,56 @@ public abstract class Veiculo {
     }
 
     /**
-     * Método calcula a autonomia máxima de um veículo basedo em seu tanque completo com o combustível atual
+     * Método abstrato implementado nas classes filhas de veículo calcula a autonomia máxima de um veículo basedo em seu tanque completo com o combustível atual
      * @return Double com o valor máximo de autonomia em km
      */
     public abstract double autonomiaMaxima();
     
     /**
-     * 
-     * @param tipoCombustivel
-     * @return
+     * Método abstrato implementado nas classes filhas de veículo booleano para verificar se foi possível abastecer o tanque do veículo com o combustível informado. O tanque é abastecido
+     * até sua capacidade máxima
+     * @param tipoCombustivel Inteiro relacionado ao identificador do combustível, sendo 1 para gasolina, 2 para etanol e 3 para diesel
+     * @return Retorna TRUE caso tenha abastecido, retorna FALSE caso contrário
      */
     public abstract boolean abastecer(int tipoCombustivel);
 
+    /**
+     * Método abstrato implementado nas classes filhas de veículo retorna um valor double com o total pago anualmente de IPVA
+     * @return Valor total IPVA
+     */
     public abstract double calculaIPVA();
 
+    /**
+     * Método abstrato implementado nas classes filhas de veículo retorna um valor double com o total pago anualmente de seguro
+     * @return Valor total seguro
+     */
     public abstract double calculaSeguro();
     
+    /**
+     * Método abstrato implementado nas classes filhas de veículo retorna um valor double com o total pago em manutenções, com base a quilometragem percorrida pelo veículo
+     * @return
+     */
     public abstract double outrosCustos();
 
+    /**
+     * Método abstrato implementado nas classes filhas de veículo que imprime dados básicos do veículo no console
+     */
     public abstract void imprimeVeiculoConsole();
 
+    /**
+     * Método abstrato implementado nas classes filhas de veículo que imprime dados do veículo no console, incluindo os custos
+     */
     public abstract void imprimeDadosVeiculoConsole();
 
+    /**
+     * Método abstrato implementado nas classes filhas de veículo que escreve os dados referentes ao veículo em um arquivo, sendo estes a placa e o valor de venda
+     * @return
+     */
     public abstract String escreveVeiculoArquivo();
 
+    /**
+     * Método abstrato implementado nas classes filhas de veículo que imprime a placa do veículo e capacidade atual do tanque
+     */
     public void imprimeVeiculoPlaca() {
     }
-
 }
