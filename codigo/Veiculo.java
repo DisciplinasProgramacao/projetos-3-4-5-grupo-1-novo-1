@@ -19,9 +19,9 @@ public abstract class Veiculo {
     }
 
     public boolean addRota(Rota rota) {
-        if((rota.distancia > autonomiaMaxima()) && tanqueSuficiente(rota.distancia)){
+        if((rota.getDistancia() > autonomiaMaxima()) && tanqueSuficiente(rota.getDistancia())){
             this.rotas.add(rota);
-            this.tanque -= (rota.distancia / this.combustivelAtual.getConsumo());
+            this.tanque -= (rota.getDistancia() / this.combustivelAtual.getConsumo());
             kmRodados();
             return true;
         }
@@ -31,7 +31,7 @@ public abstract class Veiculo {
     public double kmRodados() {
         double kmRodados = 0;
         for (Rota rota : rotas) {
-            kmRodados += rota.distancia;
+            kmRodados += rota.getDistancia();
         }
         this.kilometragemTotal = kmRodados;
         return this.kilometragemTotal;
