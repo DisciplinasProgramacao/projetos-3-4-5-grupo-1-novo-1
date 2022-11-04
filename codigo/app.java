@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
 public class app {
+    static Scanner obj = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
-        Scanner obj = new Scanner(System.in);
-        String localPadraoCarregar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
-        String localPadraoSalvar = localPadraoCarregar; //"C:/FROTA/ListaVeiculosSalvos.txt";
+
+        String localPadraoCarregar = "C:/FROTA/Veiculos_ler.txt";// "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
+        String localPadraoSalvar = localPadraoCarregar; // "C:/FROTA/Veiculos_ler.txt";
         Veiculo veiculoLocalizar = null;
         boolean podeAdicionarRota = false;
         String placaVeiculo;
@@ -84,23 +85,25 @@ public class app {
 
                     if (Frota.imprimeVeiculosFrota() > 0) {
                         System.out.println("Entre com a placa do veículo para a rota:\n Procurar pela placa: ");
-                        veiculoLocalizar = Frota.localizarVeiculo(obj.nextLine());
+                        veiculoLocalizar = Frota.localizarVeiculo(obj.nextLine().toUpperCase());
                     } else {
                         System.out.println("Não há veiculo cadastrado.");
                     }
                     novaRota = new Rota(kmRota, dtProducao, veiculoLocalizar);
 
                     if (veiculoLocalizar.combustivelAtual == null) {
-                        System.out.println("Antes de cadastrar a rota, abasteça o carro pela primeira vez\n Tipos de combustível:\n");
-                        veiculoLocalizar.exibirTiposCombustivel();  
+                        System.out.println(
+                                "Antes de cadastrar a rota, abasteça o carro pela primeira vez\n Tipos de combustível:\n");
+                        veiculoLocalizar.exibirTiposCombustivel();
                         veiculoLocalizar.abastecer(obj.nextInt());
                     }
-                    while (!podeAdicionarRota){
+                    while (!podeAdicionarRota) {
                         if (veiculoLocalizar.tanqueSuficiente(kmRota)) {
                             veiculoLocalizar.addRota(novaRota);
                             podeAdicionarRota = true;
                         } else {
-                            System.out.println("Esse carro não tem autonomia para essa rota. Qual combustível deseja adicionar?\n");
+                            System.out.println(
+                                    "Esse carro não tem autonomia para essa rota. Qual combustível deseja adicionar?\n");
                             veiculoLocalizar.exibirTiposCombustivel();
                             veiculoLocalizar.abastecer(obj.nextInt());
                             veiculoLocalizar.addRota(novaRota);
@@ -112,7 +115,7 @@ public class app {
                 case "5":
                     System.out.println("Localizar um veículo da frota.");
                     System.out.println("\nEntre com a placa do Veículo para localizar:");
-                    placaVeiculo = obj.nextLine();
+                    placaVeiculo = obj.nextLine().toUpperCase();
                     veiculoLocalizar = Frota.localizarVeiculo(placaVeiculo);
                     veiculoLocalizar.imprimeVeiculoConsole();
                     opcao = menu(opcao);
@@ -121,10 +124,10 @@ public class app {
                 case "6":
                     System.out.println("Imprimir um relatório do veículo com seus gastos até o momento.\n");
                     System.out.println("\nEntre com a placa do Veículo para imprimir gastos:");
-                    placaVeiculo = obj.nextLine();
-                    if (Frota.localizarVeiculo(placaVeiculo)!=null){
-                    veiculoLocalizar = Frota.localizarVeiculo(placaVeiculo);
-                    veiculoLocalizar.imprimeDadosVeiculoConsole();
+                    placaVeiculo = obj.nextLine().toUpperCase();
+                    if (Frota.localizarVeiculo(placaVeiculo) != null) {
+                        veiculoLocalizar = Frota.localizarVeiculo(placaVeiculo);
+                        veiculoLocalizar.imprimeDadosVeiculoConsole();
                     }
                     opcao = menu(opcao);
                     break;
@@ -144,7 +147,6 @@ public class app {
     }
 
     public static String menu(String opc) {
-        Scanner objt = new Scanner(System.in);
 
         System.out.println("\n  FROTA VIRTUAL:  \n");
         System.out.println("1 -  Carregar um conjunto de veículos de um arquivo.");
@@ -155,8 +157,7 @@ public class app {
         System.out.println("6 -  Imprimir um relatório do veículo com seus gastos até o momento.");
 
         System.out.println("\nEntre com o número correspondente à função ou 'f' para finalizar:\n");
-        opc = objt.nextLine().toUpperCase();
-        // objt.close();
+        opc = obj.nextLine().toUpperCase();
         return opc;
     }
 }
