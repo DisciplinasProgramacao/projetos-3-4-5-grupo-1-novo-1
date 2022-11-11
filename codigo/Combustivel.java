@@ -1,32 +1,31 @@
-public abstract class Combustivel {
+public enum Combustivel {
 
-    protected int identificador;
-    protected String descricao;
-    protected double preco;
-    protected double consumo;
+    GASOLINA("GASOLINA",4.8d,12d),
+    ALCOOL("ALCOOL",3.65d,8d),
+    DIESEL("DIESEL",6.65d,3.5d);
 
-    public Combustivel(String desc, double preco, double consumo, int identificador){
-        if(preco < 1){preco = 1.0;}
-        if(consumo < 1){consumo = 1.0;}
+    String descricao;
+    double preco;
+    double consumo;
+    int identificador;
+
+    Combustivel(String desc, double preco, double consumo){
+        if(preco < 1){preco = 1d;}
+        if(consumo < 1){consumo = 1d;}
         this.descricao = desc;
         this.preco = preco;
         this.consumo = consumo;
-        this.identificador = identificador;
-    }
-
-    public int getIdentificador() {
-        return identificador;
     }
 
     public double getPreco() {
-        return preco;
+        return preco;  
     }
 
     public double getConsumo() {
         return consumo;
     }
 
-    public String toString(){
-        return this.descricao;
+    public String getDescricao() {
+        return descricao;
     }
 }

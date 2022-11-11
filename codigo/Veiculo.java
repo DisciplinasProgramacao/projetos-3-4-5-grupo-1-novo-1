@@ -113,7 +113,7 @@ public abstract class Veiculo {
      */
     public void exibirTiposCombustivel() {
         for ( Combustivel combustivel : tiposCombustivel) {
-            System.out.printf("\n" + combustivel.getIdentificador() +") " + combustivel.descricao);
+            System.out.printf("\n" + combustivel.getDescricao());
         } 
     }
 

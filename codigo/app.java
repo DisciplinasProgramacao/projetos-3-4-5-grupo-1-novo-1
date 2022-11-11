@@ -5,7 +5,7 @@ public class app {
 
     public static void main(String[] args) throws Exception {
 
-        String localPadraoCarregar = "C:/FROTA/Veiculos_ler.txt";// "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
+        String localPadraoCarregar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
         String localPadraoSalvar = localPadraoCarregar; // "C:/FROTA/Veiculos_ler.txt";
         Veiculo veiculoLocalizar = null;
         boolean podeAdicionarRota = false;

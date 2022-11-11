@@ -12,11 +12,8 @@ public class Van extends Veiculo {
         
         super(placa, valorVenda);
         this.tanque = TANQUE_COMPLETO;
-
-        Combustivel gasolina = new Gasolina();
-        Combustivel diesel = new Diesel();
-        this.tiposCombustivel.add(gasolina);
-        this.tiposCombustivel.add(diesel);
+        this.tiposCombustivel.add(Combustivel.GASOLINA);
+        this.tiposCombustivel.add(Combustivel.DIESEL);
     }
 
     public Van() {

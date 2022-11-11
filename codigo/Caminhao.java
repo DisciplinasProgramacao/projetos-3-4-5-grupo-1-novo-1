@@ -4,17 +4,15 @@ public class Caminhao extends Veiculo {
     private static final int PRECO_MANUTENCAO = 1000;
     private static final int PRECO_VISTORIA = 1000;
     private static final int TANQUE_COMPLETO = 250;
-    private static final double IPVA = 0.01;
+    private static final double IPVA = 0.01d;
     private static final int VISTORIA = 30000;
-    private static final double SEGURO = 0.02;
+    private static final double SEGURO = 0.02d;
 
     public Caminhao(String placa, double valorVenda) {
         
         super(placa, valorVenda);
         this.tanque = TANQUE_COMPLETO;
-
-        Combustivel diesel = new Diesel();
-        this.tiposCombustivel.add(diesel);
+        this.tiposCombustivel.add(Combustivel.DIESEL);
     }
 
     public Caminhao() {

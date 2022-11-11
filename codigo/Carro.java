@@ -3,19 +3,16 @@ public class Carro extends Veiculo {
     private static final int ALINHAMENTO = 10000;
     private static final int PRECO_ALINHAMENTO = 80;
     private static final int TANQUE_COMPLETO = 50;
-    private static final double IPVA = 0.04;
-    private static final double TAXA = 300;
-    private static final double SEGURO = 0.05;
+    private static final double IPVA = 0.04d;
+    private static final double TAXA = 300d;
+    private static final double SEGURO = 0.05d;
 
     public Carro(String placa, double valorVenda) {
         
         super(placa, valorVenda);
         this.tanque = TANQUE_COMPLETO;
-        
-        Combustivel gasolina = new Gasolina();
-        Combustivel etanol = new Etanol();
-        this.tiposCombustivel.add(gasolina);
-        this.tiposCombustivel.add(etanol);
+        this.tiposCombustivel.add(Combustivel.GASOLINA);
+        this.tiposCombustivel.add(Combustivel.ALCOOL);
     }
 
     public Carro() {
