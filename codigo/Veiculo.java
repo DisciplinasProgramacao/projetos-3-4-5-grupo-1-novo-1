@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Veiculo {
     protected String placa;
@@ -7,8 +8,8 @@ public abstract class Veiculo {
     protected double custosEsporadicos;
     protected double kilometragemTotal;
     protected Combustivel combustivelAtual;
-    protected ArrayList<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
-    protected ArrayList<Rota> rotas = new ArrayList<Rota>();
+    protected List<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
+    protected List<Rota> rotas = new ArrayList<Rota>();
 
     public Veiculo() {};
 
@@ -45,6 +46,7 @@ public abstract class Veiculo {
      */
     public double kmRodados() {
         double kmRodados = 0;
+
         for (Rota rota : rotas) {
             kmRodados += rota.getDistancia();
         }
@@ -112,9 +114,7 @@ public abstract class Veiculo {
      * Método exibe todos os combustíveis suportados pelo veículo
      */
     public void exibirTiposCombustivel() {
-        for ( Combustivel combustivel : tiposCombustivel) {
-            System.out.printf("\n" + combustivel.getDescricao());
-        } 
+        tiposCombustivel.forEach(combustivel -> {System.out.printf("\n" + combustivel.getDescricao());});
     }
 
     public String getPlaca() {

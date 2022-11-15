@@ -5,11 +5,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Frota {
 
-    protected static ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+    protected static List<Veiculo> veiculos = new ArrayList<Veiculo>();
 
     public static void incluirVeiculo(Veiculo veiculoIncluir) {
         veiculos.add(veiculoIncluir);
@@ -30,18 +31,12 @@ public class Frota {
     }
 
     public static int imprimeVeiculosFrota() {
-
-        for (Veiculo veiculo : veiculos) {
-            veiculo.imprimeVeiculoPlaca();
-        }
+        veiculos.forEach(veiculo -> {veiculo.imprimeVeiculoPlaca();});
         return Frota.veiculos.size();
     }
 
     public int imprimeVeiculosPlaca() {
-
-        for (Veiculo veiculo : veiculos) {
-            veiculo.imprimeVeiculoConsole();
-        }
+        veiculos.forEach(veiculo -> {veiculo.imprimeVeiculoConsole();});
         return Frota.veiculos.size();
     }
 
@@ -61,7 +56,6 @@ public class Frota {
                 escritor.write(veiculo.escreveVeiculoArquivo());
                 escritor.newLine();
             }
-
             escritor.close();
             arqEscrita.close();
         } catch (IOException ex) {
