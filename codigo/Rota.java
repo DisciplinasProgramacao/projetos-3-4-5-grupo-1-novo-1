@@ -1,5 +1,3 @@
-import java.util.Map;
-
 public class Rota {
     private static int sequencia = 0;
     private int idRota = 0;

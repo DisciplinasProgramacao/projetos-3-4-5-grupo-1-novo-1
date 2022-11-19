@@ -53,10 +53,10 @@ public abstract class Veiculo implements ICustos{
      * @param valor Double com o valor do novo gasto esporadico
      * @return Retorna um valor double com o total de gastos esporadicos até o momento
      */
-    public double addCustosExtra(double valor){
+    public void addCustosExtra(double valor){
         this.custosExtra += valor;
-        return this.custosExtra;
     }
+
     public void imprimeVeiculoCustos() {
         System.out.println("Veículo  : Placa: " + this.placa + " - "
                 + " Custo Fixo: " + String.format("%.2f", this.custoFixo) + " - "

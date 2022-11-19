@@ -8,8 +8,11 @@ public class app {
     
         Date date = new Date();
         String timeMilli = Long.toString(date.getTime());
-        String localPadraoCarregar = "C:/FROTA/Veiculos_ler.txt"; // "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
-        String localPadraoSalvar = "C:/FROTA/Veiculos_ler" + timeMilli +".txt";
+
+        String localPadraoCarregar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
+        //String localPadraoCarregar = "C:/FROTA/Veiculos_ler.txt";
+        String localPadraoSalvar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler" + timeMilli +".txt";
+        //String localPadraoSalvar = "C:/FROTA/Veiculos_ler" + timeMilli +".txt";
         Veiculo veiculoParaRota = null;
         Frota frota = new Frota();
         String placaVeiculo;
@@ -26,7 +29,8 @@ public class app {
                     System.out.println("CARREGAR UM CONJUNTO DE VEÍCULOS DE UM ARQUIVO:");
                     System.out.println("Carregando lista de veiculos em: " + localPadraoCarregar);
                     frota.carregarVeiculosArquivo(localPadraoCarregar);
-                 frota.carregarRotasArquivo("C:/FROTA/Rotas_ler.txt");
+                    //frota.salvaRotasFrota("C:/FROTA/Rotas_ler" + timeMilli +".txt");
+                    frota.carregarRotasArquivo("/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler.txt");
 
                     opcao = menu(opcao);
                     break;
@@ -35,7 +39,9 @@ public class app {
                     System.out.println("Salvar um conjunto de veículos em um arquivo:\n");
                     System.out.println("conjunto de veículos:" + localPadraoSalvar);
                     frota.salvaVeiculosFrota(localPadraoSalvar);
-                    frota.salvaRotasFrota("C:/FROTA/Rotas_ler" + timeMilli +".txt");
+                    //frota.salvaRotasFrota("C:/FROTA/Rotas_ler" + timeMilli +".txt");
+                    frota.salvaRotasFrota("/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler" + timeMilli +".txt");
+                    
                     opcao = menu(opcao);
                     break;
 
@@ -111,13 +117,24 @@ public class app {
                         System.out.println("Não tem um veículo com autonomia para a rota.\n");
                         frota.imprimeVeiculosparaRota(0);
                         System.out.println("Não tem um veículo com autonomia para a rota.\n");
-
                     }
 
                     opcao = menu(opcao);
                     break;
 
-                case "5":
+                    case "5":
+                    System.out.println("Incluir custos extra");
+                    System.out.println("\nEntre com a placa do Veículo para adicionar o custo extra:");
+                    placaVeiculo = obj.nextLine().toUpperCase();
+                    veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
+                    System.out.printf("\nInforme o valor do custo extra: R$");
+                    veiculoParaRota.addCustosExtra(obj.nextDouble());
+                    veiculoParaRota.calculaCustoVariavel();
+                    System.out.println("O total de custos extras atual é: R$" + veiculoParaRota.custosExtra);
+                    opcao = menu(opcao);
+                    break;
+
+                case "6":
                     System.out.println("Localizar um veículo da frota.");
                     System.out.println("\nEntre com a placa do Veículo para localizar:");
                     placaVeiculo = obj.nextLine().toUpperCase();
@@ -126,7 +143,7 @@ public class app {
                     opcao = menu(opcao);
                     break;
 
-                case "6":
+                case "7":
                     System.out.println("Imprimir um relatório do veículo com seus gastos até o momento.\n");
                     System.out.println("\nEntre com a placa do Veículo para imprimir gastos:");
                     placaVeiculo = obj.nextLine().toUpperCase();
@@ -137,25 +154,25 @@ public class app {
                     opcao = menu(opcao);
                     break;
 
-                case "7":
+                case "8":
                     System.out.println("Quilometragem média de todas as rotas da empresa.");
                     System.out.println(frota.quilometragemMediaRotas());
 
                     opcao = menu(opcao);
                     break;
-                case "8":
+                case "9":
                     System.out.println("Veículos que mais fizeram rotas.");
 
                     frota.veiculosComMaisRotas();
 
                     opcao = menu(opcao);
                     break;
-                case "9":
+                case "10":
                     System.out.println("veículos por custos gerados decrescente.");
                     frota.custoVeiculoDescres();
                     opcao = menu(opcao);
                     break;
-                case "10":
+                case "11":
                     System.out.println("Filtro para busca de rotas entre datas.");
                     Data dtInicial = new Data();
                     Data dtFinal = new Data();
@@ -194,12 +211,13 @@ public class app {
         System.out.println("2 -  Salvar um conjunto de veículos em um arquivo.");
         System.out.println("3 -  Incluir um novo veículo.");
         System.out.println("4 -  Incluir rotas para um veículo.");
-        System.out.println("5 -  Localizar um veículo da frota.");
-        System.out.println("6 -  Veículo com seus gastos até o momento.");
-        System.out.println("7 -  Quilometragem média de todas as rotas da empresa.");
-        System.out.println("8 -  Veículos que mais fizeram rotas.");
-        System.out.println("9 -  veículos por custos gerados decrescente.");
-        System.out.println("10 - Filtro para busca de rotas entre datas.");
+        System.out.println("5 -  Incluir custos extra.");
+        System.out.println("6 -  Localizar um veículo da frota.");
+        System.out.println("7 -  Veículo com seus gastos até o momento.");
+        System.out.println("8 -  Quilometragem média de todas as rotas da empresa.");
+        System.out.println("9 -  Veículos que mais fizeram rotas.");
+        System.out.println("10 -  veículos por custos gerados decrescente.");
+        System.out.println("11 - Filtro para busca de rotas entre datas.");
 
         System.out.println("\nEntre com o número correspondente à função ou 'f' para finalizar:\n");
         opc = obj.nextLine().toUpperCase();

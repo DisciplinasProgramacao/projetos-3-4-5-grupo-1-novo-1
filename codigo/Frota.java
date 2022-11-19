@@ -58,7 +58,6 @@ public class Frota {
         if (ListaVeiculosRota.size() > 0) {
             return ListaVeiculosRota.size();
         } else {
-       
             System.out.println("não tem carro");
         }
         return ListaVeiculosRota.size();
