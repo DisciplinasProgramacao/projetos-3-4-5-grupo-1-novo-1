@@ -1,5 +1,5 @@
 
-public class Van extends Veiculo implements ICustos{
+public class Van extends Veiculo{
     private static final int ALINHAMENTO = 100;
     private static final int PRECO_ALINHAMENTO = 120;
     private static final int PRECO_VISTORIA = 500;

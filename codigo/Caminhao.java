@@ -1,5 +1,5 @@
 
-public class Caminhao extends Veiculo implements ICustos{
+public class Caminhao extends Veiculo{
     private static final int MANUTENCAO = 200;
     private static final int PRECO_MANUTENCAO = 1000;
     private static final int PRECO_VISTORIA = 1000;

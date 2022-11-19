@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Veiculo{
+public abstract class Veiculo implements ICustos{
     protected String placa;
     protected double valorVenda;
     protected double custoFixo;
