@@ -11,7 +11,7 @@ public class app {
         String localPadraoCarregar = "C:/FROTA/Veiculos_ler.txt"; // "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
         String localPadraoSalvar = "C:/FROTA/Veiculos_ler" + timeMilli +".txt";
         Veiculo veiculoParaRota = null;
-        // boolean podeAdicionarRota = false;
+        Frota frota = new Frota();
         String placaVeiculo;
         Rota novaRota = null;
         double kmRota = 0;
@@ -25,8 +25,8 @@ public class app {
                 case "1":
                     System.out.println("CARREGAR UM CONJUNTO DE VEÍCULOS DE UM ARQUIVO:");
                     System.out.println("Carregando lista de veiculos em: " + localPadraoCarregar);
-                    Frota.carregarVeiculosArquivo(localPadraoCarregar);
-                    Frota.carregarRotasArquivo("C:/FROTA/Rotas_ler.txt");
+                    frota.carregarVeiculosArquivo(localPadraoCarregar);
+                    frota.carregarRotasArquivo("C:/FROTA/Rotas_ler.txt");
 
                     opcao = menu(opcao);
                     break;
@@ -34,8 +34,8 @@ public class app {
                 case "2":
                     System.out.println("Salvar um conjunto de veículos em um arquivo:\n");
                     System.out.println("conjunto de veículos:" + localPadraoSalvar);
-                    Frota.salvaVeiculosFrota(localPadraoSalvar);
-                    Frota.salvaRotasFrota("C:/FROTA/Rotas_ler" + timeMilli +".txt");
+                    frota.salvaVeiculosFrota(localPadraoSalvar);
+                    frota.salvaRotasFrota("C:/FROTA/Rotas_ler" + timeMilli +".txt");
                     opcao = menu(opcao);
                     break;
 
@@ -58,19 +58,19 @@ public class app {
                     switch (tipo) {
                         case '1':
                             Veiculo novoCarro = new Carro(placa, valorVenda);
-                            Frota.veiculos.add(novoCarro);
+                            frota.veiculos.add(novoCarro);
                             break;
                         case '2':
                             Veiculo novaVan = new Van(placa, valorVenda);
-                            Frota.veiculos.add(novaVan);
+                            frota.veiculos.add(novaVan);
                             break;
                         case '3':
                             Veiculo novoFurgao = new Furgao(placa, valorVenda);
-                            Frota.veiculos.add(novoFurgao);
+                            frota.veiculos.add(novoFurgao);
                             break;
                         case '4':
                             Veiculo novoCaminhao = new Caminhao(placa, valorVenda);
-                            Frota.veiculos.add(novoCaminhao);
+                            frota.veiculos.add(novoCaminhao);
                             break;
                         default:
                             System.out.println("opção invalida!");
@@ -89,9 +89,9 @@ public class app {
                     kmRota = obj.nextDouble();
                     clearBuffer(obj);
                     System.out.println("Veíulos abastecidos com autonomia para a rota de:" + kmRota + "Km.");
-                    if (Frota.imprimeVeiculosparaRota(kmRota) > 0) {
+                    if (frota.imprimeVeiculosparaRota(kmRota) > 0) {
                         System.out.println("\nEntre com a placa do veículo para a rota:\n Procurar pela placa: ");
-                        veiculoParaRota = Frota.retornaVeiculoPelaPlaca(obj.nextLine().toUpperCase());
+                        veiculoParaRota = frota.retornaVeiculoPelaPlaca(obj.nextLine().toUpperCase());
                         // while
                         if (veiculoParaRota.getAutonomiaAtual() < kmRota) {
                             System.out.println("O veículo placa: " + veiculoParaRota.placa
@@ -106,10 +106,10 @@ public class app {
 
                         }
                         novaRota = new Rota(kmRota, dtProducao, veiculoParaRota);
-                        Frota.addRota(novaRota, veiculoParaRota);
+                        frota.addRota(novaRota, veiculoParaRota);
                     } else {
                         System.out.println("Não tem um veículo com autonomia para a rota.\n");
-                        Frota.imprimeVeiculosparaRota(0);
+                        frota.imprimeVeiculosparaRota(0);
                         System.out.println("Não tem um veículo com autonomia para a rota.\n");
 
                     }
@@ -121,7 +121,7 @@ public class app {
                     System.out.println("Localizar um veículo da frota.");
                     System.out.println("\nEntre com a placa do Veículo para localizar:");
                     placaVeiculo = obj.nextLine().toUpperCase();
-                    veiculoParaRota = Frota.retornaVeiculoPelaPlaca(placaVeiculo);
+                    veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
                     veiculoParaRota.imprimeVeiculoConsole();
                     opcao = menu(opcao);
                     break;
@@ -130,8 +130,8 @@ public class app {
                     System.out.println("Imprimir um relatório do veículo com seus gastos até o momento.\n");
                     System.out.println("\nEntre com a placa do Veículo para imprimir gastos:");
                     placaVeiculo = obj.nextLine().toUpperCase();
-                    if (Frota.retornaVeiculoPelaPlaca(placaVeiculo) != null) {
-                        veiculoParaRota = Frota.retornaVeiculoPelaPlaca(placaVeiculo);
+                    if (frota.retornaVeiculoPelaPlaca(placaVeiculo) != null) {
+                        veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
                         veiculoParaRota.imprimeDadosVeiculoConsole();
                     }
                     opcao = menu(opcao);
@@ -139,20 +139,20 @@ public class app {
 
                 case "7":
                     System.out.println("Quilometragem média de todas as rotas da empresa.");
-                    System.out.println(Frota.quilometragemMediaRotas());
+                    System.out.println(frota.quilometragemMediaRotas());
 
                     opcao = menu(opcao);
                     break;
                 case "8":
                     System.out.println("Veículos que mais fizeram rotas.");
 
-                    Frota.veiculosComMaisRotas();
+                    frota.veiculosComMaisRotas();
 
                     opcao = menu(opcao);
                     break;
                 case "9":
                     System.out.println("veículos por custos gerados decrescente.");
-                    Frota.custoVeiculoDescres();
+                    frota.custoVeiculoDescres();
                     opcao = menu(opcao);
                     break;
                 case "10":
@@ -163,7 +163,7 @@ public class app {
                     dtInicial = Data.verificaData(obj.nextLine());
                     System.out.println("Entre com data final no formato DD/MM/AAAA: ");
                     dtFinal = Data.verificaData(obj.nextLine());
-                    Frota.rotasEntreDatas(dtInicial, dtFinal);
+                    frota.rotasEntreDatas(dtInicial, dtFinal);
 
                     opcao = menu(opcao);
                     break;
