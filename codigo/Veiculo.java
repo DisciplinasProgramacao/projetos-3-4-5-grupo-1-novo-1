@@ -13,8 +13,6 @@ public abstract class Veiculo implements ICustos{
     protected List<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
     protected List<Rota> rotas = new ArrayList<Rota>();
 
-    public Veiculo() {};
-
     /**
      * Construtor da classe abstrata Veiculo, recebe a placa identificadora do carro e o seu valor de venda por parâmetro 
      * @param placa String contendo a placa do carro
@@ -62,6 +60,17 @@ public abstract class Veiculo implements ICustos{
                 + " Custo Fixo: " + String.format("%.2f", this.custoFixo) + " - "
                 + " Custo Variavel: " + String.format("%.2f", this.custoVariavel) + " = "
                 + " Custo Total: " + String.format("%.2f", this.retornaCustoTotal()));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Veiculo outro = (Veiculo)obj;
+        return this.placa.equals(outro.placa);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.placa.hashCode();
     }
     
     /**
