@@ -7,11 +7,9 @@ public class app {
     public static void main(String[] args) throws Exception {
     
         Date date = new Date();
-        String timeMilli = Long.toString(date.getTime());
-
         String localPadraoCarregar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
         //String localPadraoCarregar = "C:/FROTA/Veiculos_ler.txt";
-        String localPadraoSalvar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler" + timeMilli +".txt";
+        String localPadraoSalvar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
         //String localPadraoSalvar = "C:/FROTA/Veiculos_ler" + timeMilli +".txt";
         Veiculo veiculoParaRota = null;
         Frota frota = new Frota();
@@ -40,7 +38,7 @@ public class app {
                     System.out.println("conjunto de veículos:" + localPadraoSalvar);
                     frota.salvaVeiculosFrota(localPadraoSalvar);
                     //frota.salvaRotasFrota("C:/FROTA/Rotas_ler" + timeMilli +".txt");
-                    frota.salvaRotasFrota("/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler" + timeMilli +".txt");
+                    frota.salvaRotasFrota("/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler.txt");
                     
                     opcao = menu(opcao);
                     break;
@@ -64,19 +62,19 @@ public class app {
                     switch (tipo) {
                         case '1':
                             Veiculo novoCarro = new Carro(placa, valorVenda);
-                            frota.veiculos.add(novoCarro);
+                            frota.adicionarVeiculos(novoCarro);
                             break;
                         case '2':
                             Veiculo novaVan = new Van(placa, valorVenda);
-                            frota.veiculos.add(novaVan);
+                            frota.adicionarVeiculos(novaVan);
                             break;
                         case '3':
                             Veiculo novoFurgao = new Furgao(placa, valorVenda);
-                            frota.veiculos.add(novoFurgao);
+                            frota.adicionarVeiculos(novoFurgao);
                             break;
                         case '4':
                             Veiculo novoCaminhao = new Caminhao(placa, valorVenda);
-                            frota.veiculos.add(novoCaminhao);
+                            frota.adicionarVeiculos(novoCaminhao);
                             break;
                         default:
                             System.out.println("opção invalida!");
