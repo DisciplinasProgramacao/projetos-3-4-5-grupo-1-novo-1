@@ -15,20 +15,16 @@ public class Rota {
         this.distancia = distancia;
         this.DtProducao = DtProducao;
         this.veiculoRota = veiculoParaRota;
- 
     }
 
     public boolean verificaDataPeriodo(Data dtInicio, Data dtFinal) {
-           return  Data.verificaDataPeriodo(DtProducao, dtInicio,  dtFinal);
-     }
-
-   
-
+        return  Data.verificaDataPeriodo(DtProducao, dtInicio,  dtFinal);
+    }
 
     public void imprimeRota() {
         System.out.println("Rota número: " + this.idRota + " Data Produção da rota: " +
-                this.DtProducao.getDiaSemana() + " " + this.DtProducao.getDia() + "/" + this.DtProducao.getMes()
-                + "/" + this.DtProducao.getAno());
+            this.DtProducao.getDiaSemana() + " " + this.DtProducao.getDia() + "/" + this.DtProducao.getMes()
+            + "/" + this.DtProducao.getAno());
     }
 
     public double getDistancia() {
@@ -70,11 +66,9 @@ public class Rota {
         this.distancia = distancia;
     }
 
-
     public Veiculo getVeiculoRota() {
         return veiculoRota;
     }
-
 
     public String escreveRotaArquivo() {
         String salvaParaArquivo = 
