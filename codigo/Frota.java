@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -83,9 +84,11 @@ public class Frota {
 
     public void veiculosComMaisRotas() {
 
-        Map<Veiculo, Long> agrupaRotas = rotas.stream()
-                .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
-        agrupaRotas.forEach((key, value) -> System.out.println(key.escreveVeiculoFrota() + value));
+        Map<Veiculo, Long> agrupa = new HashMap<>();
+        veiculos.stream().forEach(v -> 
+        agrupa.put(v, rotas.stream().filter(r -> r.getVeiculoRota().getPlaca().equals(v.getPlaca())).count()));
+
+        agrupa.forEach((key,value) -> System.out.println(key.escreveVeiculoFrota() + value));
     }
 
     public void custoVeiculoDescres() {
