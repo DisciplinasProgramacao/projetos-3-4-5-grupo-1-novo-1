@@ -1,28 +1,45 @@
 public class Rota {
-    private static int sequencia = 0;
+    private static int sequencia = 1;
     private int idRota = 0;
-    private Data DtProducao;
+    private String descHash;
+    private Data dtProducao;
     private double distancia = 0;
     private Veiculo veiculoRota;
 
     public Rota() {
     }
 
-    public Rota(double distancia, Data DtProducao, Veiculo veiculoParaRota) {
+    public Rota(double distancia, Data dtProducao, Veiculo veiculoParaRota) {
         this.idRota = sequencia++;
         this.distancia = distancia;
-        this.DtProducao = DtProducao;
+        this.dtProducao = dtProducao;
         this.veiculoRota = veiculoParaRota;
+        concatenarHash();
+    }
+
+    private void concatenarHash(){
+        String data, placa, dist;
+        int intAno;
+
+        intAno = Data.diaAno(this.dtProducao.getDia(), this.dtProducao.getMes(), this.dtProducao.getAno());
+        data = String.valueOf(intAno);
+        placa = this.veiculoRota.getPlaca();
+        dist = String.valueOf(this.getDistancia());
+        this.descHash = data.concat(dist).concat(placa).concat(data);
+    }
+
+    public String getDescHash() {
+        return descHash;
     }
 
     public boolean verificaDataPeriodo(Data dtInicio, Data dtFinal) {
-        return  Data.verificaDataPeriodo(DtProducao, dtInicio,  dtFinal);
+        return  Data.verificaDataPeriodo(dtProducao, dtInicio,  dtFinal);
     }
 
     public void imprimeRota() {
         System.out.println("Rota número: " + this.idRota + " Data Produção da rota: " +
-            this.DtProducao.getDiaSemana() + " " + this.DtProducao.getDia() + "/" + this.DtProducao.getMes()
-            + "/" + this.DtProducao.getAno());
+            this.dtProducao.getDiaSemana() + " " + this.dtProducao.getDia() + "/" + this.dtProducao.getMes()
+            + "/" + this.dtProducao.getAno());
     }
 
     public double getDistancia() {
@@ -44,17 +61,17 @@ public class Rota {
     }
 
     /**
-     * @return Data return the DtProducao
+     * @return Data return the dtProducao
      */
-    public Data getDtProducao() {
-        return DtProducao;
+    public Data getdtProducao() {
+        return dtProducao;
     }
 
     /**
-     * @param DtProducao the DtProducao to set
+     * @param dtProducao the dtProducao to set
      */
-    public void setDtProducao(Data DtProducao) {
-        this.DtProducao = DtProducao;
+    public void setdtProducao(Data dtProducao) {
+        this.dtProducao = dtProducao;
     }
 
     /**
@@ -68,10 +85,22 @@ public class Rota {
         return veiculoRota;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Rota outro = (Rota)obj;
+        return this.descHash.equals(outro.descHash);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.descHash.hashCode();
+    }
+
+
     public String escreveRotaArquivo() {
         String salvaParaArquivo = 
                 + this.distancia + ";"
-                + this.DtProducao.getDia() + "/" + this.DtProducao.getMes() + "/" + this.DtProducao.getAno()+ ";"
+                + this.dtProducao.getDia() + "/" + this.dtProducao.getMes() + "/" + this.dtProducao.getAno()+ ";"
                 + this.veiculoRota.getPlaca();
         return salvaParaArquivo;
     }
