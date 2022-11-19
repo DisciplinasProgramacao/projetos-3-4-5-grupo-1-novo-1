@@ -15,18 +15,13 @@ import java.util.stream.Collectors;
 
 public class Frota {
 
-    protected static ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
-    protected static LinkedList<Rota> rotas = new LinkedList<Rota>();
-
-    // public static void incluirVeiculo(Veiculo veiculoIncluir) {
-    // veiculos.add(veiculoIncluir);
-    // // return veiculos.get(veiculos.size() - 1);
-    // }
+    protected ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+    protected LinkedList<Rota> rotas = new LinkedList<Rota>();
 
     public Frota() {
     };
 
-    public static Veiculo retornaVeiculoPelaPlaca(String placaProcurar) {
+    public Veiculo retornaVeiculoPelaPlaca(String placaProcurar) {
         for (Veiculo veiculo : veiculos) {
             if (veiculo.getPlaca().equals(placaProcurar)) {
                 return veiculo;
@@ -35,24 +30,6 @@ public class Frota {
         return null;
     }
 
-    /*
-     * public static int imprimeVeiculosFrota() {
-     * 
-     * for (Veiculo veiculo : veiculos) {
-     * veiculo.imprimeVeiculoPlaca();
-     * }
-     * return Frota.veiculos.size();
-     * }
-     * 
-     * public static int imprimeVeiculosRota(double distancia) {
-     * for (Veiculo veiculo : veiculos) {
-     * if (veiculo.getAutonomiaMaxima() >= distancia) {
-     * veiculo.imprimeVeiculoPlaca();
-     * }
-     * }
-     * return Frota.veiculos.size();
-     * }
-     */
     /**
      * Método booleano para adição de rota. Valida se a rota desejada pode ser
      * atribuída ao veiculo com base na autonomia do
@@ -63,76 +40,67 @@ public class Frota {
      *         contrário
      */
 
-    public static boolean addRota(Rota rota, Veiculo veiculoParaRota) {
+    public boolean addRota(Rota rota, Veiculo veiculoParaRota) {
 
         rotas.add(rota);
         veiculoParaRota.autonomiaAtual -= rota.getDistancia();
         veiculoParaRota.kilometragemTotal += rota.getDistancia();
         veiculoParaRota.atualizaCustos();
         return true;
-
     }
 
-    public static int imprimeVeiculosparaRota(double distancia) {
+    public int imprimeVeiculosparaRota(double distancia) {
 
         List<Veiculo> ListaVeiculosRota = veiculos.stream()
-                .filter(veiculos -> veiculos.getAutonomiaMaxima() >= distancia)
-                .collect(Collectors.toList());
+            .filter(veiculos -> veiculos.getAutonomiaMaxima() >= distancia)
+            .collect(Collectors.toList());
         ListaVeiculosRota.forEach(s -> s.imprimeVeiculoPlaca());
 
         if (ListaVeiculosRota.size() > 0) {
-
             return ListaVeiculosRota.size();
         } else {
-
             Optional <Veiculo> maiorAutonomia = ListaVeiculosRota
-                    .stream()
-                    .max(Comparator.comparing(V -> V.getAutonomiaMaxima()));
-          //  return     maiorAutonomia;
+                .stream()
+                .max(Comparator.comparing(V -> V.getAutonomiaMaxima()));
             System.out.println("não tem carro");
         }
         return ListaVeiculosRota.size();
     }
 
-    public static Double quilometragemMediaRotas() {
-
+    public Double quilometragemMediaRotas() {
         double media = rotas.stream()
-                .mapToDouble(rota -> rota.getDistancia())
-                .average()
-                .getAsDouble();
+            .mapToDouble(rota -> rota.getDistancia())
+            .average()
+            .getAsDouble();
         return media;
-
     }
 
-    public static void veiculosComMaisRotas() {
+    public void veiculosComMaisRotas() {
 
         Map<Veiculo, Long> agrupaRotas = rotas.stream()
-                .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
-
+            .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
         System.out.println(agrupaRotas.values().toString());
 
     }
 
-    public static void custoVeiculoDescres() {
+    public void custoVeiculoDescres() {
 
         List<Veiculo> veiculosOrenados = veiculos.stream()
-                .sorted(Comparator.comparingDouble(Veiculo::retornaCustoTotal).reversed())
-                .collect(Collectors.toList());
+            .sorted(Comparator.comparingDouble(Veiculo::retornaCustoTotal).reversed())
+            .collect(Collectors.toList());
         veiculosOrenados.forEach(v -> v.imprimeVeiculoCustos());
     }
 
-    public static void rotasEntreDatas(Data inicial, Data fim) {
+    public void rotasEntreDatas(Data inicial, Data fim) {
         if (inicial.getDiaAno() < fim.getDiaAno()) {
             List<Rota> ListaVeiculosRota = rotas.stream()
-                    .filter(rotas -> rotas.verificaDataPeriodo(inicial, fim))
-                    .collect(Collectors.toList());
+                .filter(rotas -> rotas.verificaDataPeriodo(inicial, fim))
+                .collect(Collectors.toList());
             ListaVeiculosRota.forEach(r -> r.imprimeRota());
         }
     }
 
-
-
-    public static void salvaVeiculosFrota(String nomeArquivo) {
+    public void salvaVeiculosFrota(String nomeArquivo) {
 
         File arquivo = new File(nomeArquivo);
         try {
@@ -148,7 +116,6 @@ public class Frota {
                 escritor.write(veiculo.escreveVeiculoArquivo());
                 escritor.newLine();
             }
-
             escritor.close();
             arqEscrita.close();
         } catch (IOException ex) {
@@ -159,17 +126,16 @@ public class Frota {
     /**
      * @param localArquivo
      * @param virtual
-     *                     Recebe String do local do arquivo que contém lista de
-     *                     Veiculos para leitura e
-     *                     endereço da Frota para adicioná-lo.
-     *                     Retorna Frota contendo os Veiculos lidos do arquivo txt
+     *  Recebe String do local do arquivo que contém lista de
+     *  Veiculos para leitura e
+     *  endereço da Frota para adicioná-lo.
+     *  Retorna Frota contendo os Veiculos lidos do arquivo txt
      * @return
      */
-    public static void carregarVeiculosArquivo(String localArquivo) {
+    public void carregarVeiculosArquivo(String localArquivo) {
 
         Scanner entrada;
         Veiculo novoVeiculo = null;
-
         String linhaLida;
         String[] veiculoLido;
 
@@ -202,7 +168,7 @@ public class Frota {
 
                         break;
                 }
-                Frota.veiculos.add(novoVeiculo);
+                veiculos.add(novoVeiculo);
 
             }
             entrada.close();
@@ -215,7 +181,7 @@ public class Frota {
 
     }
 
-    public static void salvaRotasFrota(String nomeArquivo) {
+    public void salvaRotasFrota(String nomeArquivo) {
 
         File arquivo = new File(nomeArquivo);
         try {
@@ -239,11 +205,9 @@ public class Frota {
         }
     }
 
-    public static void carregarRotasArquivo(String localArquivo) {
+    public void carregarRotasArquivo(String localArquivo) {
 
         Scanner entrada;
-      
-
         String linhaLida;
         String[] rotaLida;
 
@@ -256,8 +220,7 @@ public class Frota {
                 rotaLida = linhaLida.split(";");
                 Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]), retornaVeiculoPelaPlaca(rotaLida[2]));
 
-                Frota.rotas.add(novaRota);
-
+                rotas.add(novaRota);
             }
             entrada.close();
 
@@ -266,7 +229,5 @@ public class Frota {
         FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
-
 }
