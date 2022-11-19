@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public abstract class Veiculo {
     protected String placa;
     protected double valorVenda;
@@ -25,8 +24,6 @@ public abstract class Veiculo {
         this.kilometragemTotal = 0;
     }
 
-
-   
     /**
      * Método exibe todos os combustíveis suportados pelo veículo
      */
@@ -44,8 +41,6 @@ public abstract class Veiculo {
     public double getAutonomiaMaxima() {
         return this.autonomiaMaxima;
     }
-
-    public abstract void atualizaCustos();
 
     public double retornaCustoTotal() {
         return this.custoFixo + this.custoVariavel;
@@ -66,11 +61,6 @@ public abstract class Veiculo {
                 + " Custo Variavel: " + String.format("%.2f", this.custoVariavel) + " = "
                 + " Custo Total: " + String.format("%.2f", this.retornaCustoTotal()));
     }
-
-
-
-
-
     
     /**
      * Método abstrato implementado nas classes filhas de veículo booleano para verificar se foi possível abastecer o tanque do veículo com o combustível informado. O tanque é abastecido
@@ -78,15 +68,9 @@ public abstract class Veiculo {
      * @param tipoCombustivel Inteiro relacionado ao identificador do combustível, sendo 1 para gasolina, 2 para etanol e 3 para diesel
      * @return Retorna TRUE caso tenha abastecido, retorna FALSE caso contrário
      */
-    public abstract boolean abastecer(int tipoCombustivel);
-    public abstract Double calculaCustoVariavel() ;
-    public abstract Double calculaCustoFixo() ;
-    /**
-     * Método abstrato implementado nas classes filhas de veículo retorna um valor double com o total pago anualmente de IPVA
-     * @return Valor total IPVA
-     */
-    public abstract double calculaIPVA();
 
+    public abstract boolean abastecer(int tipoCombustivel);
+    
     /**
      * Método abstrato implementado nas classes filhas de veículo que imprime dados básicos do veículo no console
      */

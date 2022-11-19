@@ -1,10 +1,11 @@
 
-public class Caminhao extends Veiculo {
+public class Caminhao extends Veiculo implements ICustos{
     private static final int MANUTENCAO = 200;
     private static final int PRECO_MANUTENCAO = 1000;
     private static final int PRECO_VISTORIA = 1000;
-     private static final double IPVA = 0.01d;
+    private static final double IPVA = 0.01d;
     private static final int VISTORIA = 30000;
+    private static final double TAXA = 300d;
     private static final double SEGURO = 0.02d;
     private final int TANQUE_COMPLETO = 250;
 
@@ -30,38 +31,17 @@ public class Caminhao extends Veiculo {
         return maiorAutonomia * TANQUE_COMPLETO;
     }
 
-    public Double  calculaCustoFixo() {
-        return custoFixo = calculaIPVA() + calculaSeguro();
+    public void calculaCustoFixo() {
+        double ipva = this.valorVenda * IPVA;
+        double seguro = (this.valorVenda * SEGURO) + TAXA;
+        this.custoFixo = ipva + seguro;
     }
 
-    public double calculaIPVA() {
-        return valorVenda * IPVA;
+    public void calculaCustoVariavel() {
+        double manutencao = ((int)(this.kilometragemTotal/MANUTENCAO)* PRECO_MANUTENCAO);
+        double vistoria = ((int)(this.kilometragemTotal/VISTORIA)* PRECO_VISTORIA);
+        this.custoVariavel = manutencao + vistoria + custoFixo;
     }
-
-    public double calculaSeguro() {
-        return valorVenda * SEGURO;
-    }
-
-    public Double calculaCustoVariavel() {
-        return custoVariavel = calculaManutencao() + calculaVistoria() + custosExtra;
-    }
-
-    public int calculaManutencao() {
-        int manutencao = (int)(this.kilometragemTotal/MANUTENCAO);
-        return (manutencao * PRECO_MANUTENCAO);
-    }
-
-    public int calculaVistoria() {
-        int vistoria = (int)(this.kilometragemTotal/VISTORIA);
-        return (vistoria * PRECO_VISTORIA);
-    }
-
-    public void atualizaCustos() {
-        custoFixo = calculaIPVA() + calculaSeguro();
-        custoVariavel = calculaManutencao() + calculaVistoria();
-    }
-
-
 
     @Override
     public boolean abastecer(int tipoCombustivel) {
@@ -82,8 +62,7 @@ public class Caminhao extends Veiculo {
         System.out.println("Caminhão: Placa: " + placa + " - "
                 + " Valor de venda: " + String.format("%.2f", valorVenda) + "\n"
                 + " Capacidade Tanque: " + TANQUE_COMPLETO + "\n"
-                + " IPVA: " + String.format("%.2f", calculaIPVA()) + "\n"
-                + " Seguro + Taxa: " + String.format("%.2f", calculaSeguro()) + "\n"
+                + " IPVA + Seguro: " + String.format("%.2f", this.custoFixo) + "\n"
                 + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
     }
 

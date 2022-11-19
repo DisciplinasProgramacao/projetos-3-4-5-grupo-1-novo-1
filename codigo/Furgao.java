@@ -1,5 +1,5 @@
 
-public class Furgao extends Veiculo {
+public class Furgao extends Veiculo implements ICustos{
     private static final int ALINHAMENTO = 100;
     private static final int PRECO_ALINHAMENTO = 120;
     private static final int PRECO_VISTORIA = 500;
@@ -8,9 +8,7 @@ public class Furgao extends Veiculo {
     private static final double SEGURO = 0.03d;
     private final int TANQUE_COMPLETO = 80;
 
-
     public Furgao(String placa, double valorVenda) {
-
         super(placa, valorVenda);
         this.tiposCombustivel.add(Combustivel.GASOLINA);
         this.autonomiaMaxima = getAutonomiaMaxima();
@@ -30,30 +28,16 @@ public class Furgao extends Veiculo {
         return maiorAutonomia * TANQUE_COMPLETO;
     }
 
-    public Double calculaCustoFixo() {
-        return custoFixo = calculaIPVA() + calculaSeguro();
+    public void calculaCustoFixo() {
+        double ipva = this.valorVenda * IPVA;
+        double seguro = (this.valorVenda * SEGURO);
+        this.custoFixo = ipva + seguro;
     }
 
-    public double calculaIPVA() {
-        return valorVenda * IPVA;
-    }
-
-    public double calculaSeguro() {
-        return valorVenda * SEGURO;
-    }
-
-    public Double calculaCustoVariavel() {
-        return custoVariavel = calculaAlinhamento() + calculaVistoria() + custosExtra;
-    }
-
-    public int calculaAlinhamento() {
-        int alinhamento = (int) (kilometragemTotal / ALINHAMENTO);
-        return (alinhamento * PRECO_ALINHAMENTO);
-    }
-
-    public int calculaVistoria() {
-        int vistoria = (int) (this.kilometragemTotal / VISTORIA);
-        return (vistoria * PRECO_VISTORIA);
+    public void calculaCustoVariavel() {
+        double alinhamento = ((int)(this.kilometragemTotal/ALINHAMENTO)* PRECO_ALINHAMENTO);
+        double vistoria = ((int)(this.kilometragemTotal/VISTORIA)* PRECO_VISTORIA);
+        this.custoVariavel = alinhamento + vistoria + custoFixo;
     }
 
     @Override
@@ -70,17 +54,11 @@ public class Furgao extends Veiculo {
         }
     }
 
-    public void atualizaCustos() {
-        custoFixo = calculaIPVA() + calculaSeguro();
-        custoVariavel = calculaAlinhamento() + calculaVistoria();
-      }
-
     public void imprimeVeiculoConsole() {
         System.out.println("Furgão    : Placa: " + placa + " - "
                 + " Valor de venda: " + String.format("%.2f", valorVenda) + "\n"
                 + " Capacidade Tanque: " + TANQUE_COMPLETO + "\n"
-                + " IPVA: " + String.format("%.2f", calculaIPVA()) + "\n"
-                + " Seguro + Taxa: " + String.format("%.2f", calculaSeguro()) + "\n"
+                + " IPVA + Seguro: " + String.format("%.2f", this.custoFixo) + "\n"
                 + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
     }
 
@@ -108,6 +86,4 @@ public class Furgao extends Veiculo {
         }
         System.out.println();
     }
-
-   
 }

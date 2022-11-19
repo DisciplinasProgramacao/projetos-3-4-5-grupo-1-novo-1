@@ -1,5 +1,5 @@
 
-public class Van extends Veiculo {
+public class Van extends Veiculo implements ICustos{
     private static final int ALINHAMENTO = 100;
     private static final int PRECO_ALINHAMENTO = 120;
     private static final int PRECO_VISTORIA = 500;
@@ -7,7 +7,6 @@ public class Van extends Veiculo {
     private static final int VISTORIA = 10000;
     private static final double SEGURO = 0.03;
     private final int TANQUE_COMPLETO = 60;
-  
 
     public Van(String placa, double valorVenda) {
         super(placa, valorVenda);
@@ -30,39 +29,16 @@ public class Van extends Veiculo {
         return maiorAutonomia * TANQUE_COMPLETO;
     }
 
- 
-
-    public double calculaIPVA() {
-        return valorVenda * IPVA;
+    public void calculaCustoFixo() {
+        double ipva = this.valorVenda * IPVA;
+        double seguro = (this.valorVenda * SEGURO);
+        this.custoFixo = ipva + seguro;
     }
 
-    public double calculaSeguro() {
-        return valorVenda * SEGURO;
-    }
-  
-
-    public int calculaAlinhamento() {
-        int alinhamento = (int) (kilometragemTotal / ALINHAMENTO);
-        return (alinhamento * PRECO_ALINHAMENTO);
-    }
-
-    public int calculaVistoria() {
-        int vistoria = (int)(this.kilometragemTotal/VISTORIA);
-        return (vistoria * PRECO_VISTORIA);
-    }
-    @Override
-    public Double calculaCustoFixo() {
-        return custoFixo = calculaIPVA() + calculaSeguro();
-    }
-
-    @Override
-    public Double calculaCustoVariavel() {
-        return custoVariavel = calculaAlinhamento() + calculaVistoria() + custosExtra;
-    }
-    @Override
-    public void atualizaCustos() {
-        super.custoFixo = calculaIPVA() + calculaSeguro();
-        super.custoVariavel = calculaAlinhamento() + calculaVistoria();
+    public void calculaCustoVariavel() {
+        double alinhamento = ((int)(this.kilometragemTotal/ALINHAMENTO)* PRECO_ALINHAMENTO);
+        double vistoria = ((int)(this.kilometragemTotal/VISTORIA)* PRECO_VISTORIA);
+        this.custoVariavel = alinhamento + vistoria + custoFixo;
     }
 
     @Override
@@ -84,8 +60,7 @@ public class Van extends Veiculo {
         System.out.println("Van     : Placa: " + placa + " - "
                 + " Valor de venda: " + String.format("%.2f", valorVenda) + "\n"
                 + " Capacidade Tanque: " + TANQUE_COMPLETO + "\n"
-                + " IPVA: " + String.format("%.2f", calculaIPVA()) + "\n"
-                + " Seguro + Taxa: " + String.format("%.2f", calculaSeguro()) + "\n"
+                + " IPVA + Seguro: " + String.format("%.2f", this.custoFixo) + "\n"
                 + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
     }
 

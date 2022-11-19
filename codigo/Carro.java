@@ -1,12 +1,11 @@
 
-public class Carro extends Veiculo {
+public class Carro extends Veiculo implements ICustos {
     private static final int ALINHAMENTO = 100;
     private static final int PRECO_ALINHAMENTO = 80;
     private static final double IPVA = 0.04d;
     private static final double TAXA = 300d;
     private static final double SEGURO = 0.05d;
     private final int TANQUE_COMPLETO = 50;
-   
 
     public Carro(String placa, double valorVenda) {
         super(placa, valorVenda);
@@ -14,9 +13,6 @@ public class Carro extends Veiculo {
         this.tiposCombustivel.add(Combustivel.ALCOOL);
         this.autonomiaMaxima = getAutonomiaMaxima();
         this.autonomiaAtual = autonomiaMaxima;
-    }
-
-    public Carro() {
     }
 
     public double getAutonomiaMaxima() {
@@ -29,30 +25,16 @@ public class Carro extends Veiculo {
         return maiorAutonomia * TANQUE_COMPLETO;
     }
 
-    public Double  calculaCustoFixo() {
-        return custoFixo = calculaIPVA() + calculaSeguro();
+    public void calculaCustoFixo() {
+        double ipva = this.valorVenda * IPVA;
+        double seguro = (this.valorVenda * SEGURO) + TAXA;
+        this.custoFixo = ipva + seguro;
     }
 
-    public double calculaIPVA() {
-        return valorVenda * IPVA;
-    }
-
-    public double calculaSeguro() {
-        return valorVenda * SEGURO + TAXA;
-    }
-
-    public Double  calculaCustoVariavel() {
-        return custoVariavel = calculaAlinhamento() + custosExtra;
-    }
-
-    public int calculaAlinhamento() {
-        int alinhamento = (int) (kilometragemTotal / ALINHAMENTO);
-        return (alinhamento * PRECO_ALINHAMENTO);
-    }
-
-    public void atualizaCustos() {
-        custoFixo = calculaIPVA() + calculaSeguro();
-        custoVariavel = calculaAlinhamento();
+    public void calculaCustoVariavel() {
+        double alinhamento = (int) (kilometragemTotal / ALINHAMENTO);
+        alinhamento = alinhamento * PRECO_ALINHAMENTO;
+        this.custoVariavel = alinhamento + this.custosExtra;
     }
 
 
@@ -75,8 +57,7 @@ public class Carro extends Veiculo {
         System.out.println("Carro  : Placa: " + placa + " - "
                 + " Valor de venda: " + String.format("%.2f", valorVenda) + "\n"
                 + " Capacidade Tanque: " + TANQUE_COMPLETO + "\n"
-                + " IPVA: " + String.format("%.2f", calculaIPVA()) + "\n"
-                + " Seguro + Taxa: " + String.format("%.2f", calculaSeguro()) + "\n"
+                + " IPVA, Seguro + Taxa: " + String.format("%.2f", this.custoFixo) + "\n"
                 + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
     }
 
