@@ -4,30 +4,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Frota {
 
-    protected ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
-    protected LinkedList<Rota> rotas = new LinkedList<Rota>();
+    protected Set<Veiculo> veiculos = new HashSet<Veiculo>();
+    protected Set<Rota> rotas = new HashSet<Rota>();
 
     public Frota() {
     };
-
-    public Veiculo retornaVeiculoPelaPlaca(String placaProcurar) {
-        for (Veiculo veiculo : veiculos) {
-            if (veiculo.getPlaca().equals(placaProcurar)) {
-                return veiculo;
-            }
-        }
-        return null;
-    }
 
     /**
      * Método booleano para adição de rota. Valida se a rota desejada pode ser
@@ -40,7 +31,6 @@ public class Frota {
      */
 
     public boolean addRota(Rota rota, Veiculo veiculoParaRota) {
-
         rotas.add(rota);
         veiculoParaRota.autonomiaAtual -= rota.getDistancia();
         veiculoParaRota.kilometragemTotal += rota.getDistancia();
@@ -48,8 +38,21 @@ public class Frota {
         return true;
     }
 
-    public int imprimeVeiculosparaRota(double distancia) {
+    public void adicionarVeiculos(Veiculo veiculo) {
+        this.veiculos.add(veiculo);        
+    }
 
+    public Veiculo retornaVeiculoPelaPlaca(String placaProcurar) {
+        for (Veiculo veiculo : veiculos) {
+            if (veiculo.getPlaca().equals(placaProcurar)) {
+                return veiculo;
+            }
+        }
+        return null;
+    }
+
+
+    public int imprimeVeiculosparaRota(double distancia) {
         List<Veiculo> ListaVeiculosRota = veiculos.stream()
                 .filter(veiculos -> veiculos.getAutonomiaMaxima() >= distancia)
                 .collect(Collectors.toList());
@@ -96,38 +99,6 @@ public class Frota {
         }
     }
 
-    public void salvaVeiculosFrota(String nomeArquivo) {
-
-        File arquivo = new File(nomeArquivo);
-        try {
-            if (!arquivo.exists()) {
-                arquivo.createNewFile();
-            }
-
-            FileWriter arqEscrita = new FileWriter(arquivo, false);
-            BufferedWriter escritor = new BufferedWriter(arqEscrita);
-
-            for (Veiculo veiculo : veiculos) {
-                // veiculo.imprimeVeiculoConsole();
-                escritor.write(veiculo.escreveVeiculoArquivo());
-                escritor.newLine();
-            }
-            escritor.close();
-            arqEscrita.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * @param localArquivo
-     * @param virtual
-     *                     Recebe String do local do arquivo que contém lista de
-     *                     Veiculos para leitura e
-     *                     endereço da Frota para adicioná-lo.
-     *                     Retorna Frota contendo os Veiculos lidos do arquivo txt
-     * @return
-     */
     public void carregarVeiculosArquivo(String localArquivo) {
 
         Scanner entrada;
@@ -146,38 +117,28 @@ public class Frota {
 
                     case ("Carro"):
                         novoVeiculo = new Carro(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
-
                         break;
-
                     case ("Van"):
                         novoVeiculo = new Van(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
-
                         break;
-
                     case ("Furgao"):
                         novoVeiculo = new Furgao(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
-
                         break;
-
                     case ("Caminhao"):
                         novoVeiculo = new Caminhao(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
-
                         break;
                 }
                 veiculos.add(novoVeiculo);
-
             }
             entrada.close();
-
         } catch (
 
         FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void salvaRotasFrota(String nomeArquivo) {
+    public void salvaVeiculosFrota(String nomeArquivo) {
 
         File arquivo = new File(nomeArquivo);
         try {
@@ -188,18 +149,17 @@ public class Frota {
             FileWriter arqEscrita = new FileWriter(arquivo, false);
             BufferedWriter escritor = new BufferedWriter(arqEscrita);
 
-            for (Rota rota : rotas) {
-                // veiculo.imprimeVeiculoConsole();
-                escritor.write(rota.escreveRotaArquivo());
+            for (Veiculo veiculo : veiculos) {
+                escritor.write(veiculo.escreveVeiculoArquivo());
                 escritor.newLine();
             }
-
             escritor.close();
             arqEscrita.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
 
     public void carregarRotasArquivo(String localArquivo) {
 
@@ -216,15 +176,34 @@ public class Frota {
                 rotaLida = linhaLida.split(";");
                 Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),
                         retornaVeiculoPelaPlaca(rotaLida[2]));
-
                 rotas.add(novaRota);
             }
             entrada.close();
-
         } catch (
-
         FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void salvaRotasFrota(String nomeArquivo) {
+
+        File arquivo = new File(nomeArquivo);
+        try {
+            if (!arquivo.exists()) {
+                arquivo.createNewFile();
+            }
+            FileWriter arqEscrita = new FileWriter(arquivo, false);
+            BufferedWriter escritor = new BufferedWriter(arqEscrita);
+
+            for (Rota rota : rotas) {
+                escritor.write(rota.escreveRotaArquivo());
+                escritor.newLine();
+            }
+
+            escritor.close();
+            arqEscrita.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }
