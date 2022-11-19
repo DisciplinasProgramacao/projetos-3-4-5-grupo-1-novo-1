@@ -97,6 +97,7 @@ public abstract class Veiculo implements ICustos{
      * @return
      */
     public abstract String escreveVeiculoArquivo();
+    public abstract String escreveVeiculoFrota();
 
     /**
      * Método abstrato implementado nas classes filhas de veículo que imprime a placa do veículo e capacidade atual do tanque

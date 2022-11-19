@@ -39,7 +39,7 @@ public class Frota {
     }
 
     public void adicionarVeiculos(Veiculo veiculo) {
-        this.veiculos.add(veiculo);        
+        this.veiculos.add(veiculo);
     }
 
     public Veiculo retornaVeiculoPelaPlaca(String placaProcurar) {
@@ -50,7 +50,6 @@ public class Frota {
         }
         return null;
     }
-
 
     public int imprimeVeiculosparaRota(double distancia) {
         List<Veiculo> ListaVeiculosRota = veiculos.stream()
@@ -74,12 +73,19 @@ public class Frota {
         return media;
     }
 
+    public void TesteveiculosComMaisRotas() {
+
+        Map<Veiculo, Long> agrupaRotas = rotas.stream()
+                .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
+        System.out.println(agrupaRotas.values().toString());
+
+    }
+
     public void veiculosComMaisRotas() {
 
         Map<Veiculo, Long> agrupaRotas = rotas.stream()
-                        .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
-        System.out.println(agrupaRotas.values().toString() );
-
+                .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
+        agrupaRotas.forEach((key, value) -> System.out.println(key.escreveVeiculoFrota() + value));
     }
 
     public void custoVeiculoDescres() {
@@ -160,7 +166,6 @@ public class Frota {
         }
     }
 
-
     public void carregarRotasArquivo(String localArquivo) {
 
         Scanner entrada;
@@ -179,8 +184,7 @@ public class Frota {
                 rotas.add(novaRota);
             }
             entrada.close();
-        } catch (
-        FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }

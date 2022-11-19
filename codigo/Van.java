@@ -79,6 +79,14 @@ public class Van extends Veiculo{
     }
 
     @Override
+    public String escreveVeiculoFrota() {
+        String veiculoRota = "Van: "
+                + this.placa + " Qtde rotas: ";
+        return veiculoRota;
+    }
+    
+
+    @Override
     public void imprimeVeiculoPlaca() {
         System.out.print("Van     : Placa: " + this.placa + " - "
                 + " Autonomia atual: " + this.autonomiaAtual + " - "

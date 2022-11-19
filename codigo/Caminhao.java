@@ -79,6 +79,12 @@ public class Caminhao extends Veiculo{
                 + this.valorVenda;
         return salvaParaArquivo;
     }
+    @Override
+    public String escreveVeiculoFrota() {
+        String veiculoRota = "Caminhão: "
+                + this.placa + " Qtde rotas: ";
+        return veiculoRota;
+    }
 
     @Override
     public void imprimeVeiculoPlaca() {
