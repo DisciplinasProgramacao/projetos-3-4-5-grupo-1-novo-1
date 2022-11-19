@@ -1,5 +1,7 @@
+import java.util.Map;
+
 public class Rota {
-    private static int sequencia = 1;
+    private static int sequencia = 0;
     private int idRota = 0;
     private Data DtProducao;
     private double distancia = 0;
@@ -20,9 +22,7 @@ public class Rota {
            return  Data.verificaDataPeriodo(DtProducao, dtInicio,  dtFinal);
      }
 
-  //  public  double consumoRota(Combustivel combustivel) {
-  //      return  distancia * combustivel.consumo;
-  //  }
+   
 
 
     public void imprimeRota() {

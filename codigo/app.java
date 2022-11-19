@@ -26,7 +26,7 @@ public class app {
                     System.out.println("CARREGAR UM CONJUNTO DE VEÍCULOS DE UM ARQUIVO:");
                     System.out.println("Carregando lista de veiculos em: " + localPadraoCarregar);
                     frota.carregarVeiculosArquivo(localPadraoCarregar);
-                    frota.carregarRotasArquivo("C:/FROTA/Rotas_ler.txt");
+                 frota.carregarRotasArquivo("C:/FROTA/Rotas_ler.txt");
 
                     opcao = menu(opcao);
                     break;

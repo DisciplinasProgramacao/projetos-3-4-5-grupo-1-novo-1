@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -59,9 +58,7 @@ public class Frota {
         if (ListaVeiculosRota.size() > 0) {
             return ListaVeiculosRota.size();
         } else {
-            Optional<Veiculo> maiorAutonomia = ListaVeiculosRota
-                    .stream()
-                    .max(Comparator.comparing(V -> V.getAutonomiaMaxima()));
+       
             System.out.println("não tem carro");
         }
         return ListaVeiculosRota.size();
@@ -78,8 +75,8 @@ public class Frota {
     public void veiculosComMaisRotas() {
 
         Map<Veiculo, Long> agrupaRotas = rotas.stream()
-                .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
-        System.out.println(agrupaRotas.values().toString());
+                        .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
+        System.out.println(agrupaRotas.values().toString() );
 
     }
 
