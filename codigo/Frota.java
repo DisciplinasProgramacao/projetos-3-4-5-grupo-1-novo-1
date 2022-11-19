@@ -52,16 +52,16 @@ public class Frota {
     public int imprimeVeiculosparaRota(double distancia) {
 
         List<Veiculo> ListaVeiculosRota = veiculos.stream()
-            .filter(veiculos -> veiculos.getAutonomiaMaxima() >= distancia)
-            .collect(Collectors.toList());
+                .filter(veiculos -> veiculos.getAutonomiaMaxima() >= distancia)
+                .collect(Collectors.toList());
         ListaVeiculosRota.forEach(s -> s.imprimeVeiculoPlaca());
 
         if (ListaVeiculosRota.size() > 0) {
             return ListaVeiculosRota.size();
         } else {
-            Optional <Veiculo> maiorAutonomia = ListaVeiculosRota
-                .stream()
-                .max(Comparator.comparing(V -> V.getAutonomiaMaxima()));
+            Optional<Veiculo> maiorAutonomia = ListaVeiculosRota
+                    .stream()
+                    .max(Comparator.comparing(V -> V.getAutonomiaMaxima()));
             System.out.println("não tem carro");
         }
         return ListaVeiculosRota.size();
@@ -69,16 +69,16 @@ public class Frota {
 
     public Double quilometragemMediaRotas() {
         double media = rotas.stream()
-            .mapToDouble(rota -> rota.getDistancia())
-            .average()
-            .getAsDouble();
+                .mapToDouble(rota -> rota.getDistancia())
+                .average()
+                .getAsDouble();
         return media;
     }
 
     public void veiculosComMaisRotas() {
 
         Map<Veiculo, Long> agrupaRotas = rotas.stream()
-            .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
+                .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
         System.out.println(agrupaRotas.values().toString());
 
     }
@@ -86,16 +86,16 @@ public class Frota {
     public void custoVeiculoDescres() {
 
         List<Veiculo> veiculosOrenados = veiculos.stream()
-            .sorted(Comparator.comparingDouble(Veiculo::retornaCustoTotal).reversed())
-            .collect(Collectors.toList());
+                .sorted(Comparator.comparingDouble(Veiculo::retornaCustoTotal).reversed())
+                .collect(Collectors.toList());
         veiculosOrenados.forEach(v -> v.imprimeVeiculoCustos());
     }
 
     public void rotasEntreDatas(Data inicial, Data fim) {
         if (inicial.getDiaAno() < fim.getDiaAno()) {
             List<Rota> ListaVeiculosRota = rotas.stream()
-                .filter(rotas -> rotas.verificaDataPeriodo(inicial, fim))
-                .collect(Collectors.toList());
+                    .filter(rotas -> rotas.verificaDataPeriodo(inicial, fim))
+                    .collect(Collectors.toList());
             ListaVeiculosRota.forEach(r -> r.imprimeRota());
         }
     }
@@ -126,10 +126,10 @@ public class Frota {
     /**
      * @param localArquivo
      * @param virtual
-     *  Recebe String do local do arquivo que contém lista de
-     *  Veiculos para leitura e
-     *  endereço da Frota para adicioná-lo.
-     *  Retorna Frota contendo os Veiculos lidos do arquivo txt
+     *                     Recebe String do local do arquivo que contém lista de
+     *                     Veiculos para leitura e
+     *                     endereço da Frota para adicioná-lo.
+     *                     Retorna Frota contendo os Veiculos lidos do arquivo txt
      * @return
      */
     public void carregarVeiculosArquivo(String localArquivo) {
@@ -218,7 +218,8 @@ public class Frota {
                 linhaLida = entrada.nextLine();
                 System.out.println(linhaLida);
                 rotaLida = linhaLida.split(";");
-                Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]), retornaVeiculoPelaPlaca(rotaLida[2]));
+                Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),
+                        retornaVeiculoPelaPlaca(rotaLida[2]));
 
                 rotas.add(novaRota);
             }

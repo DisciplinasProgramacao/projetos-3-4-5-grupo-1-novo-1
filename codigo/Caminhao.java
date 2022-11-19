@@ -7,7 +7,7 @@ public class Caminhao extends Veiculo {
     private static final int VISTORIA = 30000;
     private static final double SEGURO = 0.02d;
     private final int TANQUE_COMPLETO = 250;
-    private double custosEsporadico = 0;
+
 
     public Caminhao(String placa, double valorVenda) {
         
@@ -43,7 +43,7 @@ public class Caminhao extends Veiculo {
     }
 
     public Double calculaCustoVariavel() {
-        return custoVariavel = calculaManutencao() + calculaVistoria() + custosEsporadico;
+        return custoVariavel = calculaManutencao() + calculaVistoria() + custosExtra;
     }
 
     public int calculaManutencao() {

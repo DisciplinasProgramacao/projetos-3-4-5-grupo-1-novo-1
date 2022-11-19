@@ -7,7 +7,7 @@ public class Furgao extends Veiculo {
     private static final double VISTORIA = 10000d;
     private static final double SEGURO = 0.03d;
     private final int TANQUE_COMPLETO = 80;
-    private double custosEsporadico = 0;
+
 
     public Furgao(String placa, double valorVenda) {
 
@@ -43,7 +43,7 @@ public class Furgao extends Veiculo {
     }
 
     public Double calculaCustoVariavel() {
-        return custoVariavel = calculaAlinhamento() + calculaVistoria() + custosEsporadico;
+        return custoVariavel = calculaAlinhamento() + calculaVistoria() + custosExtra;
     }
 
     public int calculaAlinhamento() {

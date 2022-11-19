@@ -9,6 +9,7 @@ public abstract class Veiculo {
     protected double kilometragemTotal;
     protected double autonomiaAtual;
     protected double autonomiaMaxima;
+    protected double custosExtra = 0;
     protected ArrayList<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
 
     public Veiculo() {};
@@ -48,6 +49,16 @@ public abstract class Veiculo {
 
     public double retornaCustoTotal() {
         return this.custoFixo + this.custoVariavel;
+    }
+
+    /**
+     * Método adiciona um valor double para compor o total gasto em custos extras
+     * @param valor Double com o valor do novo gasto esporadico
+     * @return Retorna um valor double com o total de gastos esporadicos até o momento
+     */
+    public double addCustosExtra(double valor){
+        this.custosExtra += valor;
+        return this.custosExtra;
     }
     public void imprimeVeiculoCustos() {
         System.out.println("Veículo  : Placa: " + this.placa + " - "

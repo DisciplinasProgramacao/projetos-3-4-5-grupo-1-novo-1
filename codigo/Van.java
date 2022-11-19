@@ -7,8 +7,7 @@ public class Van extends Veiculo {
     private static final int VISTORIA = 10000;
     private static final double SEGURO = 0.03;
     private final int TANQUE_COMPLETO = 60;
-    private double custosEsporadico = 0;
-
+  
 
     public Van(String placa, double valorVenda) {
         super(placa, valorVenda);
@@ -58,7 +57,7 @@ public class Van extends Veiculo {
 
     @Override
     public Double calculaCustoVariavel() {
-        return custoVariavel = calculaAlinhamento() + calculaVistoria() + custosEsporadico;
+        return custoVariavel = calculaAlinhamento() + calculaVistoria() + custosExtra;
     }
     @Override
     public void atualizaCustos() {
