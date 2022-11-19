@@ -15,9 +15,6 @@ public class Furgao extends Veiculo {
         this.autonomiaAtual = this.autonomiaMaxima;
     }
 
-    public Furgao() {
-    }
-
     public double getAutonomiaMaxima() {
         double maiorAutonomia = 0;
         for (Combustivel consumo : tiposCombustivel) {

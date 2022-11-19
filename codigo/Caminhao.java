@@ -18,9 +18,6 @@ public class Caminhao extends Veiculo{
         this.autonomiaAtual =  this.autonomiaMaxima;
     }
 
-    public Caminhao() {
-    }
-
     public double getAutonomiaMaxima() {
         double maiorAutonomia = 0;
         for (Combustivel consumo : tiposCombustivel) {

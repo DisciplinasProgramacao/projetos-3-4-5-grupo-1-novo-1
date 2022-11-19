@@ -16,9 +16,6 @@ public class Van extends Veiculo{
         this.autonomiaAtual =  this.autonomiaMaxima;
     }
 
-    public Van() {
-    }
-
     public double getAutonomiaMaxima() {
         double maiorAutonomia = 0;
         for (Combustivel consumo : tiposCombustivel) {
