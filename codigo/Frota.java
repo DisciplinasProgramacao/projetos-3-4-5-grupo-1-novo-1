@@ -45,7 +45,7 @@ public class Frota {
         rotas.add(rota);
         veiculoParaRota.autonomiaAtual -= rota.getDistancia();
         veiculoParaRota.kilometragemTotal += rota.getDistancia();
-        veiculoParaRota.atualizaCustos();
+        veiculoParaRota.calculaCustoVariavel();
         return true;
     }
 

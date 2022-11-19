@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Veiculo {
+public abstract class Veiculo{
     protected String placa;
     protected double valorVenda;
     protected double custoFixo;
@@ -9,7 +10,8 @@ public abstract class Veiculo {
     protected double autonomiaAtual;
     protected double autonomiaMaxima;
     protected double custosExtra = 0;
-    protected ArrayList<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
+    protected List<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
+    protected List<Rota> rotas = new ArrayList<Rota>();
 
     public Veiculo() {};
 
