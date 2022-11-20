@@ -2,14 +2,13 @@ import java.util.Scanner;
 
 public class app {
     static Scanner obj = new Scanner(System.in);
+    static String arquivoVeiculo = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
+    static String arquivoRota = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler.txt";
+    //static String arquivoVeiculo = "C:/Users/Mauricio/Documents/GitHub/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
+    //static String arquivoRota = "C:/Users/Mauricio/Documents/GitHub/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler.txt";
 
     public static void main(String[] args) throws Exception {
     
-        String localPadraoCarregar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
-        //String localPadraoCarregar = "C:/Users/Mauricio/Documents/GitHub/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
-        String localPadraoSalvar = "/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
-        //String localPadraoSalvar = "C:/Users/Mauricio/Documents/GitHub/projetos-3-4-5-grupo-1-novo-1/codigo/Veiculos_ler.txt";
-
         Veiculo veiculoParaRota = null;
         Frota frota = new Frota();
         String placaVeiculo;
@@ -17,27 +16,29 @@ public class app {
         double kmRota = 0;
         Data dtProducao = null;
 
+        frota.carregarVeiculosArquivo(arquivoVeiculo);
+        frota.carregarRotasArquivo(arquivoRota);
+
         String opcao = "";
         opcao = menu(opcao);
 
         while (opcao != "F") {
             switch (opcao) {
                 case "1":
-                    System.out.println("CARREGAR UM CONJUNTO DE VEÍCULOS DE UM ARQUIVO:");
-                    System.out.println("Carregando lista de veiculos em: " + localPadraoCarregar);
-                    frota.carregarVeiculosArquivo(localPadraoCarregar);
-                    //frota.carregarRotasArquivo("C:/Users/Mauricio/Documents/GitHub/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler.txt");
-                    frota.carregarRotasArquivo("/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler.txt");
-
+                    System.out.println("CARREGAR UM CONJUNTO DE VEÍCULOS E ROTAS:");
+                    System.out.println("Carregando lista de veiculos em: " + arquivoVeiculo);
+                    System.out.println("Carregando lista de veiculos em: " + arquivoRota);
+                    frota.exibirVeiculosArquivo(arquivoVeiculo);
+                    frota.exibirRotasArquivo(arquivoRota);
                     opcao = menu(opcao);
                     break;
 
                 case "2":
                     System.out.println("Salvar um conjunto de veículos em um arquivo:\n");
-                    System.out.println("conjunto de veículos:" + localPadraoSalvar);
-                    frota.salvaVeiculosFrota(localPadraoSalvar);
-                    //frota.salvaRotasFrota("C:/Users/Mauricio/Documents/GitHub/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler.txt");
-                    frota.salvaRotasFrota("/media/juvito/Data/Backup_lpm/projetos-3-4-5-grupo-1-novo-1/projetos-3-4-5-grupo-1-novo-1/codigo/Rotas_ler.txt");
+                    System.out.println("conjunto de veículos:" + arquivoVeiculo);
+                    System.out.println("conjunto de rotas:" + arquivoRota);
+                    frota.salvaVeiculosFrota(arquivoVeiculo);
+                    frota.salvaRotasFrota(arquivoRota);
                     opcao = menu(opcao);
                     break;
 
