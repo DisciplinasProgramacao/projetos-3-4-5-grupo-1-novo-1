@@ -32,17 +32,12 @@ public abstract class Veiculo implements ICustos{
         tiposCombustivel.forEach(combustivel -> {System.out.printf("\n" + combustivel.getDescricao());});
     }
 
-    public String getPlaca() {
-        return this.placa;
-    }
-    public double getAutonomiaAtual() {
-        return autonomiaAtual;
-    }
-
-    public double getAutonomiaMaxima() {
-        return this.autonomiaMaxima;
-    }
-
+    
+    /**
+     * Método retorna o custo total de um veículo, somando os custos fixos com os custos
+     * variáveis
+     * @return Retorna o custo total do veículo
+     */
     public double retornaCustoTotal() {
         return this.custoFixo + this.custoVariavel;
     }
@@ -56,6 +51,9 @@ public abstract class Veiculo implements ICustos{
         this.custosExtra += valor;
     }
 
+    /**
+     * Método imprime custos do veículo, inclindo os fixos, variáveis e total.
+     */
     public void imprimeVeiculoCustos() {
         System.out.println("Veículo  : Placa: " + this.placa + " - "
                 + " Custo Fixo: " + String.format("%.2f", this.custoFixo) + " - "
@@ -98,11 +96,27 @@ public abstract class Veiculo implements ICustos{
      * @return
      */
     public abstract String escreveVeiculoArquivo();
+
+    /**
+     * Método abstrato implementado nas classes filhas de veículo com uma sugestão de toString
+     * @return
+     */
     public abstract String escreveVeiculoFrota();
 
     /**
      * Método abstrato implementado nas classes filhas de veículo que imprime a placa do veículo e capacidade atual do tanque
      */
     public void imprimeVeiculoPlaca() {
+    }
+
+    public String getPlaca() {
+        return this.placa;
+    }
+    public double getAutonomiaAtual() {
+        return autonomiaAtual;
+    }
+
+    public double getAutonomiaMaxima() {
+        return this.autonomiaMaxima;
     }
 }
