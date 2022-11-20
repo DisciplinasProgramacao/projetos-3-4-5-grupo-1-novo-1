@@ -4,13 +4,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Frota {
@@ -23,12 +26,9 @@ public class Frota {
 
     /**
      * Método booleano para adição de rota. Valida se a rota desejada pode ser
-     * atribuída ao veiculo com base na autonomia do
-     * combustível atual e na capacidade máxima do tanque
-     * 
+     * atribuída ao veiculo com base na autonomia do combustível atual e na capacidade máxima do tanque
      * @param rota Objeto da classe Rota
-     * @return Retorna TRUE caso a rota tenha sido adicionada, retorna FALSE caso
-     *         contrário
+     * @return Retorna TRUE caso a rota tenha sido adicionada, retorna FALSE caso contrário
      */
 
     public boolean addRota(Rota rota, Veiculo veiculoParaRota) {
@@ -39,6 +39,10 @@ public class Frota {
         return true;
     }
 
+    /**
+     * Método sem retorno para adicionar Veiculos à classe Frota
+     * @param veiculo
+    */
     public void adicionarVeiculos(Veiculo veiculo) {
         this.veiculos.add(veiculo);
     }
@@ -86,9 +90,29 @@ public class Frota {
 
         Map<Veiculo, Long> agrupa = new HashMap<>();
         veiculos.stream().forEach(v -> 
-        agrupa.put(v, rotas.stream().filter(r -> r.getVeiculoRota().getPlaca().equals(v.getPlaca())).count()));
+        agrupa.put(v, rotas.stream().filter(r -> r.getVeiculoRota().getPlaca().equals(v.getPlaca())).count()));        
+        
+        Map<Veiculo, Long> agrupasss = new HashMap<>();
+        
+        agrupasss = agrupa.entrySet()
+                        .stream()
+                        .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue))
+                        .entrySet()
+                        .stream()
+                        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                        .limit(3).collect(Collectors.toMap(Map.Entry::getKey,
+        Map.Entry::getValue,(v1, v2) -> v1,HashMap::new));
 
-        agrupa.forEach((key,value) -> System.out.println(key.escreveVeiculoFrota() + value));
+        agrupasss.forEach((key,value) -> System.out.println(key.escreveVeiculoFrota() + value));
+    }
+
+    public void testeveiculosComMaisRotas() {
+
+        Map<Veiculo, Long> agrupaRotas = rotas.stream()
+                .collect(Collectors.groupingBy(Rota::getVeiculoRota, Collectors.counting()));
+        agrupaRotas.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getValue));
+        agrupaRotas.forEach((key, value) -> System.out.println(key.escreveVeiculoFrota() + value));
+
     }
 
     public void custoVeiculoDescres() {
