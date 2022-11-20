@@ -8,6 +8,11 @@ public class Van extends Veiculo{
     private static final double SEGURO = 0.03;
     private final int TANQUE_COMPLETO = 60;
 
+    /**
+     * Método construtor da classe Van.
+     * @param placa String constendo a placa do veículo
+     * @param valorVenda double contendo o valor de venda do veículo
+     */
     public Van(String placa, double valorVenda) {
         super(placa, valorVenda);
         this.tiposCombustivel.add(Combustivel.GASOLINA);
@@ -16,6 +21,7 @@ public class Van extends Veiculo{
         this.autonomiaAtual =  this.autonomiaMaxima;
     }
 
+    @Override
     public double getAutonomiaMaxima() {
         double maiorAutonomia = 0;
         for (Combustivel consumo : tiposCombustivel) {
@@ -26,12 +32,14 @@ public class Van extends Veiculo{
         return maiorAutonomia * TANQUE_COMPLETO;
     }
 
+    @Override
     public void calculaCustoFixo() {
         double ipva = this.valorVenda * IPVA;
         double seguro = (this.valorVenda * SEGURO);
         this.custoFixo = ipva + seguro;
     }
 
+    @Override
     public void calculaCustoVariavel() {
         double alinhamento = ((int)(this.kilometragemTotal/ALINHAMENTO)* PRECO_ALINHAMENTO);
         double vistoria = ((int)(this.kilometragemTotal/VISTORIA)* PRECO_VISTORIA);
@@ -84,7 +92,7 @@ public class Van extends Veiculo{
                 + this.placa + " Qtde rotas: ";
         return veiculoRota;
     }
- 
+
     @Override
     public void imprimeVeiculoPlaca() {
         System.out.print("Van     : Placa: " + this.placa + " - "

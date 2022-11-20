@@ -9,7 +9,11 @@ public class Caminhao extends Veiculo{
     private static final double SEGURO = 0.02d;
     private final int TANQUE_COMPLETO = 250;
 
-
+    /**
+     * Método construtor da classe Caminhao.
+     * @param placa String constendo a placa do veículo
+     * @param valorVenda double contendo o valor de venda do veículo
+     */
     public Caminhao(String placa, double valorVenda) {
         
         super(placa, valorVenda);
@@ -18,6 +22,7 @@ public class Caminhao extends Veiculo{
         this.autonomiaAtual =  this.autonomiaMaxima;
     }
 
+    @Override
     public double getAutonomiaMaxima() {
         double maiorAutonomia = 0;
         for (Combustivel consumo : tiposCombustivel) {
@@ -28,12 +33,14 @@ public class Caminhao extends Veiculo{
         return maiorAutonomia * TANQUE_COMPLETO;
     }
 
+    @Override
     public void calculaCustoFixo() {
         double ipva = this.valorVenda * IPVA;
         double seguro = (this.valorVenda * SEGURO) + TAXA;
         this.custoFixo = ipva + seguro;
     }
 
+    @Override
     public void calculaCustoVariavel() {
         double manutencao = ((int)(this.kilometragemTotal/MANUTENCAO)* PRECO_MANUTENCAO);
         double vistoria = ((int)(this.kilometragemTotal/VISTORIA)* PRECO_VISTORIA);

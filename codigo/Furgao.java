@@ -8,6 +8,11 @@ public class Furgao extends Veiculo {
     private static final double SEGURO = 0.03d;
     private final int TANQUE_COMPLETO = 80;
 
+    /**
+     * Método construtor da classe Furgao.
+     * @param placa String constendo a placa do veículo
+     * @param valorVenda double contendo o valor de venda do veículo
+     */
     public Furgao(String placa, double valorVenda) {
         super(placa, valorVenda);
         this.tiposCombustivel.add(Combustivel.GASOLINA);
@@ -15,6 +20,7 @@ public class Furgao extends Veiculo {
         this.autonomiaAtual = this.autonomiaMaxima;
     }
 
+    @Override
     public double getAutonomiaMaxima() {
         double maiorAutonomia = 0;
         for (Combustivel consumo : tiposCombustivel) {
@@ -25,12 +31,14 @@ public class Furgao extends Veiculo {
         return maiorAutonomia * TANQUE_COMPLETO;
     }
 
+    @Override
     public void calculaCustoFixo() {
         double ipva = this.valorVenda * IPVA;
         double seguro = (this.valorVenda * SEGURO);
         this.custoFixo = ipva + seguro;
     }
 
+    @Override
     public void calculaCustoVariavel() {
         double alinhamento = ((int)(this.kilometragemTotal/ALINHAMENTO)* PRECO_ALINHAMENTO);
         double vistoria = ((int)(this.kilometragemTotal/VISTORIA)* PRECO_VISTORIA);
@@ -51,6 +59,7 @@ public class Furgao extends Veiculo {
         }
     }
 
+    @Override
     public void imprimeVeiculoConsole() {
         System.out.println("Furgão    : Placa: " + placa + " - "
                 + " Valor de venda: " + String.format("%.2f", valorVenda) + "\n"
@@ -59,6 +68,7 @@ public class Furgao extends Veiculo {
                 + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
     }
 
+    @Override
     public void imprimeDadosVeiculoConsole() {
         System.out.println("Furgão    : Placa: " + placa + " - "
                 + "\nValor de venda: " + String.format("%.2f", valorVenda) + ";"
@@ -67,6 +77,7 @@ public class Furgao extends Veiculo {
                 + "\nGastos Variáveis: " + String.format("%.2f", custoVariavel));
     }
 
+    @Override
     public String escreveVeiculoArquivo() {
         String salvaParaArquivo = "Furgao;"
                 + this.placa + ";"
@@ -80,6 +91,7 @@ public class Furgao extends Veiculo {
         return veiculoRota;
     }
 
+    @Override
     public void imprimeVeiculoPlaca() {
         System.out.print("Furgão  : Placa: " + this.placa + " - "
                 + " Autonomia atual: " + this.autonomiaAtual + " - "
