@@ -44,7 +44,7 @@ public class Caminhao extends Veiculo{
     public void calculaCustoVariavel() {
         double manutencao = ((int)(this.kilometragemTotal/MANUTENCAO)* PRECO_MANUTENCAO);
         double vistoria = ((int)(this.kilometragemTotal/VISTORIA)* PRECO_VISTORIA);
-        this.custoVariavel = manutencao + vistoria + custoFixo;
+        this.custoVariavel = manutencao + vistoria + this.custosExtra;
     }
 
     @Override

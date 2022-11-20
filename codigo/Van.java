@@ -43,7 +43,7 @@ public class Van extends Veiculo{
     public void calculaCustoVariavel() {
         double alinhamento = ((int)(this.kilometragemTotal/ALINHAMENTO)* PRECO_ALINHAMENTO);
         double vistoria = ((int)(this.kilometragemTotal/VISTORIA)* PRECO_VISTORIA);
-        this.custoVariavel = alinhamento + vistoria + custoFixo;
+        this.custoVariavel = alinhamento + vistoria + this.custosExtra;
     }
 
     @Override
