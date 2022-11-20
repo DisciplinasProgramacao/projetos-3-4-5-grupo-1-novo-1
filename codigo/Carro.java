@@ -1,6 +1,6 @@
 
 public class Carro extends Veiculo {
-    private static final int ALINHAMENTO = 100;
+    private static final int ALINHAMENTO = 10000;
     private static final int PRECO_ALINHAMENTO = 80;
     private static final double IPVA = 0.04d;
     private static final double TAXA = 300d;
@@ -32,7 +32,7 @@ public class Carro extends Veiculo {
     }
 
     public void calculaCustoVariavel() {
-        double alinhamento = (int) (kilometragemTotal / ALINHAMENTO);
+        double alinhamento = (int) (this.kilometragemTotal / ALINHAMENTO);
         alinhamento = alinhamento * PRECO_ALINHAMENTO;
         this.custoVariavel = alinhamento + this.custosExtra;
     }

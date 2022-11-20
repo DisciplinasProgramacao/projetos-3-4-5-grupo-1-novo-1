@@ -1,6 +1,6 @@
 
 public class Van extends Veiculo{
-    private static final int ALINHAMENTO = 100;
+    private static final int ALINHAMENTO = 10000;
     private static final int PRECO_ALINHAMENTO = 120;
     private static final int PRECO_VISTORIA = 500;
     private static final double IPVA = 0.03;
@@ -84,8 +84,7 @@ public class Van extends Veiculo{
                 + this.placa + " Qtde rotas: ";
         return veiculoRota;
     }
-    
-
+ 
     @Override
     public void imprimeVeiculoPlaca() {
         System.out.print("Van     : Placa: " + this.placa + " - "

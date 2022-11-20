@@ -1,11 +1,11 @@
 
 public class Caminhao extends Veiculo{
-    private static final int MANUTENCAO = 200;
+    private static final int MANUTENCAO = 20000;
     private static final int PRECO_MANUTENCAO = 1000;
     private static final int PRECO_VISTORIA = 1000;
     private static final double IPVA = 0.01d;
     private static final int VISTORIA = 30000;
-    private static final double TAXA = 300d;
+    private static final double TAXA = 2000d;
     private static final double SEGURO = 0.02d;
     private final int TANQUE_COMPLETO = 250;
 

@@ -95,7 +95,7 @@ public class app {
                     if (frota.imprimeVeiculosparaRota(kmRota) > 0) {
                         System.out.println("\nEntre com a placa do veículo para a rota:\n Procurar pela placa: ");
                         veiculoParaRota = frota.retornaVeiculoPelaPlaca(obj.nextLine().toUpperCase());
-                        // while
+          
                         if (veiculoParaRota.getAutonomiaAtual() < kmRota) {
                             System.out.println("O veículo placa: " + veiculoParaRota.placa
                                     + " não tem combustivel suficiente para a rota.\n");
@@ -161,7 +161,6 @@ public class app {
                     System.out.println("Veículos que mais fizeram rotas.");
 
                     frota.veiculosComMaisRotas();
-                   //frota.testeveiculosComMaisRotas();
                     opcao = menu(opcao);
                     break;
                 case "10":
