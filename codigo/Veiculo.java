@@ -22,6 +22,7 @@ public abstract class Veiculo implements ICustos{
         this.placa = placa;
         this.valorVenda = valorVenda;
         this.kilometragemTotal = 0;
+        calculaCustoFixo();
     }
 
     /**

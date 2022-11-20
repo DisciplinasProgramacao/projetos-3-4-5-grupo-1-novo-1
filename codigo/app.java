@@ -204,8 +204,8 @@ public class app {
     public static String menu(String opc) {
 
         System.out.println("\n  FUNÇÕES DA FROTA:  \n");
-        System.out.println("1 -  Carregar um conjunto de veículos de um arquivo.");
-        System.out.println("2 -  Salvar um conjunto de veículos em um arquivo.");
+        System.out.println("1 -  Carregar um conjunto de veículos e rotas de um arquivo.");
+        System.out.println("2 -  Salvar um conjunto de veículos e rotas em um arquivo.");
         System.out.println("3 -  Incluir um novo veículo.");
         System.out.println("4 -  Incluir rotas para um veículo.");
         System.out.println("5 -  Incluir custos extra.");
@@ -213,7 +213,7 @@ public class app {
         System.out.println("7 -  Veículo com seus gastos até o momento.");
         System.out.println("8 -  Quilometragem média de todas as rotas da empresa.");
         System.out.println("9 -  Veículos que mais fizeram rotas.");
-        System.out.println("10 -  veículos por custos gerados decrescente.");
+        System.out.println("10 - Veículos por custos gerados decrescente.");
         System.out.println("11 - Filtro para busca de rotas entre datas.");
 
         System.out.println("\nEntre com o número correspondente à função ou 'f' para finalizar:\n");

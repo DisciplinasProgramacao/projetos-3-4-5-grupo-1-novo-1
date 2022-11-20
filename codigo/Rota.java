@@ -14,6 +14,8 @@ public class Rota {
         this.distancia = distancia;
         this.dtProducao = dtProducao;
         this.veiculoRota = veiculoParaRota;
+        this.veiculoRota.kilometragemTotal += distancia;
+        this.veiculoRota.calculaCustoVariavel();
         concatenarHash();
     }
 
