@@ -133,10 +133,9 @@ public class Frota {
             while (entrada.hasNextLine()) {
 
                 linhaLida = entrada.nextLine();
-                System.out.println(linhaLida);
+                
                 veiculoLido = linhaLida.split(";");
                 switch (veiculoLido[0]) {
-
                     case ("Carro"):
                         novoVeiculo = new Carro(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
                         break;
@@ -154,7 +153,42 @@ public class Frota {
             }
             entrada.close();
         } catch (
+        FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void exibirVeiculosArquivo(String localArquivo) {
+
+        Scanner entrada;
+        Veiculo novoVeiculo = null;
+        String linhaLida;
+        String[] veiculoLido;
+        try {
+            entrada = new Scanner(new FileReader(localArquivo));
+            while (entrada.hasNextLine()) {
+                
+                linhaLida = entrada.nextLine();
+                System.out.println(linhaLida);
+                veiculoLido = linhaLida.split(";");
+                switch (veiculoLido[0]) {
+                    case ("Carro"):
+                        novoVeiculo = new Carro(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
+                        break;
+                    case ("Van"):
+                        novoVeiculo = new Van(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
+                        break;
+                    case ("Furgao"):
+                        novoVeiculo = new Furgao(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
+                        break;
+                    case ("Caminhao"):
+                        novoVeiculo = new Caminhao(veiculoLido[1], Double.parseDouble(veiculoLido[2]));
+                        break;
+                }
+                veiculos.add(novoVeiculo);
+            }
+            entrada.close();
+        } catch (
         FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -183,6 +217,27 @@ public class Frota {
     }
 
     public void carregarRotasArquivo(String localArquivo) {
+
+        Scanner entrada;
+        String linhaLida;
+        String[] rotaLida;
+
+        try {
+            entrada = new Scanner(new FileReader(localArquivo));
+            while (entrada.hasNextLine()) {
+                linhaLida = entrada.nextLine();
+                rotaLida = linhaLida.split(";");
+                Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),
+                        retornaVeiculoPelaPlaca(rotaLida[2]));
+                rotas.add(novaRota);
+            }
+            entrada.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exibirRotasArquivo(String localArquivo) {
 
         Scanner entrada;
         String linhaLida;
