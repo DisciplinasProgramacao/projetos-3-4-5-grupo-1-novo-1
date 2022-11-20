@@ -245,7 +245,7 @@ public class Data {
         return numValido;
     }
  /**
-     * Método verifica se a data informada está entre duas datas passdas por parametro
+     * Método verifica se a data informada está entre duas datas passadas por parâmetro
      * @param  verificar data a ser verificada.
      * @param  dtInicio data de inicio periodo de avaliação.
      * @param  dtFinal data final do periodo de avaliação..
