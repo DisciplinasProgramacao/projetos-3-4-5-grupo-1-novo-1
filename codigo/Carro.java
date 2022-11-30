@@ -16,17 +16,6 @@ public class Carro extends Veiculo {
     }
 
     @Override
-    public double getAutonomiaMaxima() {
-        double maiorAutonomia = 0;
-        for (Combustivel consumo : tiposCombustivel) {
-            if (consumo.getConsumo() > maiorAutonomia) {
-                maiorAutonomia = consumo.getConsumo();
-            }
-        }
-        return maiorAutonomia * TANQUE_COMPLETO;
-    }
-
-    @Override
     public void calculaCustoFixo() {
         double ipva = this.valorVenda * Tarifas.IPVA_CARRO.getValor();
         double seguro = (this.valorVenda * Tarifas.SEGURO_CARRO.getValor()) + Tarifas.TAXA_CARRO.getValor();
@@ -38,7 +27,6 @@ public class Carro extends Veiculo {
         double alinhamento = ((int)(this.kilometragemTotal/Tarifas.DIST_ALINHAMENTO_CARRO.getValor())* Tarifas.PRECO_ALINHAMENTO_CARRO.getValor());
         this.custoVariavel = alinhamento + this.custosExtra;
     }
-
 
     @Override
     public boolean abastecer(int tipoCombustivel) {
@@ -52,31 +40,5 @@ public class Carro extends Veiculo {
         } else {
             return false;
         }
-    }
-
-    @Override
-    public String escreveVeiculoArquivo() {
-        String salvaParaArquivo = "Carro;"
-                + this.placa + ";"
-                + this.valorVenda;
-        return salvaParaArquivo;
-    }
-
-    @Override
-    public String escreveVeiculoFrota() {
-        String veiculoRota = "Carro: "
-                + this.placa + " Qtde rotas: ";
-        return veiculoRota;
-    }
-
-    @Override
-    public void imprimeVeiculoPlaca() {
-        System.out.print("Carro   : Placa: " + this.placa + " - "
-                + " Autonomia atual: " + this.autonomiaAtual + " - "
-                + " Autonomia Máxima:");
-        for (Combustivel combustivel : tiposCombustivel) {
-            System.out.print(" " + combustivel.getDescricao() + "=" + this.TANQUE_COMPLETO * combustivel.getConsumo());
-        }
-        System.out.println();
     }
 }

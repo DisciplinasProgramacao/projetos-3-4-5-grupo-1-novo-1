@@ -16,17 +16,6 @@ public class Van extends Veiculo{
     }
 
     @Override
-    public double getAutonomiaMaxima() {
-        double maiorAutonomia = 0;
-        for (Combustivel consumo : tiposCombustivel) {
-            if (consumo.getConsumo() > maiorAutonomia) {
-                maiorAutonomia = consumo.getConsumo();
-            }
-        }
-        return maiorAutonomia * TANQUE_COMPLETO;
-    }
-
-    @Override
     public void calculaCustoFixo() {
         double ipva = this.valorVenda * Tarifas.IPVA_VAN.getValor();
         double seguro = (this.valorVenda * Tarifas.SEGURO_VAN.getValor());
@@ -54,29 +43,4 @@ public class Van extends Veiculo{
         }
     }
 
-    @Override
-    public String escreveVeiculoArquivo() {
-        String salvaParaArquivo = "Van;"
-                + this.placa + ";"
-                + this.valorVenda;
-        return salvaParaArquivo;
-    }
-
-    @Override
-    public String escreveVeiculoFrota() {
-        String veiculoRota = "Van: "
-                + this.placa + " Qtde rotas: ";
-        return veiculoRota;
-    }
-
-    @Override
-    public void imprimeVeiculoPlaca() {
-        System.out.print("Van     : Placa: " + this.placa + " - "
-                + " Autonomia atual: " + this.autonomiaAtual + " - "
-                + " Autonomia Máxima:");
-        for (Combustivel combustivel : tiposCombustivel) {
-            System.out.print(" " + combustivel.getDescricao() + "=" + this.TANQUE_COMPLETO * combustivel.getConsumo());
-        }
-        System.out.println();
-    }
 }

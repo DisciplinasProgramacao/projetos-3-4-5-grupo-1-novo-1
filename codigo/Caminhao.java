@@ -15,17 +15,6 @@ public class Caminhao extends Veiculo{
     }
 
     @Override
-    public double getAutonomiaMaxima() {
-        double maiorAutonomia = 0;
-        for (Combustivel consumo : tiposCombustivel) {
-            if (consumo.getConsumo() > maiorAutonomia) {
-                maiorAutonomia = consumo.getConsumo();
-            }
-        }
-        return maiorAutonomia * TANQUE_COMPLETO;
-    }
-
-    @Override
     public void calculaCustoFixo() {
         double ipva = this.valorVenda * Tarifas.IPVA_CAMINHAO.getValor();
         double seguro = (this.valorVenda * Tarifas.SEGURO_CAMINHAO.getValor()) + Tarifas.TAXA_CAMINHAO.getValor();
@@ -51,30 +40,5 @@ public class Caminhao extends Veiculo{
         } else {
             return false;
         }
-    }
-
-    @Override
-    public String escreveVeiculoArquivo() {
-        String salvaParaArquivo = "Caminhao;"
-                + this.placa + ";"
-                + this.valorVenda;
-        return salvaParaArquivo;
-    }
-    @Override
-    public String escreveVeiculoFrota() {
-        String veiculoRota = "Caminhão: "
-                + this.placa + " Qtde rotas: ";
-        return veiculoRota;
-    }
-
-    @Override
-    public void imprimeVeiculoPlaca() {
-        System.out.print("Caminhão: Placa: " + this.placa + " - "
-                + " Autonomia atual: " + this.autonomiaAtual + " - "
-                + " Autonomia Máxima:");
-        for (Combustivel combustivel : tiposCombustivel) {
-            System.out.print(" " + combustivel.getDescricao() + "=" + this.TANQUE_COMPLETO * combustivel.getConsumo());
-        }
-        System.out.println();
     }
 }
