@@ -55,24 +55,6 @@ public class Carro extends Veiculo {
     }
 
     @Override
-    public void imprimeVeiculoConsole() {
-        System.out.println("Carro  : Placa: " + placa + " - "
-                + " Valor de venda: " + String.format("%.2f", valorVenda) + "\n"
-                + " Capacidade Tanque: " + TANQUE_COMPLETO + "\n"
-                + " IPVA, Seguro + Taxa: " + String.format("%.2f", this.custoFixo) + "\n"
-                + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
-    }
-
-    @Override
-    public void imprimeDadosVeiculoConsole() {
-        System.out.println("Carro   : Placa: " + placa + " - "
-                + "\nValor de venda: " + String.format("%.2f", valorVenda) + ";"
-                + "\n Quilometros rodados: " + String.format("%.2f", kilometragemTotal) + " - "
-                + "\nGastos Fixos: " + String.format("%.2f", custoFixo) + " - "
-                + "\nGastos Variáveis: " + String.format("%.2f", custoVariavel));
-    }
-
-    @Override
     public String escreveVeiculoArquivo() {
         String salvaParaArquivo = "Carro;"
                 + this.placa + ";"

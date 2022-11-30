@@ -55,24 +55,6 @@ public class Van extends Veiculo{
     }
 
     @Override
-    public void imprimeVeiculoConsole() {
-        System.out.println("Van     : Placa: " + placa + " - "
-                + " Valor de venda: " + String.format("%.2f", valorVenda) + "\n"
-                + " Capacidade Tanque: " + TANQUE_COMPLETO + "\n"
-                + " IPVA + Seguro: " + String.format("%.2f", this.custoFixo) + "\n"
-                + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
-    }
-
-    @Override
-    public void imprimeDadosVeiculoConsole() {
-        System.out.println("Van     : Placa: " + placa + " - "
-                + "\nValor de venda: " + String.format("%.2f", valorVenda) + ";"
-                + "\n Quilometros rodados: " + String.format("%.2f", kilometragemTotal) + " - "
-                + "\nGastos Fixos: " + String.format("%.2f", custoFixo) + " - "
-                + "\nGastos Variáveis: " + String.format("%.2f", custoVariavel));
-    }
-
-    @Override
     public String escreveVeiculoArquivo() {
         String salvaParaArquivo = "Van;"
                 + this.placa + ";"

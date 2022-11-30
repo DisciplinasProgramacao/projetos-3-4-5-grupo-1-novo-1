@@ -136,7 +136,7 @@ public class app {
                     System.out.println("\nEntre com a placa do Veículo para localizar:");
                     placaVeiculo = obj.nextLine().toUpperCase();
                     veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
-                    veiculoParaRota.imprimeVeiculoConsole();
+                    System.out.println(veiculoParaRota);
                     opcao = menu(opcao);
                     break;
 
@@ -146,7 +146,7 @@ public class app {
                     placaVeiculo = obj.nextLine().toUpperCase();
                     if (frota.retornaVeiculoPelaPlaca(placaVeiculo) != null) {
                         veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
-                        veiculoParaRota.imprimeDadosVeiculoConsole();
+                        veiculoParaRota.gastosVeiculo();
                     }
                     opcao = menu(opcao);
                     break;

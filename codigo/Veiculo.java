@@ -80,16 +80,17 @@ public abstract class Veiculo implements ICustos{
      */
 
     public abstract boolean abastecer(int tipoCombustivel);
-    
-    /**
-     * Método abstrato implementado nas classes filhas de veículo que imprime dados básicos do veículo no console
-     */
-    public abstract void imprimeVeiculoConsole();
 
     /**
-     * Método abstrato implementado nas classes filhas de veículo que imprime dados do veículo no console, incluindo os custos
+     * Método sem retorno que imprime o relatório de gastos do veículo 
      */
-    public abstract void imprimeDadosVeiculoConsole();
+    public void gastosVeiculo() {
+        System.out.println("\n(" + getClass().getName() + ") Placa: " + placa
+                + "\n  Valor de venda: " + String.format("%.2f", valorVenda)
+                + "\n  Quilometros rodados: " + String.format("%.2f", kilometragemTotal)
+                + "\n  Gastos Fixos: " + String.format("%.2f", custoFixo)
+                + "\n  Gastos Variáveis: " + String.format("%.2f", custoVariavel));
+    };
 
     /**
      * Método abstrato implementado nas classes filhas de veículo que escreve os dados referentes ao veículo em um arquivo, sendo estes a placa e o valor de venda
@@ -118,5 +119,14 @@ public abstract class Veiculo implements ICustos{
 
     public double getAutonomiaMaxima() {
         return this.autonomiaMaxima;
+    }
+
+    @Override
+    public String toString() {
+        System.out.println("Carro  : Placa: " + placa + " - "
+                + " Valor de venda: " + String.format("%.2f", valorVenda) + "\n"
+                + " IPVA, Seguro + Taxa: " + String.format("%.2f", this.custoFixo) + "\n"
+                + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
+        return super.toString();
     }
 }
