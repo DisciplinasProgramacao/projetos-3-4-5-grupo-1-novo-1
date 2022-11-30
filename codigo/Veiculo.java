@@ -8,6 +8,7 @@ public abstract class Veiculo implements ICustos{
     protected double custoVariavel;
     protected double kilometragemTotal;
     protected double autonomiaAtual;
+    protected double tanquemaximo = 0;
     protected double autonomiaMaxima;
     protected double custosExtra = 0;
     protected List<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
@@ -26,13 +27,14 @@ public abstract class Veiculo implements ICustos{
     }
 
     /**
-     * Método exibe todos os combustíveis suportados pelo veículo
+     * Método adiciona um valor double para compor o total gasto em custos extras
+     * @param valor Double com o valor do novo gasto esporadico
+     * @return Retorna um valor double com o total de gastos esporadicos até o momento
      */
-    public void exibirTiposCombustivel() {
-        tiposCombustivel.forEach(combustivel -> {System.out.printf("\n" + combustivel.getDescricao());});
+    public void addCustosExtra(double valor){
+        this.custosExtra += valor;
     }
 
-    
     /**
      * Método retorna o custo total de um veículo, somando os custos fixos com os custos
      * variáveis
@@ -43,22 +45,71 @@ public abstract class Veiculo implements ICustos{
     }
 
     /**
-     * Método adiciona um valor double para compor o total gasto em custos extras
-     * @param valor Double com o valor do novo gasto esporadico
-     * @return Retorna um valor double com o total de gastos esporadicos até o momento
+     * Método abstrato implementado nas classes filhas de veículo booleano para verificar se foi possível abastecer o tanque do veículo com o combustível informado. O tanque é abastecido
+     * até sua capacidade máxima
+     * @param tipoCombustivel Inteiro relacionado ao identificador do combustível, sendo 1 para gasolina, 2 para etanol e 3 para diesel
+     * @return Retorna TRUE caso tenha abastecido, retorna FALSE caso contrário
      */
-    public void addCustosExtra(double valor){
-        this.custosExtra += valor;
-    }
+    public abstract boolean abastecer(int tipoCombustivel);
 
     /**
-     * Método imprime custos do veículo, inclindo os fixos, variáveis e total.
+     * Método exibe todos os combustíveis suportados pelo veículo
      */
-    public void imprimeVeiculoCustos() {
-        System.out.println("Veículo  : Placa: " + this.placa + " - "
-                + " Custo Fixo: " + String.format("%.2f", this.custoFixo) + " - "
-                + " Custo Variavel: " + String.format("%.2f", this.custoVariavel) + " = "
-                + " Custo Total: " + String.format("%.2f", this.retornaCustoTotal()));
+    public void exibirTiposCombustivel() {
+        tiposCombustivel.forEach(combustivel -> {System.out.printf("\n" + combustivel.getDescricao());});
+    }
+
+    
+    public String gastosVeiculo() {
+        StringBuilder veiculo = new StringBuilder("\n(" + getClass().getName());
+        veiculo.append(") Placa: " + placa
+        + "\n  Valor de venda: " + String.format("%.2f", this.valorVenda)
+        + "\n  Quilometros rodados: " + String.format("%.2f", this.kilometragemTotal)
+        + "\n  Gastos Fixos: " + String.format("%.2f", this.custoFixo)
+        + "\n  Gastos Variáveis: " + String.format("%.2f", this.custoVariavel)
+        + "\n  Custo Total: " + String.format("%.2f", retornaCustoTotal()));
+        return veiculo.toString();
+    }
+
+    public String autonomiaVeiculo() {
+        StringBuilder veiculo = new StringBuilder("\n(" + getClass().getName());
+        veiculo.append(") Placa: " + placa + " - "
+                + " Autonomia atual: " + getAutonomiaAtual() + " - "
+                + " Autonomia Máxima:");
+        for (Combustivel combustivel : tiposCombustivel) {
+            veiculo.append(" " + combustivel.getDescricao() + "=" + this.tanquemaximo * combustivel.getConsumo());
+        }
+        return veiculo.toString();
+    }
+
+    public String escreveVeiculoArquivo() {
+        String salvaParaArquivo = getClass().getName() +";"
+                + this.placa + ";"
+                + this.valorVenda;
+        return salvaParaArquivo;
+    }
+
+    public String escreveVeiculoFrota() {
+        String veiculoRota = getClass().getName() +": "
+                + this.placa + " Qtde rotas: ";
+        return veiculoRota;
+    }
+
+    public String getPlaca() {
+        return this.placa;
+    }
+    public double getAutonomiaAtual() {
+        return autonomiaAtual;
+    }
+
+    public double getAutonomiaMaxima() {
+        double maiorAutonomia = 0;
+        for (Combustivel consumo : tiposCombustivel) {
+            if (consumo.getConsumo() > maiorAutonomia) {
+                maiorAutonomia = consumo.getConsumo();
+            }
+        }
+        return maiorAutonomia * this.tanquemaximo;
     }
 
     @Override
@@ -71,62 +122,14 @@ public abstract class Veiculo implements ICustos{
     public int hashCode() {
         return this.placa.hashCode();
     }
-    
-    /**
-     * Método abstrato implementado nas classes filhas de veículo booleano para verificar se foi possível abastecer o tanque do veículo com o combustível informado. O tanque é abastecido
-     * até sua capacidade máxima
-     * @param tipoCombustivel Inteiro relacionado ao identificador do combustível, sendo 1 para gasolina, 2 para etanol e 3 para diesel
-     * @return Retorna TRUE caso tenha abastecido, retorna FALSE caso contrário
-     */
-
-    public abstract boolean abastecer(int tipoCombustivel);
-
-    /**
-     * Método sem retorno que imprime o relatório de gastos do veículo 
-     */
-    public void gastosVeiculo() {
-        System.out.println("\n(" + getClass().getName() + ") Placa: " + placa
-                + "\n  Valor de venda: " + String.format("%.2f", valorVenda)
-                + "\n  Quilometros rodados: " + String.format("%.2f", kilometragemTotal)
-                + "\n  Gastos Fixos: " + String.format("%.2f", custoFixo)
-                + "\n  Gastos Variáveis: " + String.format("%.2f", custoVariavel));
-    };
-
-    /**
-     * Método abstrato implementado nas classes filhas de veículo que escreve os dados referentes ao veículo em um arquivo, sendo estes a placa e o valor de venda
-     * @return
-     */
-    public abstract String escreveVeiculoArquivo();
-
-    /**
-     * Método abstrato implementado nas classes filhas de veículo com uma sugestão de toString
-     * @return
-     */
-    public abstract String escreveVeiculoFrota();
-
-    /**
-     * Método abstrato implementado nas classes filhas de veículo que imprime a placa do veículo e capacidade atual do tanque
-     */
-    public void imprimeVeiculoPlaca() {
-    }
-
-    public String getPlaca() {
-        return this.placa;
-    }
-    public double getAutonomiaAtual() {
-        return autonomiaAtual;
-    }
-
-    public double getAutonomiaMaxima() {
-        return this.autonomiaMaxima;
-    }
 
     @Override
     public String toString() {
-        System.out.println("Carro  : Placa: " + placa + " - "
-                + " Valor de venda: " + String.format("%.2f", valorVenda) + "\n"
-                + " IPVA, Seguro + Taxa: " + String.format("%.2f", this.custoFixo) + "\n"
-                + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
-        return super.toString();
+        StringBuilder veiculo = new StringBuilder("\n(" + getClass().getName());
+        veiculo.append(") Placa: " + this.placa + " - "
+        + " Valor de venda: " + String.format("%.2f", this.valorVenda) + "\n"
+        + " IPVA, Seguro + Taxa: " + String.format("%.2f", this.custoFixo) + "\n"
+        + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
+        return veiculo.toString();
     }
 }

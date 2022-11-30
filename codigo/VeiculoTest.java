@@ -26,11 +26,13 @@ public class VeiculoTest {
         Rota rota = new Rota(300, dt, veiculo);
         frota.addRota(rota, veiculo);
         veiculo.calculaCustoVariavel();
+        System.out.println(veiculo);
         assertEquals(240, veiculo.custoVariavel);
+        
     }
 
     @Test
-    public void name() {
-        veiculo.gastosVeiculo();;
+    public void testeToString() {
+        System.out.println(veiculo);
     }
 }
