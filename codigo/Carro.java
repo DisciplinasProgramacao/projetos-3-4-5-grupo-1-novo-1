@@ -1,10 +1,5 @@
 
 public class Carro extends Veiculo {
-    private static final int ALINHAMENTO = 10000;
-    private static final int PRECO_ALINHAMENTO = 80;
-    private static final double IPVA = 0.04d;
-    private static final double TAXA = 300d;
-    private static final double SEGURO = 0.05d;
     private final int TANQUE_COMPLETO = 50;
 
     /**
@@ -33,15 +28,14 @@ public class Carro extends Veiculo {
 
     @Override
     public void calculaCustoFixo() {
-        double ipva = this.valorVenda * IPVA;
-        double seguro = (this.valorVenda * SEGURO) + TAXA;
+        double ipva = this.valorVenda * Tarifas.IPVA_CARRO.getValor();
+        double seguro = (this.valorVenda * Tarifas.SEGURO_CARRO.getValor()) + Tarifas.TAXA_CARRO.getValor();
         this.custoFixo = ipva + seguro;
     }
 
     @Override
     public void calculaCustoVariavel() {
-        double alinhamento = (int) (this.kilometragemTotal / ALINHAMENTO);
-        alinhamento = alinhamento * PRECO_ALINHAMENTO;
+        double alinhamento = ((int)(this.kilometragemTotal/Tarifas.DIST_ALINHAMENTO_CARRO.getValor())* Tarifas.PRECO_ALINHAMENTO_CARRO.getValor());
         this.custoVariavel = alinhamento + this.custosExtra;
     }
 

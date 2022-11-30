@@ -1,12 +1,5 @@
 
 public class Caminhao extends Veiculo{
-    private static final int MANUTENCAO = 20000;
-    private static final int PRECO_MANUTENCAO = 1000;
-    private static final int PRECO_VISTORIA = 1000;
-    private static final double IPVA = 0.01d;
-    private static final int VISTORIA = 30000;
-    private static final double TAXA = 2000d;
-    private static final double SEGURO = 0.02d;
     private final int TANQUE_COMPLETO = 250;
 
     /**
@@ -35,15 +28,15 @@ public class Caminhao extends Veiculo{
 
     @Override
     public void calculaCustoFixo() {
-        double ipva = this.valorVenda * IPVA;
-        double seguro = (this.valorVenda * SEGURO) + TAXA;
+        double ipva = this.valorVenda * Tarifas.IPVA_CAMINHAO.getValor();
+        double seguro = (this.valorVenda * Tarifas.SEGURO_CAMINHAO.getValor()) + Tarifas.TAXA_CAMINHAO.getValor();
         this.custoFixo = ipva + seguro;
     }
 
     @Override
     public void calculaCustoVariavel() {
-        double manutencao = ((int)(this.kilometragemTotal/MANUTENCAO)* PRECO_MANUTENCAO);
-        double vistoria = ((int)(this.kilometragemTotal/VISTORIA)* PRECO_VISTORIA);
+        double manutencao = ((int)(this.kilometragemTotal/Tarifas.DIST_MANUTENCAO_CAMINHAO.getValor())* Tarifas.PRECO_MANUTENCAO_CAMINHAO.getValor());
+        double vistoria = ((int)(this.kilometragemTotal/Tarifas.DIST_VISTORIA_CAMINHAO.getValor())* Tarifas.PRECO_VISTORIA_CAMINHAO.getValor());
         this.custoVariavel = manutencao + vistoria + this.custosExtra;
     }
 
