@@ -95,7 +95,6 @@ public class app {
                     if (frota.imprimeVeiculosparaRota(kmRota) > 0) {
                         System.out.println("\nEntre com a placa do veículo para a rota:\n Procurar pela placa: ");
                         veiculoParaRota = frota.retornaVeiculoPelaPlaca(obj.nextLine().toUpperCase());
-          
                         if (veiculoParaRota.getAutonomiaAtual() < kmRota) {
                             System.out.println("O veículo placa: " + veiculoParaRota.placa
                                     + " não tem combustivel suficiente para a rota.\n");
@@ -146,7 +145,7 @@ public class app {
                     placaVeiculo = obj.nextLine().toUpperCase();
                     if (frota.retornaVeiculoPelaPlaca(placaVeiculo) != null) {
                         veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
-                        veiculoParaRota.gastosVeiculo();
+                        System.out.println(veiculoParaRota.gastosVeiculo());
                     }
                     opcao = menu(opcao);
                     break;

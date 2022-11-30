@@ -75,7 +75,7 @@ public class Frota {
         List<Veiculo> ListaVeiculosRota = veiculos.stream()
                 .filter(veiculos -> veiculos.getAutonomiaMaxima() >= distancia)
                 .collect(Collectors.toList());
-        ListaVeiculosRota.forEach(s -> s.imprimeVeiculoPlaca());
+        ListaVeiculosRota.forEach(s -> System.out.println(s.autonomiaVeiculo()));
 
         if (ListaVeiculosRota.size() > 0) {
             return ListaVeiculosRota.size();
@@ -127,7 +127,7 @@ public class Frota {
         List<Veiculo> veiculosOrenados = veiculos.stream()
                 .sorted(Comparator.comparingDouble(Veiculo::retornaCustoTotal).reversed())
                 .collect(Collectors.toList());
-        veiculosOrenados.forEach(v -> v.imprimeVeiculoCustos());
+        veiculosOrenados.forEach(v -> System.out.println(v.gastosVeiculo()));
     }
 
     /**
