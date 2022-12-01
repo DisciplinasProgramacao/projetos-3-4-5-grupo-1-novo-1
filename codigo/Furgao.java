@@ -12,6 +12,7 @@ public class Furgao extends Veiculo {
         this.tiposCombustivel.add(Combustivel.GASOLINA);
         this.autonomiaMaxima = getAutonomiaMaxima();
         this.autonomiaAtual = this.autonomiaMaxima;
+        this.tanque = new Tanque(TANQUE_COMPLETO);
     }
 
     @Override
@@ -27,19 +28,4 @@ public class Furgao extends Veiculo {
         double vistoria = ((int)(this.kilometragemTotal/Tarifas.DIST_ALINHAMENTO_FURGAO.getValor())* Tarifas.PRECO_VISTORIA_FURGAO.getValor());
         this.custoVariavel = alinhamento + vistoria + this.custosExtra;
     }
-
-    @Override
-    public boolean abastecer(int tipoCombustivel) {
-        if (tipoCombustivel == 1) {
-            autonomiaAtual = TANQUE_COMPLETO * tiposCombustivel.get(1).consumo;
-            return true;
-        }
-        if (tipoCombustivel == 2) {
-            autonomiaAtual = TANQUE_COMPLETO * tiposCombustivel.get(2).consumo;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }

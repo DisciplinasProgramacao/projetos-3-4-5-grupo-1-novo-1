@@ -13,6 +13,7 @@ public class Carro extends Veiculo {
         this.tiposCombustivel.add(Combustivel.ALCOOL);
         this.autonomiaMaxima = getAutonomiaMaxima();
         this.autonomiaAtual = autonomiaMaxima;
+        this.tanque = new Tanque(TANQUE_COMPLETO);
     }
 
     @Override
@@ -26,19 +27,5 @@ public class Carro extends Veiculo {
     public void calculaCustoVariavel() {
         double alinhamento = ((int)(this.kilometragemTotal/Tarifas.DIST_ALINHAMENTO_CARRO.getValor())* Tarifas.PRECO_ALINHAMENTO_CARRO.getValor());
         this.custoVariavel = alinhamento + this.custosExtra;
-    }
-
-    @Override
-    public boolean abastecer(int tipoCombustivel) {
-        if (tipoCombustivel == 1) {
-            autonomiaAtual = TANQUE_COMPLETO * tiposCombustivel.get(1).consumo;
-            return true;
-        }
-        if (tipoCombustivel == 2) {
-            autonomiaAtual = TANQUE_COMPLETO * tiposCombustivel.get(2).consumo;
-            return true;
-        } else {
-            return false;
-        }
     }
 }

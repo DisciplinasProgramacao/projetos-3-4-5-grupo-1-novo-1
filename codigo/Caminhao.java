@@ -12,6 +12,7 @@ public class Caminhao extends Veiculo{
         this.tiposCombustivel.add(Combustivel.DIESEL);
         this.autonomiaMaxima = getAutonomiaMaxima();
         this.autonomiaAtual =  this.autonomiaMaxima;
+        this.tanque = new Tanque(TANQUE_COMPLETO);
     }
 
     @Override
@@ -26,19 +27,5 @@ public class Caminhao extends Veiculo{
         double manutencao = ((int)(this.kilometragemTotal/Tarifas.DIST_MANUTENCAO_CAMINHAO.getValor())* Tarifas.PRECO_MANUTENCAO_CAMINHAO.getValor());
         double vistoria = ((int)(this.kilometragemTotal/Tarifas.DIST_VISTORIA_CAMINHAO.getValor())* Tarifas.PRECO_VISTORIA_CAMINHAO.getValor());
         this.custoVariavel = manutencao + vistoria + this.custosExtra;
-    }
-
-    @Override
-    public boolean abastecer(int tipoCombustivel) {
-        if (tipoCombustivel == 1) {
-            autonomiaAtual = TANQUE_COMPLETO * tiposCombustivel.get(1).consumo;
-            return true;
-        }
-        if (tipoCombustivel == 2) {
-            autonomiaAtual = TANQUE_COMPLETO * tiposCombustivel.get(2).consumo;
-            return true;
-        } else {
-            return false;
-        }
     }
 }
