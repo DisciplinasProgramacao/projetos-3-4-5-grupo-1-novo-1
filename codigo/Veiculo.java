@@ -8,12 +8,12 @@ public abstract class Veiculo implements ICustos{
     protected double custoVariavel;
     protected double kilometragemTotal;
     protected double autonomiaAtual;
-    protected double tanquemaximo = 0;
+    protected Tanque tanque;
     protected double autonomiaMaxima;
     protected double custosExtra = 0;
     protected List<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
     protected List<Rota> rotas = new ArrayList<Rota>();
-
+    
     /**
      * Construtor da classe abstrata Veiculo, recebe a placa identificadora do carro e o seu valor de venda por parâmetro 
      * @param placa String contendo a placa do carro
@@ -44,19 +44,25 @@ public abstract class Veiculo implements ICustos{
         return this.custoFixo + this.custoVariavel;
     }
 
-    /**
-     * Método abstrato implementado nas classes filhas de veículo booleano para verificar se foi possível abastecer o tanque do veículo com o combustível informado. O tanque é abastecido
-     * até sua capacidade máxima
-     * @param tipoCombustivel Inteiro relacionado ao identificador do combustível, sendo 1 para gasolina, 2 para etanol e 3 para diesel
-     * @return Retorna TRUE caso tenha abastecido, retorna FALSE caso contrário
-     */
-    public abstract boolean abastecer(int tipoCombustivel);
+    public void abastecer(Combustivel combustivel) throws Exception {
+        if(!this.tiposCombustivel.contains(combustivel)){throw new Exception();}
+        else{
+            calculaCustoCombustivel(this.tanque.completarTanque(combustivel));
+        }
+    }
 
     /**
      * Método exibe todos os combustíveis suportados pelo veículo
      */
     public void exibirTiposCombustivel() {
         tiposCombustivel.forEach(combustivel -> {System.out.printf("\n" + combustivel.getDescricao());});
+    }
+
+    public abstract void calculaCustoFixo();
+    public abstract void calculaCustoVariavel();
+
+    public void calculaCustoCombustivel(double litros){
+        this.custoVariavel += (litros * this.tanque.getCombustivel().getPreco());
     }
 
     
@@ -77,7 +83,7 @@ public abstract class Veiculo implements ICustos{
                 + " Autonomia atual: " + getAutonomiaAtual() + " - "
                 + " Autonomia Máxima:");
         for (Combustivel combustivel : tiposCombustivel) {
-            veiculo.append(" " + combustivel.getDescricao() + "=" + this.tanquemaximo * combustivel.getConsumo());
+            veiculo.append(" " + combustivel.getDescricao() + "=" + combustivel.getConsumo() * this.tanque.getCapacidade());
         }
         return veiculo.toString();
     }
@@ -109,7 +115,11 @@ public abstract class Veiculo implements ICustos{
                 maiorAutonomia = consumo.getConsumo();
             }
         }
-        return maiorAutonomia * this.tanquemaximo;
+        return maiorAutonomia * this.tanque.getCapacidade();
+    }
+
+    public int quantRotas(){
+        return this.rotas.size();
     }
 
     @Override
@@ -131,5 +141,12 @@ public abstract class Veiculo implements ICustos{
         + " IPVA, Seguro + Taxa: " + String.format("%.2f", this.custoFixo) + "\n"
         + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
         return veiculo.toString();
+    }
+
+    public void addRota(Rota rota) {
+        this.autonomiaAtual -= rota.getDistancia();
+        this.kilometragemTotal += rota.getDistancia();
+        calculaCustoVariavel();
+        this.rotas.add(rota);
     }
 }
