@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Frota {
 
@@ -29,14 +30,36 @@ public class Frota {
      * @param rota Objeto da classe Rota
      * @return Retorna TRUE caso a rota tenha sido adicionada, retorna FALSE caso
      *         contrário
+     * @throws Exception
      */
 
-    public boolean addRota(Rota rota, Veiculo veiculoParaRota) {
-        rotas.add(rota);
-        veiculoParaRota.autonomiaAtual -= rota.getDistancia();
-        veiculoParaRota.kilometragemTotal += rota.getDistancia();
-        veiculoParaRota.calculaCustoVariavel();
-        return true;
+    public boolean addRota(Rota rota, Veiculo veiculoParaRota) throws Exception {
+        if (veiculoParaRota.getAutonomiaAtual() > rota.getDistancia()) {
+            rotas.add(rota);
+            veiculoParaRota.addRota(rota);
+            return true;
+        }
+        else if (veiculoParaRota.getAutonomiaMaxima() > rota.getDistancia()){
+            veiculoParaRota.abastecer(selecionarCombustivel(veiculoParaRota));
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private Combustivel selecionarCombustivel(Veiculo veiculoParaRota){
+
+        double rendimento = 0;
+        Combustivel combSelecionado = null;
+
+        for (Combustivel comb : veiculoParaRota.tiposCombustivel) {
+            if(comb.getConsumo() > rendimento){
+                rendimento = comb.getConsumo();
+                combSelecionado = comb;
+            }
+        }
+        return combSelecionado;
     }
 
     /**
@@ -100,24 +123,29 @@ public class Frota {
      * Método que imprime os 3 veiculos com mais rotas atribuidas.
      */
     public void veiculosComMaisRotas() {
+        Stream<Veiculo> top3 = veiculos.stream()
+                .sorted((v1,v2)->  (v1.quantRotas()>v2.quantRotas()?1:-1)  )
+                .limit(3);
 
-        Map<Veiculo, Long> agrupaVeiculos = new HashMap<>();
-        Map<Veiculo, Long> agrupaTop3Veiculos = new HashMap<>();
+        top3.forEach(Veiculo::toString);
 
-        veiculos.stream().forEach(v -> agrupaVeiculos.put(v, rotas.stream()
-                .filter(r -> r.getVeiculoRota().getPlaca().equals(v.getPlaca()))
-                .count()));
+        // Map<Veiculo, Long> agrupaVeiculos = new HashMap<>();
+        // Map<Veiculo, Long> agrupaTop3Veiculos = new HashMap<>();
 
-        agrupaTop3Veiculos = agrupaVeiculos.entrySet()
-                .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(3)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> v1, HashMap::new));
+        // veiculos.stream().forEach(v -> agrupaVeiculos.put(v, rotas.stream()
+        //         .filter(r -> r.getVeiculoRota().getPlaca().equals(v.getPlaca()))
+        //         .count()));
 
-        agrupaTop3Veiculos.forEach((key, value) -> System.out.println(key.escreveVeiculoFrota() + value));
+        // agrupaTop3Veiculos = agrupaVeiculos.entrySet()
+        //         .stream()
+        //         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
+        //         .entrySet()
+        //         .stream()
+        //         .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+        //         .limit(3)
+        //         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> v1, HashMap::new));
+
+        // agrupaTop3Veiculos.forEach((key, value) -> System.out.println(key.escreveVeiculoFrota() + value));
     }
 
     /**
