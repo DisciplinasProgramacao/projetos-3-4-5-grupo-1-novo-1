@@ -51,6 +51,7 @@ public abstract class Veiculo implements ICustos{
         if(!this.tiposCombustivel.contains(combustivel)){throw new Exception();}
         else{
             calculaCustoCombustivel(this.tanque.completarTanque(combustivel));
+            this.autonomiaAtual = combustivel.getConsumo() * this.tanque.getCapacidade();
         }
     }
 
@@ -145,7 +146,9 @@ public abstract class Veiculo implements ICustos{
         veiculo.append(") Placa: " + this.placa + " - "
         + " Valor de venda: " + String.format("%.2f", this.valorVenda) + "\n"
         + " IPVA, Seguro + Taxa: " + String.format("%.2f", this.custoFixo) + "\n"
-        + " Combustíveis compatíveis: " + exibirTiposCombustivel() + "\n");
+        + " Combustíveis compatíveis: " + exibirTiposCombustivel() + "\n"
+        + " Quantidade de rotas: " + quantRotas() + "\n"
+        );
         return veiculo.toString();
     }
 

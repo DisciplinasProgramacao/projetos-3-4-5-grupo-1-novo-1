@@ -9,13 +9,12 @@ public class VeiculoTest {
 
     @BeforeAll
     public static void Testinit() {
-        veiculo = new Carro("CAR-001", 180);
+        veiculo = new Carro("CAR-001", 100000d);
     }
     
 
     @Test
     public void TesteCustosFixos(){
-        veiculo.calculaCustoFixo();
         assertEquals(316.2, veiculo.custoFixo);
     }
 

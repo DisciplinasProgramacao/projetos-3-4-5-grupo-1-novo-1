@@ -93,9 +93,11 @@ public class app {
                         novaRota = new Rota(kmRota, dtProducao, veiculoParaRota);
                         if (frota.addRota(novaRota, veiculoParaRota) == 1) {
                             System.out.println("Rota adicionada com sucesso.");
+                            frota.addRota(novaRota, veiculoParaRota);
                         }
                         else if(frota.addRota(novaRota, veiculoParaRota) == 2){
                             System.out.println("Rota adicionada e veiculo abastecido com o combustível de maior autonomia.");
+                            frota.addRota(novaRota, veiculoParaRota);
                         }
                         else{System.out.println("O veiculo não suporta a distância da rota");}
                     }
