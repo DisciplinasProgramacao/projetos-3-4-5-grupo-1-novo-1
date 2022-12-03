@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,8 @@ public class Frota {
         }
         else if (veiculoParaRota.getAutonomiaAtual() < rota.getDistancia() && veiculoParaRota.getAutonomiaMaxima() > rota.getDistancia()){
             veiculoParaRota.abastecer(selecionarCombustivel(veiculoParaRota));
+            rotas.add(rota);
+            veiculoParaRota.addRota(rota);
             return 2;
         }
         else{return 3;}
@@ -120,29 +123,12 @@ public class Frota {
      * Método que imprime os 3 veiculos com mais rotas atribuidas.
      */
     public void veiculosComMaisRotas() {
-        Stream<Veiculo> top3 = veiculos.stream()
-                .sorted((v1,v2)->  (v1.quantRotas()>v2.quantRotas()?1:-1)  )
-                .limit(3);
-
-        top3.forEach(Veiculo::toString);
-
-        // Map<Veiculo, Long> agrupaVeiculos = new HashMap<>();
-        // Map<Veiculo, Long> agrupaTop3Veiculos = new HashMap<>();
-
-        // veiculos.stream().forEach(v -> agrupaVeiculos.put(v, rotas.stream()
-        //         .filter(r -> r.getVeiculoRota().getPlaca().equals(v.getPlaca()))
-        //         .count()));
-
-        // agrupaTop3Veiculos = agrupaVeiculos.entrySet()
-        //         .stream()
-        //         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
-        //         .entrySet()
-        //         .stream()
-        //         .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-        //         .limit(3)
-        //         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> v1, HashMap::new));
-
-        // agrupaTop3Veiculos.forEach((key, value) -> System.out.println(key.escreveVeiculoFrota() + value));
+        
+        List<Veiculo> top3Veiculos = veiculos.stream()
+            .sorted(Comparator.comparingInt(Veiculo::quantRotas).reversed())
+            .limit(3)
+            .collect(Collectors.toList());
+        top3Veiculos.forEach(System.out::println);
     }
 
     /**
@@ -290,14 +276,16 @@ public class Frota {
         Scanner entrada;
         String linhaLida;
         String[] rotaLida;
+        Veiculo vec;
 
         try {
             entrada = new Scanner(new FileReader(localArquivo));
             while (entrada.hasNextLine()) {
                 linhaLida = entrada.nextLine();
                 rotaLida = linhaLida.split(";");
-                Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),
-                        retornaVeiculoPelaPlaca(rotaLida[2]));
+                Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),retornaVeiculoPelaPlaca(rotaLida[2]));
+                vec = retornaVeiculoPelaPlaca(rotaLida[2]);
+                vec.addRota(novaRota);
                 rotas.add(novaRota);
             }
             entrada.close();
