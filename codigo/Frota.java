@@ -5,14 +5,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Frota {
 
@@ -99,7 +96,6 @@ public class Frota {
                 .filter(veiculos -> veiculos.getAutonomiaMaxima() >= distancia)
                 .collect(Collectors.toList());
         ListaVeiculosRota.forEach(s -> System.out.println(s.autonomiaVeiculo()));
-
         if (ListaVeiculosRota.size() > 0) {
             return ListaVeiculosRota.size();
         } else {
