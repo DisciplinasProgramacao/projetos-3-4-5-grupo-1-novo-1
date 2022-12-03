@@ -31,12 +31,12 @@ public class Frota {
      */
 
     public int addRota(Rota rota, Veiculo veiculoParaRota) throws Exception {
-        if (veiculoParaRota.getAutonomiaAtual() > rota.getDistancia()) {
+        if (veiculoParaRota.getAutonomiaAtual() >= rota.getDistancia()) {
             rotas.add(rota);
             veiculoParaRota.addRota(rota);
             return 1;
         }
-        else if (veiculoParaRota.getAutonomiaAtual() < rota.getDistancia() && veiculoParaRota.getAutonomiaMaxima() > rota.getDistancia()){
+        else if (veiculoParaRota.getAutonomiaAtual() < rota.getDistancia() && veiculoParaRota.getAutonomiaMaxima() >= rota.getDistancia()){
             veiculoParaRota.abastecer(selecionarCombustivel(veiculoParaRota));
             rotas.add(rota);
             veiculoParaRota.addRota(rota);
