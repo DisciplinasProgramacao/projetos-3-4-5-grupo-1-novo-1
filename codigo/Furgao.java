@@ -10,9 +10,10 @@ public class Furgao extends Veiculo {
     public Furgao(String placa, double valorVenda) {
         super(placa, valorVenda);
         this.tiposCombustivel.add(Combustivel.GASOLINA);
+        this.tanque = new Tanque(TANQUE_COMPLETO);
+        this.tanque.completarTanque(Combustivel.GASOLINA);
         this.autonomiaMaxima = getAutonomiaMaxima();
         this.autonomiaAtual = this.autonomiaMaxima;
-        this.tanque = new Tanque(TANQUE_COMPLETO);
     }
 
     @Override

@@ -11,9 +11,10 @@ public class Carro extends Veiculo {
         super(placa, valorVenda);
         this.tiposCombustivel.add(Combustivel.GASOLINA);
         this.tiposCombustivel.add(Combustivel.ALCOOL);
+        this.tanque = new Tanque(TANQUE_COMPLETO);
+        this.tanque.completarTanque(Combustivel.GASOLINA);
         this.autonomiaMaxima = getAutonomiaMaxima();
         this.autonomiaAtual = autonomiaMaxima;
-        this.tanque = new Tanque(TANQUE_COMPLETO);
     }
 
     @Override

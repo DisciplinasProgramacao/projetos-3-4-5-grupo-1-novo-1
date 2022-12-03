@@ -20,7 +20,7 @@ public class VeiculoTest {
     }
 
     @Test
-    public void TesteCustosVariavel(){
+    public void TesteCustosVariavel() throws Exception{
         Frota frota = new Frota();
         Data dt = new Data(10, 10, 2020);
         Rota rota = new Rota(300, dt, veiculo);

@@ -5,8 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,8 +15,8 @@ import java.util.stream.Stream;
 
 public class Frota {
 
-    protected Set<Veiculo> veiculos = new HashSet<Veiculo>();
-    protected Set<Rota> rotas = new HashSet<Rota>();
+    protected Set<Veiculo> veiculos = new LinkedHashSet<Veiculo>();
+    protected Set<Rota> rotas = new LinkedHashSet<Rota>();
 
     public Frota() {
     };
@@ -33,19 +32,17 @@ public class Frota {
      * @throws Exception
      */
 
-    public boolean addRota(Rota rota, Veiculo veiculoParaRota) throws Exception {
+    public int addRota(Rota rota, Veiculo veiculoParaRota) throws Exception {
         if (veiculoParaRota.getAutonomiaAtual() > rota.getDistancia()) {
             rotas.add(rota);
             veiculoParaRota.addRota(rota);
-            return true;
+            return 1;
         }
-        else if (veiculoParaRota.getAutonomiaMaxima() > rota.getDistancia()){
+        else if (veiculoParaRota.getAutonomiaAtual() < rota.getDistancia() && veiculoParaRota.getAutonomiaMaxima() > rota.getDistancia()){
             veiculoParaRota.abastecer(selecionarCombustivel(veiculoParaRota));
-            return true;
+            return 2;
         }
-        else{
-            return false;
-        }
+        else{return 3;}
     }
 
     private Combustivel selecionarCombustivel(Veiculo veiculoParaRota){
@@ -266,9 +263,7 @@ public class Frota {
 
         File arquivo = new File(nomeArquivo);
         try {
-            if (!arquivo.exists()) {
-                arquivo.createNewFile();
-            }
+            if (!arquivo.exists()) {arquivo.createNewFile();}
 
             FileWriter arqEscrita = new FileWriter(arquivo, false);
             BufferedWriter escritor = new BufferedWriter(arqEscrita);
@@ -327,7 +322,7 @@ public class Frota {
             while (entrada.hasNextLine()) {
 
                 linhaLida = entrada.nextLine();
-                System.out.println(linhaLida);
+                System.out.println("Rota: " + linhaLida);
                 rotaLida = linhaLida.split(";");
                 Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),
                         retornaVeiculoPelaPlaca(rotaLida[2]));
@@ -349,9 +344,8 @@ public class Frota {
 
         File arquivo = new File(nomeArquivo);
         try {
-            if (!arquivo.exists()) {
-                arquivo.createNewFile();
-            }
+            if (!arquivo.exists()) {arquivo.createNewFile();}
+
             FileWriter arqEscrita = new FileWriter(arquivo, false);
             BufferedWriter escritor = new BufferedWriter(arqEscrita);
 

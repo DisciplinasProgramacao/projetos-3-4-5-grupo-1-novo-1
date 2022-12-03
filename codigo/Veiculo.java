@@ -6,13 +6,15 @@ public abstract class Veiculo implements ICustos{
     protected double valorVenda;
     protected double custoFixo;
     protected double custoVariavel;
+    protected double custoCombustivel;
+    protected double custosExtra;
     protected double kilometragemTotal;
     protected double autonomiaAtual;
-    protected Tanque tanque;
     protected double autonomiaMaxima;
-    protected double custosExtra = 0;
+    protected Tanque tanque;
     protected List<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
     protected List<Rota> rotas = new ArrayList<Rota>();
+    
     
     /**
      * Construtor da classe abstrata Veiculo, recebe a placa identificadora do carro e o seu valor de venda por parâmetro 
@@ -23,6 +25,7 @@ public abstract class Veiculo implements ICustos{
         this.placa = placa;
         this.valorVenda = valorVenda;
         this.kilometragemTotal = 0;
+        this.custosExtra = 0;
         calculaCustoFixo();
     }
 
@@ -54,15 +57,17 @@ public abstract class Veiculo implements ICustos{
     /**
      * Método exibe todos os combustíveis suportados pelo veículo
      */
-    public void exibirTiposCombustivel() {
-        tiposCombustivel.forEach(combustivel -> {System.out.printf("\n" + combustivel.getDescricao());});
+    public String exibirTiposCombustivel() {
+        StringBuilder combustivel = new StringBuilder("|");
+        this.tiposCombustivel.forEach(comb -> {combustivel.append(comb.getDescricao()+ "|");});
+        return combustivel.toString();
     }
 
     public abstract void calculaCustoFixo();
     public abstract void calculaCustoVariavel();
 
     public void calculaCustoCombustivel(double litros){
-        this.custoVariavel += (litros * this.tanque.getCombustivel().getPreco());
+        this.custoCombustivel += (litros * this.tanque.getCombustivel().getPreco());
     }
 
     
@@ -73,6 +78,7 @@ public abstract class Veiculo implements ICustos{
         + "\n  Quilometros rodados: " + String.format("%.2f", this.kilometragemTotal)
         + "\n  Gastos Fixos: " + String.format("%.2f", this.custoFixo)
         + "\n  Gastos Variáveis: " + String.format("%.2f", this.custoVariavel)
+        + "\n  Gastos Combustíveis: " + String.format("%.2f", this.custoCombustivel)
         + "\n  Custo Total: " + String.format("%.2f", retornaCustoTotal()));
         return veiculo.toString();
     }
@@ -139,13 +145,14 @@ public abstract class Veiculo implements ICustos{
         veiculo.append(") Placa: " + this.placa + " - "
         + " Valor de venda: " + String.format("%.2f", this.valorVenda) + "\n"
         + " IPVA, Seguro + Taxa: " + String.format("%.2f", this.custoFixo) + "\n"
-        + " Combustíveis compatíveis: Gasolina e Etanol" + "\n");
+        + " Combustíveis compatíveis: " + exibirTiposCombustivel() + "\n");
         return veiculo.toString();
     }
 
     public void addRota(Rota rota) {
         this.autonomiaAtual -= rota.getDistancia();
         this.kilometragemTotal += rota.getDistancia();
+        this.tanque.reduzirTanque(rota.getDistancia());
         calculaCustoVariavel();
         this.rotas.add(rota);
     }

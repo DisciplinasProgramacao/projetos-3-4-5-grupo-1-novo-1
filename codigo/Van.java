@@ -11,14 +11,15 @@ public class Van extends Veiculo{
         super(placa, valorVenda);
         this.tiposCombustivel.add(Combustivel.GASOLINA);
         this.tiposCombustivel.add(Combustivel.DIESEL);
+        this.tanque = new Tanque(TANQUE_COMPLETO);
+        this.tanque.completarTanque(Combustivel.GASOLINA);
         this.autonomiaMaxima = getAutonomiaMaxima();
         this.autonomiaAtual =  this.autonomiaMaxima;
-        this.tanque = new Tanque(TANQUE_COMPLETO);
     }
 
     @Override
     public void calculaCustoFixo() {
-        double ipva = this.valorVenda * Tarifas.IPVA_VAN.getValor();
+        double ipva = (this.valorVenda * Tarifas.IPVA_VAN.getValor());
         double seguro = (this.valorVenda * Tarifas.SEGURO_VAN.getValor());
         this.custoFixo = ipva + seguro;
     }

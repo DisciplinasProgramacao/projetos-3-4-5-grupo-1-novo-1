@@ -44,18 +44,13 @@ public class app {
 
                 case "3":
                     System.out.println("Incluir um novo veículo:\n");
-                    System.out.println("\nEntre com os dados do veiculo para incluir:");
-                    System.out.print("\nPlaca:");
+                    System.out.println("\nEntre com os dados do veiculo para incluir:\nPlaca:");
                     String placa = obj.nextLine().toUpperCase();
                     System.out.print("\nValor de venda:");
                     double valorVenda = obj.nextDouble();
-                    obj.nextLine(); // Limpar buffer Scanner?
+                    obj.nextLine();
                     System.out.println("\nEntre com o tipo de Veículo:");
-                    System.out.println("1 - Carro");
-                    System.out.println("2 - Van");
-                    System.out.println("3 - Furgão");
-                    System.out.println("4 - Caminhão");
-                    System.out.print("Tipo de Veículo:");
+                    System.out.println("1 - Carro\n2 - Van\n3 - Furgão\n4 - Caminhão\n\nTipo de Veículo:");
                     char tipo = obj.nextLine().charAt(0);
 
                     switch (tipo) {
@@ -95,26 +90,15 @@ public class app {
                     if (frota.imprimeVeiculosparaRota(kmRota) > 0) {
                         System.out.println("\nEntre com a placa do veículo para a rota:\n Procurar pela placa: ");
                         veiculoParaRota = frota.retornaVeiculoPelaPlaca(obj.nextLine().toUpperCase());
-                        if (veiculoParaRota.getAutonomiaAtual() < kmRota) {
-                            System.out.println("O veículo placa: " + veiculoParaRota.placa
-                                    + " não tem combustivel suficiente para a rota.\n");
-                            System.out.println("Tipos de combustivel para veículo placa: " + veiculoParaRota.placa);
-                            veiculoParaRota.exibirTiposCombustivel();
-                            if (veiculoParaRota.abastecer(obj.nextInt() - 1) == true) {
-                                clearBuffer(obj);
-                                System.out.println("abastecido");
-                                veiculoParaRota.getAutonomiaAtual();
-                            }
-
-                        }
                         novaRota = new Rota(kmRota, dtProducao, veiculoParaRota);
-                        frota.addRota(novaRota, veiculoParaRota);
-                    } else {
-                        System.out.println("Não tem um veículo com autonomia para a rota.\n");
-                        frota.imprimeVeiculosparaRota(0);
-                        System.out.println("Não tem um veículo com autonomia para a rota.\n");
+                        if (frota.addRota(novaRota, veiculoParaRota) == 1) {
+                            System.out.println("Rota adicionada com sucesso.");
+                        }
+                        else if(frota.addRota(novaRota, veiculoParaRota) == 2){
+                            System.out.println("Rota adicionada e veiculo abastecido com o combustível de maior autonomia.");
+                        }
+                        else{System.out.println("O veiculo não suporta a distância da rota");}
                     }
-
                     opcao = menu(opcao);
                     break;
 
@@ -216,7 +200,6 @@ public class app {
 
         System.out.println("\nEntre com o número correspondente à função ou 'f' para finalizar:\n");
         opc = obj.nextLine().toUpperCase();
-
         return opc;
     }
 }

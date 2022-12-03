@@ -10,14 +10,16 @@ public class Caminhao extends Veiculo{
     public Caminhao(String placa, double valorVenda) {
         super(placa, valorVenda);
         this.tiposCombustivel.add(Combustivel.DIESEL);
+        this.tanque = new Tanque(TANQUE_COMPLETO);
+        this.tanque.completarTanque(Combustivel.DIESEL);
         this.autonomiaMaxima = getAutonomiaMaxima();
         this.autonomiaAtual =  this.autonomiaMaxima;
-        this.tanque = new Tanque(TANQUE_COMPLETO);
+        
     }
 
     @Override
     public void calculaCustoFixo() {
-        double ipva = this.valorVenda * Tarifas.IPVA_CAMINHAO.getValor();
+        double ipva = (this.valorVenda * Tarifas.IPVA_CAMINHAO.getValor());
         double seguro = (this.valorVenda * Tarifas.SEGURO_CAMINHAO.getValor()) + Tarifas.TAXA_CAMINHAO.getValor();
         this.custoFixo = ipva + seguro;
     }
