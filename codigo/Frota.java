@@ -96,11 +96,6 @@ public class Frota {
                 .filter(veiculos -> veiculos.getAutonomiaMaxima() >= distancia)
                 .collect(Collectors.toList());
         ListaVeiculosRota.forEach(s -> System.out.println(s.autonomiaVeiculo()));
-        if (ListaVeiculosRota.size() > 0) {
-            return ListaVeiculosRota.size();
-        } else {
-            System.out.println("não tem carro");
-        }
         return ListaVeiculosRota.size();
     }
 
