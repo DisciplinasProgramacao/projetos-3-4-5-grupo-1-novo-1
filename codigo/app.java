@@ -74,6 +74,7 @@ public class app {
                             System.out.println("opção invalida!");
                             break;
                     }
+                    frota.salvaVeiculosFrota(arquivoVeiculo);
                     opcao = menu(opcao);
                     break;
 
@@ -101,6 +102,7 @@ public class app {
                         }
                         else{System.out.println("O veiculo não suporta a distância da rota");}
                     }
+                    frota.salvaRotasFrota(arquivoRota);
                     opcao = menu(opcao);
                     break;
 
