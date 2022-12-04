@@ -25,25 +25,16 @@ public class app {
         while (opcao != "F") {
             switch (opcao) {
                 case "1":
-                    System.out.println("CARREGAR UM CONJUNTO DE VEÍCULOS E ROTAS:");
                     System.out.println("Carregando lista de veiculos em: " + arquivoVeiculo);
                     System.out.println("Carregando lista de veiculos em: " + arquivoRota);
+                    System.out.println("\nVEICULOS:\n");
                     frota.exibirVeiculosArquivo(arquivoVeiculo);
+                    System.out.println("\nROTAS:\n");
                     frota.exibirRotasArquivo(arquivoRota);
                     opcao = menu(opcao);
                     break;
 
                 case "2":
-                    System.out.println("Salvar um conjunto de veículos em um arquivo:\n");
-                    System.out.println("conjunto de veículos:" + arquivoVeiculo);
-                    System.out.println("conjunto de rotas:" + arquivoRota);
-                    frota.salvaVeiculosFrota(arquivoVeiculo);
-                    frota.salvaRotasFrota(arquivoRota);
-                    opcao = menu(opcao);
-                    break;
-
-                case "3":
-                    System.out.println("Incluir um novo veículo:\n");
                     System.out.println("\nEntre com os dados do veiculo para incluir:\nPlaca:");
                     String placa = obj.nextLine().toUpperCase();
                     System.out.print("\nValor de venda:");
@@ -78,8 +69,7 @@ public class app {
                     opcao = menu(opcao);
                     break;
 
-                case "4":
-                    System.out.println("INCLUIR ROTAS PARA UM VEÍCULO:");
+                case "3":
                     System.out.println("Entre com os dados da rota para incluir:");
                     System.out.println("\nEntre com data para a rota formato DD/MM/AAAA: ");
                     dtProducao = Data.verificaData(obj.nextLine());
@@ -106,8 +96,7 @@ public class app {
                     opcao = menu(opcao);
                     break;
 
-                    case "5":
-                    System.out.println("Incluir custos extra");
+                case "4":
                     System.out.println("\nEntre com a placa do Veículo para adicionar o custo extra:");
                     placaVeiculo = obj.nextLine().toUpperCase();
                     veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
@@ -118,8 +107,7 @@ public class app {
                     opcao = menu(opcao);
                     break;
 
-                case "6":
-                    System.out.println("Localizar um veículo da frota.");
+                case "5":
                     System.out.println("\nEntre com a placa do Veículo para localizar:");
                     placaVeiculo = obj.nextLine().toUpperCase();
                     veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
@@ -127,8 +115,7 @@ public class app {
                     opcao = menu(opcao);
                     break;
 
-                case "7":
-                    System.out.println("Imprimir um relatório do veículo com seus gastos até o momento.\n");
+                case "6":
                     System.out.println("\nEntre com a placa do Veículo para imprimir gastos:");
                     placaVeiculo = obj.nextLine().toUpperCase();
                     if (frota.retornaVeiculoPelaPlaca(placaVeiculo) != null) {
@@ -138,25 +125,22 @@ public class app {
                     opcao = menu(opcao);
                     break;
 
-                case "8":
-                    System.out.println("Quilometragem média de todas as rotas da empresa.");
+                case "7":
                     System.out.println(frota.quilometragemMediaRotas());
-
                     opcao = menu(opcao);
                     break;
-                case "9":
-                    System.out.println("Veículos que mais fizeram rotas.");
 
+                case "8":
                     frota.veiculosComMaisRotas();
                     opcao = menu(opcao);
                     break;
-                case "10":
-                    System.out.println("veículos por custos gerados decrescente.");
+
+                case "9":
                     frota.custoVeiculoDescres();
                     opcao = menu(opcao);
                     break;
-                case "11":
-                    System.out.println("Filtro para busca de rotas entre datas.");
+
+                case "10":
                     Data dtInicial = new Data();
                     Data dtFinal = new Data();
                     System.out.println("Entre com data inicial no formato DD/MM/AAAA: ");
@@ -164,9 +148,9 @@ public class app {
                     System.out.println("Entre com data final no formato DD/MM/AAAA: ");
                     dtFinal = Data.verificaData(obj.nextLine());
                     frota.rotasEntreDatas(dtInicial, dtFinal);
-
                     opcao = menu(opcao);
                     break;
+                    
                 case "F":
                     System.out.println("Finalizando...");
                     opcao = "F";
@@ -188,20 +172,17 @@ public class app {
     }
 
     public static String menu(String opc) {
-
         System.out.println("\n  FUNÇÕES DA FROTA:  \n");
-        System.out.println("1 -  Carregar um conjunto de veículos e rotas de um arquivo.");
-        System.out.println("2 -  Salvar um conjunto de veículos e rotas em um arquivo.");
-        System.out.println("3 -  Incluir um novo veículo.");
-        System.out.println("4 -  Incluir rotas para um veículo.");
-        System.out.println("5 -  Incluir custos extra.");
-        System.out.println("6 -  Localizar um veículo da frota.");
-        System.out.println("7 -  Veículo com seus gastos até o momento.");
-        System.out.println("8 -  Quilometragem média de todas as rotas da empresa.");
-        System.out.println("9 -  Veículos que mais fizeram rotas.");
-        System.out.println("10 - Veículos por custos gerados decrescente.");
-        System.out.println("11 - Filtro para busca de rotas entre datas.");
-
+        System.out.println("1 -  Lista de veiculos e rotas dos arquivos.");
+        System.out.println("2 -  Incluir um novo veículo.");
+        System.out.println("3 -  Incluir rotas para um veículo.");
+        System.out.println("4 -  Incluir custos extra.");
+        System.out.println("5 -  Localizar um veículo da frota.");
+        System.out.println("6 -  Veículo com seus gastos até o momento.");
+        System.out.println("7 -  Quilometragem média de todas as rotas da empresa.");
+        System.out.println("8 -  Veículos que mais fizeram rotas.");
+        System.out.println("9 - Veículos por custos gerados decrescente.");
+        System.out.println("10 - Filtro para busca de rotas entre datas.");
         System.out.println("\nEntre com o número correspondente à função ou 'f' para finalizar:\n");
         opc = obj.nextLine().toUpperCase();
         return opc;
