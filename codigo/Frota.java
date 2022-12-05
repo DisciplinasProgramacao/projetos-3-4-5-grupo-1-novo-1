@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class Frota {
 
     protected Set<Veiculo> veiculos = new LinkedHashSet<Veiculo>();
-    protected Set<Rota> rotas = new LinkedHashSet<Rota>();
+    protected List<Rota> rotas = veiculos.stream().flatMap(r-> r.getRotas().stream()).collect(Collectors.toList());
 
     public Frota() {
     };
@@ -32,13 +32,11 @@ public class Frota {
 
     public int addRota(Rota rota, Veiculo veiculoParaRota) throws Exception {
         if (veiculoParaRota.getAutonomiaAtual() >= rota.getDistancia()) {
-            rotas.add(rota);
             veiculoParaRota.addRota(rota);
             return 1;
         }
         else if (veiculoParaRota.getAutonomiaAtual() < rota.getDistancia() && veiculoParaRota.getAutonomiaMaxima() >= rota.getDistancia()){
             veiculoParaRota.abastecer(selecionarCombustivel(veiculoParaRota));
-            rotas.add(rota);
             veiculoParaRota.addRota(rota);
             return 2;
         }
@@ -46,10 +44,8 @@ public class Frota {
     }
 
     private Combustivel selecionarCombustivel(Veiculo veiculoParaRota){
-
         double rendimento = 0;
         Combustivel combSelecionado = null;
-
         for (Combustivel comb : veiculoParaRota.tiposCombustivel) {
             if(comb.getConsumo() > rendimento){
                 rendimento = comb.getConsumo();
@@ -103,7 +99,8 @@ public class Frota {
      * Retorna doubel do valor da quilometragem média de todas as rotas da Frota.
      */
     public Double quilometragemMediaRotas() {
-        double media = rotas.stream()
+        List<Rota> rotass = veiculos.stream().flatMap(r-> r.getRotas().stream()).collect(Collectors.toList());
+        double media = rotass.stream()
                 .mapToDouble(rota -> rota.getDistancia())
                 .average()
                 .getAsDouble();
@@ -114,7 +111,6 @@ public class Frota {
      * Método que imprime os 3 veiculos com mais rotas atribuidas.
      */
     public void veiculosComMaisRotas() {
-        
         List<Veiculo> top3Veiculos = veiculos.stream()
             .sorted(Comparator.comparingInt(Veiculo::quantRotas).reversed())
             .limit(3)
@@ -140,11 +136,12 @@ public class Frota {
      * @param fim     data do final do periodo a ser avaliado.
      */
     public void rotasEntreDatas(Data inicial, Data fim) {
+        List<Rota> rotass = veiculos.stream().flatMap(r-> r.getRotas().stream()).collect(Collectors.toList());
         if (inicial.getDiaAno() < fim.getDiaAno()) {
-            List<Rota> ListaVeiculosRota = rotas.stream()
-                    .filter(rotas -> rotas.verificaDataPeriodo(inicial, fim))
+            rotass = rotass.stream()
+                    .filter(r -> r.verificaDataPeriodo(inicial, fim))
                     .collect(Collectors.toList());
-            ListaVeiculosRota.forEach(r -> r.imprimeRota());
+                    rotass.forEach(r -> r.imprimeRota());
         }
     }
 
@@ -155,7 +152,6 @@ public class Frota {
      * @param localArquivo local do arquivo contém dados dos veiculos.
      */
     public void carregarVeiculosArquivo(String localArquivo) {
-
         Scanner entrada;
         Veiculo novoVeiculo = null;
         String linhaLida;
@@ -164,9 +160,7 @@ public class Frota {
         try {
             entrada = new Scanner(new FileReader(localArquivo));
             while (entrada.hasNextLine()) {
-
                 linhaLida = entrada.nextLine();
-
                 veiculoLido = linhaLida.split(";");
                 switch (veiculoLido[0]) {
                     case ("Carro"):
@@ -196,7 +190,6 @@ public class Frota {
      * @param localArquivo
      */
     public void exibirVeiculosArquivo(String localArquivo) {
-
         Scanner entrada;
         Veiculo novoVeiculo = null;
         String linhaLida;
@@ -204,7 +197,6 @@ public class Frota {
         try {
             entrada = new Scanner(new FileReader(localArquivo));
             while (entrada.hasNextLine()) {
-
                 linhaLida = entrada.nextLine();
                 System.out.println(linhaLida);
                 veiculoLido = linhaLida.split(";");
@@ -237,14 +229,11 @@ public class Frota {
      * @param nomeArquivo local para salvar arquivo.
      */
     public void salvaVeiculosFrota(String nomeArquivo) {
-
         File arquivo = new File(nomeArquivo);
         try {
             if (!arquivo.exists()) {arquivo.createNewFile();}
-
             FileWriter arqEscrita = new FileWriter(arquivo, false);
             BufferedWriter escritor = new BufferedWriter(arqEscrita);
-
             for (Veiculo veiculo : veiculos) {
                 escritor.write(veiculo.escreveVeiculoArquivo());
                 escritor.newLine();
@@ -263,12 +252,10 @@ public class Frota {
      *                     veiculos.
      */
     public void carregarRotasArquivo(String localArquivo) {
-
         Scanner entrada;
         String linhaLida;
         String[] rotaLida;
         Veiculo vec;
-
         try {
             entrada = new Scanner(new FileReader(localArquivo));
             while (entrada.hasNextLine()) {
@@ -277,7 +264,6 @@ public class Frota {
                 Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),retornaVeiculoPelaPlaca(rotaLida[2]));
                 vec = retornaVeiculoPelaPlaca(rotaLida[2]);
                 vec.addRota(novaRota);
-                rotas.add(novaRota);
             }
             entrada.close();
         } catch (FileNotFoundException e) {
@@ -291,21 +277,20 @@ public class Frota {
      * @param localArquivo local do arquivo a ser exibido.
      */
     public void exibirRotasArquivo(String localArquivo) {
-
         Scanner entrada;
         String linhaLida;
         String[] rotaLida;
-
+        Veiculo vec;
         try {
             entrada = new Scanner(new FileReader(localArquivo));
             while (entrada.hasNextLine()) {
-
                 linhaLida = entrada.nextLine();
                 System.out.println("Rota: " + linhaLida);
                 rotaLida = linhaLida.split(";");
                 Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),
                         retornaVeiculoPelaPlaca(rotaLida[2]));
-                rotas.add(novaRota);
+                vec = retornaVeiculoPelaPlaca(rotaLida[2]);
+                vec.addRota(novaRota);
             }
             entrada.close();
         } catch (FileNotFoundException e) {
@@ -320,19 +305,16 @@ public class Frota {
      * @param nomeArquivo string representa local do arquivo salvo.
      */
     public void salvaRotasFrota(String nomeArquivo) {
-
+        List<Rota> rotass = veiculos.stream().flatMap(r-> r.getRotas().stream()).collect(Collectors.toList());
         File arquivo = new File(nomeArquivo);
         try {
             if (!arquivo.exists()) {arquivo.createNewFile();}
-
             FileWriter arqEscrita = new FileWriter(arquivo, false);
             BufferedWriter escritor = new BufferedWriter(arqEscrita);
-
-            for (Rota rota : rotas) {
+            for (Rota rota : rotass ) {
                 escritor.write(rota.escreveRotaArquivo());
                 escritor.newLine();
             }
-
             escritor.close();
             arqEscrita.close();
         } catch (IOException ex) {
