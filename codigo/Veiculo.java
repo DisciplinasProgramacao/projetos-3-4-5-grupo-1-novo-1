@@ -125,6 +125,10 @@ public abstract class Veiculo implements ICustos{
         return maiorAutonomia * this.tanque.getCapacidade();
     }
 
+    public List<Rota> getRotas() {
+        return rotas;
+    }
+
     public int quantRotas(){
         return this.rotas.size();
     }
