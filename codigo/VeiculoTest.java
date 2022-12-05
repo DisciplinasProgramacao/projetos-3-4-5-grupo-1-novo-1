@@ -1,5 +1,4 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,6 @@ public class VeiculoTest {
         veiculo = new Carro("CAR-001", 100000d);
     }
     
-
     @Test
     public void TesteCustosFixos(){
         assertEquals(316.2, veiculo.custoFixo);
