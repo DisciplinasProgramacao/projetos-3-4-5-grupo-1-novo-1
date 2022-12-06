@@ -189,8 +189,9 @@ public class Frota {
      * 
      * @param localArquivo
      */
-    public void exibirVeiculosArquivo(String localArquivo) {
+    public String exibirVeiculosArquivo(String localArquivo) {
         Scanner entrada;
+        StringBuilder veiculosArquivos = new StringBuilder("\n");
         Veiculo novoVeiculo = null;
         String linhaLida;
         String[] veiculoLido;
@@ -198,7 +199,8 @@ public class Frota {
             entrada = new Scanner(new FileReader(localArquivo));
             while (entrada.hasNextLine()) {
                 linhaLida = entrada.nextLine();
-                System.out.println(linhaLida);
+                veiculosArquivos.append("\n" +linhaLida);
+                //System.out.println(linhaLida);
                 veiculoLido = linhaLida.split(";");
                 switch (veiculoLido[0]) {
                     case ("Carro"):
@@ -220,6 +222,7 @@ public class Frota {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return veiculosArquivos.toString();
     }
 
     /**
@@ -276,7 +279,8 @@ public class Frota {
      * 
      * @param localArquivo local do arquivo a ser exibido.
      */
-    public void exibirRotasArquivo(String localArquivo) {
+    public String exibirRotasArquivo(String localArquivo) {
+        StringBuilder rotasArquivos = new StringBuilder("\n");
         Scanner entrada;
         String linhaLida;
         String[] rotaLida;
@@ -285,7 +289,8 @@ public class Frota {
             entrada = new Scanner(new FileReader(localArquivo));
             while (entrada.hasNextLine()) {
                 linhaLida = entrada.nextLine();
-                System.out.println("Rota: " + linhaLida);
+                rotasArquivos.append("\nRota: " + linhaLida);
+                //System.out.println("Rota: " + linhaLida);
                 rotaLida = linhaLida.split(";");
                 Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),
                         retornaVeiculoPelaPlaca(rotaLida[2]));
@@ -296,6 +301,7 @@ public class Frota {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return rotasArquivos.toString();
     }
 
     /**
