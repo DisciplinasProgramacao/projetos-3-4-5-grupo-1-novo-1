@@ -208,9 +208,9 @@ public class app {
     static String listarDadosArquivos(){
         StringBuilder dadosArquivos = new StringBuilder("\nCarregando lista de veiculos em: " + arquivoVeiculo);
         dadosArquivos.append("Carregando lista de rotas em: " + arquivoRota
-                            + "\nVEICULOS:"
+                            + "\n\nVEICULOS:"
                             + frota.exibirVeiculosArquivo(arquivoVeiculo)
-                            + "\nROTAS:"
+                            + "\n\nROTAS:"
                             + frota.exibirRotasArquivo(arquivoRota));
         return dadosArquivos.toString();
     }    

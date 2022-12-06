@@ -200,7 +200,6 @@ public class Frota {
             while (entrada.hasNextLine()) {
                 linhaLida = entrada.nextLine();
                 veiculosArquivos.append("\n" +linhaLida);
-                //System.out.println(linhaLida);
                 veiculoLido = linhaLida.split(";");
                 switch (veiculoLido[0]) {
                     case ("Carro"):
@@ -290,7 +289,6 @@ public class Frota {
             while (entrada.hasNextLine()) {
                 linhaLida = entrada.nextLine();
                 rotasArquivos.append("\nRota: " + linhaLida);
-                //System.out.println("Rota: " + linhaLida);
                 rotaLida = linhaLida.split(";");
                 Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),
                         retornaVeiculoPelaPlaca(rotaLida[2]));
