@@ -1,6 +1,9 @@
 
 public class Carro extends Veiculo {
     private final int TANQUE_COMPLETO = 50;
+    private final double DIST_ALINHAMENTO_CARRO = 10000d;
+    private final double PRECO_ALINHAMENTO_CARRO = 80d;
+    private final double TAXA_CARRO = 300d;
 
     /**
      * Método construtor da classe Carro.
@@ -19,14 +22,14 @@ public class Carro extends Veiculo {
 
     @Override
     public void calculaCustoFixo() {
-        double ipva = this.valorVenda * Tarifas.IPVA_CARRO.getValor();
-        double seguro = (this.valorVenda * Tarifas.SEGURO_CARRO.getValor()) + Tarifas.TAXA_CARRO.getValor();
+        double ipva = this.valorVenda * Tarifas.CARRO.getIpva();
+        double seguro = (this.valorVenda * Tarifas.CARRO.getSeguro()) + TAXA_CARRO;
         this.custoFixo = ipva + seguro;
     }
 
     @Override
     public void calculaCustoVariavel() {
-        double alinhamento = ((int)(this.kilometragemTotal/Tarifas.DIST_ALINHAMENTO_CARRO.getValor())* Tarifas.PRECO_ALINHAMENTO_CARRO.getValor());
+        double alinhamento = ((int)(this.kilometragemTotal/DIST_ALINHAMENTO_CARRO) * PRECO_ALINHAMENTO_CARRO);
         this.custoVariavel = alinhamento + this.custosExtra;
     }
 }

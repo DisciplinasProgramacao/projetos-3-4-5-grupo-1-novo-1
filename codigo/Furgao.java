@@ -1,6 +1,10 @@
 
 public class Furgao extends Veiculo {
     private final int TANQUE_COMPLETO = 80;
+    private final double DIST_ALINHAMENTO_FURGAO = 10000d;
+    private final double PRECO_ALINHAMENTO_FURGAO = 120d;
+    private final double DIST_VISTORIA_FURGAO = 10000d;
+    private final double PRECO_VISTORIA_FURGAO = 500d;
 
     /**
      * Método construtor da classe Furgao.
@@ -18,15 +22,15 @@ public class Furgao extends Veiculo {
 
     @Override
     public void calculaCustoFixo() {
-        double ipva = this.valorVenda * Tarifas.IPVA_FURGAO.getValor();
-        double seguro = (this.valorVenda * Tarifas.SEGURO_FURGAO.getValor());
+        double ipva = this.valorVenda * Tarifas.FURGAO.getIpva();
+        double seguro = (this.valorVenda * Tarifas.FURGAO.getSeguro());
         this.custoFixo = ipva + seguro;
     }
 
     @Override
     public void calculaCustoVariavel() {
-        double alinhamento = ((int)(this.kilometragemTotal/Tarifas.DIST_ALINHAMENTO_FURGAO.getValor())* Tarifas.PRECO_ALINHAMENTO_FURGAO.getValor());
-        double vistoria = ((int)(this.kilometragemTotal/Tarifas.DIST_ALINHAMENTO_FURGAO.getValor())* Tarifas.PRECO_VISTORIA_FURGAO.getValor());
+        double alinhamento = ((int)(this.kilometragemTotal/DIST_ALINHAMENTO_FURGAO) * PRECO_ALINHAMENTO_FURGAO);
+        double vistoria = ((int)(this.kilometragemTotal/DIST_VISTORIA_FURGAO) * PRECO_VISTORIA_FURGAO);
         this.custoVariavel = alinhamento + vistoria + this.custosExtra;
     }
 }

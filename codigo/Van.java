@@ -1,6 +1,10 @@
 
 public class Van extends Veiculo{
     private final int TANQUE_COMPLETO = 60;
+    private final double DIST_ALINHAMENTO_VAN = 10000d;
+    private final double PRECO_ALINHAMENTO_VAN = 120d;
+    private final double DIST_VISTORIA_VAN = 10000d;
+    private final double PRECO_VISTORIA_VAN = 500d;
 
     /**
      * Método construtor da classe Van.
@@ -19,15 +23,15 @@ public class Van extends Veiculo{
 
     @Override
     public void calculaCustoFixo() {
-        double ipva = (this.valorVenda * Tarifas.IPVA_VAN.getValor());
-        double seguro = (this.valorVenda * Tarifas.SEGURO_VAN.getValor());
+        double ipva = (this.valorVenda * Tarifas.VAN.ipva);
+        double seguro = (this.valorVenda * Tarifas.VAN.seguro);
         this.custoFixo = ipva + seguro;
     }
 
     @Override
     public void calculaCustoVariavel() {
-        double alinhamento = ((int)(this.kilometragemTotal/Tarifas.DIST_ALINHAMENTO_VAN.getValor())* Tarifas.PRECO_ALINHAMENTO_VAN.getValor());
-        double vistoria = ((int)(this.kilometragemTotal/Tarifas.DIST_ALINHAMENTO_VAN.getValor())* Tarifas.PRECO_VISTORIA_VAN.getValor());
+        double alinhamento = ((int)(this.kilometragemTotal/DIST_ALINHAMENTO_VAN) * PRECO_ALINHAMENTO_VAN);
+        double vistoria = ((int)(this.kilometragemTotal/DIST_VISTORIA_VAN) * PRECO_VISTORIA_VAN);
         this.custoVariavel = alinhamento + vistoria + this.custosExtra;
     }
 }

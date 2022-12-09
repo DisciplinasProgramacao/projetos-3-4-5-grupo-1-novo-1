@@ -1,6 +1,11 @@
 
 public class Caminhao extends Veiculo{
     private final int TANQUE_COMPLETO = 250;
+    private final double DIST_VISTORIA_CAMINHAO = 30000d;
+    private final double PRECO_VISTORIA_CAMINHAO = 1000d;
+    private final double DIST_MANUTENCAO_CAMINHAO = 20000d;
+    private final double PRECO_MANUTENCAO_CAMINHAO = 1000d;
+    private final double TAXA_CAMINHAO = 2000d;
 
     /**
      * Método construtor da classe Caminhao.
@@ -19,15 +24,15 @@ public class Caminhao extends Veiculo{
 
     @Override
     public void calculaCustoFixo() {
-        double ipva = (this.valorVenda * Tarifas.IPVA_CAMINHAO.getValor());
-        double seguro = (this.valorVenda * Tarifas.SEGURO_CAMINHAO.getValor()) + Tarifas.TAXA_CAMINHAO.getValor();
+        double ipva = (this.valorVenda * Tarifas.CAMINHAO.getIpva());
+        double seguro = (this.valorVenda * Tarifas.CAMINHAO.getSeguro()) + TAXA_CAMINHAO;
         this.custoFixo = ipva + seguro;
     }
 
     @Override
     public void calculaCustoVariavel() {
-        double manutencao = ((int)(this.kilometragemTotal/Tarifas.DIST_MANUTENCAO_CAMINHAO.getValor())* Tarifas.PRECO_MANUTENCAO_CAMINHAO.getValor());
-        double vistoria = ((int)(this.kilometragemTotal/Tarifas.DIST_VISTORIA_CAMINHAO.getValor())* Tarifas.PRECO_VISTORIA_CAMINHAO.getValor());
+        double manutencao = ((int)(this.kilometragemTotal/DIST_MANUTENCAO_CAMINHAO) * PRECO_MANUTENCAO_CAMINHAO);
+        double vistoria = ((int)(this.kilometragemTotal/DIST_VISTORIA_CAMINHAO) * PRECO_VISTORIA_CAMINHAO);
         this.custoVariavel = manutencao + vistoria + this.custosExtra;
     }
 }
