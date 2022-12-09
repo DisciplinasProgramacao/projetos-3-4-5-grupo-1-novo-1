@@ -227,10 +227,10 @@ public class Frota {
      * Metodo salva arquivo contendo conjunto de veiculos no endereço recebido por
      * string.
      * 
-     * @param nomeArquivo local para salvar arquivo.
+     * @param localArquivo local para salvar arquivo.
      */
-    public void salvaVeiculosFrota(String nomeArquivo) {
-        File arquivo = new File(nomeArquivo);
+    public void salvaVeiculosFrota(String localArquivo) {
+        File arquivo = new File(localArquivo);
         try {
             if (!arquivo.exists()) {arquivo.createNewFile();}
             FileWriter arqEscrita = new FileWriter(arquivo, false);
@@ -273,31 +273,20 @@ public class Frota {
     }
 
     /**
-     * Exibe no console as rotas carregas do arquivo recebido por parametro.
-     * 
-     * @param localArquivo local do arquivo a ser exibido.
+     * Retorna uma String formatada com as rotas do arquivo txt onde caminho passado por parâmetro aponta
+     * @param localArquivo String com o caminho de onde estão salvas as rotas. 
+     * Exemplo:
+     * media/pastaLinux/trabhloFrotas/Rotas_ler.txt
      */
     public String exibirRotasArquivo(String localArquivo) {
         StringBuilder rotasArquivos = new StringBuilder("\n");
         Scanner entrada;
         String linhaLida;
-        String[] rotaLida;
-        boolean adicionarRota;
-        Veiculo vec;
         try {
             entrada = new Scanner(new FileReader(localArquivo));
             while (entrada.hasNextLine()) {
                 linhaLida = entrada.nextLine();
                 rotasArquivos.append("\nRota: " + linhaLida);
-                rotaLida = linhaLida.split(";");
-                Rota novaRota = new Rota(Double.parseDouble(rotaLida[0]), Data.verificaData(rotaLida[1]),
-                        retornaVeiculoPelaPlaca(rotaLida[2]));
-                vec = retornaVeiculoPelaPlaca(rotaLida[2]);
-
-                if (!vec.getRotas().contains(novaRota)) {
-                    vec.addRota(novaRota);
-                }
-                
             }
             entrada.close();
         } catch (FileNotFoundException e) {
@@ -307,13 +296,13 @@ public class Frota {
     }
 
     /**
-     * Metodo que salva conjunto de rotas em arquivo .txt no local recebido por
-     * paramentro.
-     * 
-     * @param nomeArquivo string representa local do arquivo salvo.
+     * Metodo salva as rotas dos veiculos de frota no arquivo txt do caminho passado por parâmetro
+     * @param localArquivo String com o caminho de onde serão salvas as rotas. 
+     * Exemplo:
+     * /media/pastaLinux/trabhloFrotas/Rotas_ler.txt
      */
-    public void salvaRotasFrota(String nomeArquivo) {
-        File arquivo = new File(nomeArquivo);
+    public void salvaRotasFrota(String localArquivo) {
+        File arquivo = new File(localArquivo);
         List<Rota> rotas = veiculos.stream().flatMap(r-> r.getRotas().stream()).collect(Collectors.toList());
         try {
             if (!arquivo.exists()) {arquivo.createNewFile();}
