@@ -12,6 +12,7 @@ public abstract class Veiculo implements ICustos{
     protected double autonomiaAtual;
     protected double autonomiaMaxima;
     protected Tanque tanque;
+    protected Tarifas tarifas;
     protected List<Combustivel> tiposCombustivel = new ArrayList<Combustivel>();
     protected List<Rota> rotas = new ArrayList<Rota>();
     
