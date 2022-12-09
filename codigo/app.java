@@ -48,18 +48,13 @@ public class app {
                     System.out.println("\nEntre com data para a rota formato DD/MM/AAAA: ");
                     dtProducao = Data.verificaData(teclado.nextLine());
                     System.out.print("\nQuilometros da rota:");
-                    kmRota = teclado.nextDouble();
-                    clearBuffer(teclado);
+                    kmRota = teclado.nextDouble();clearBuffer(teclado);
                     System.out.println("Veíulos abastecidos com autonomia para a rota de:" + kmRota + "Km.");
                     if (frota.imprimeVeiculosparaRota(kmRota) > 0) {
                         System.out.println("\nEntre com a placa do veículo para a rota:\n Procurar pela placa: ");
                         veiculoParaRota = frota.retornaVeiculoPelaPlaca(teclado.nextLine().toUpperCase());
                         novaRota = new Rota(kmRota, dtProducao, veiculoParaRota);
-                        switch (frota.addRota(novaRota, veiculoParaRota)) {
-                            case 1: System.out.println("Rota adicionada com sucesso."); break;
-                            case 2: System.out.println("Rota adicionada e veiculo abastecido com o combustível de maior autonomia."); break;
-                            case 3: System.out.println("O veiculo não suporta a distância da rota"); break;
-                        }
+                        statusRotaAdicionada(frota.addRota(novaRota, veiculoParaRota));
                     }
                     frota.salvaRotasFrota(arquivoRota);
                     opcao = menu(opcao);
@@ -67,8 +62,7 @@ public class app {
 
                 case "4":
                     System.out.println("\nEntre com a placa do Veículo para adicionar o custo extra:");
-                    placaVeiculo = teclado.nextLine().toUpperCase();
-                    veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
+                    veiculoParaRota = frota.retornaVeiculoPelaPlaca(teclado.nextLine().toUpperCase());
                     System.out.printf("\nInforme o valor do custo extra: R$");
                     veiculoParaRota.addCustosExtra(teclado.nextDouble());
                     veiculoParaRota.calculaCustoVariavel();
@@ -78,8 +72,7 @@ public class app {
 
                 case "5":
                     System.out.println("\nEntre com a placa do Veículo para localizar:");
-                    placaVeiculo = teclado.nextLine().toUpperCase();
-                    veiculoParaRota = frota.retornaVeiculoPelaPlaca(placaVeiculo);
+                    veiculoParaRota = frota.retornaVeiculoPelaPlaca(teclado.nextLine().toUpperCase());
                     System.out.println(veiculoParaRota);
                     opcao = menu(opcao);
                     break;
@@ -140,6 +133,14 @@ public class app {
         }
     }
 
+    private static void statusRotaAdicionada(int opcao) {
+        switch (opcao) {
+            case 1: System.out.println("Rota adicionada com sucesso."); break;
+            case 2: System.out.println("Rota adicionada e veiculo abastecido com o combustível de maior autonomia."); break;
+            case 3: System.out.println("O veiculo não suporta a distância da rota"); break;
+        }
+    }
+
     public static String menu(String opc) {
         System.out.println("\nFUNÇÕES DA FROTA:\n");
         System.out.println("1  -  Lista de veiculos e rotas dos arquivos.");
@@ -177,7 +178,7 @@ public class app {
         System.out.print("Escolha um numero: ");
         opcao = Integer.parseInt(teclado.nextLine());
         String tipo= veiculos[opcao-1];
-        System.out.print("Informe a placa e o valor do veiculo");
+        System.out.print("Informe os dados");
         System.out.print("Placa: ");
         String placa = teclado.nextLine().toUpperCase();
         System.out.print("Valor: ");
