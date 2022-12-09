@@ -174,7 +174,7 @@ public class app {
         for(int i = 1; i<=veiculos.length; i++){
             System.out.println(i+" - "+veiculos[i-1]);
         }                
-        System.out.print("Escolha: ");
+        System.out.print("Escolha um numero: ");
         opcao = Integer.parseInt(teclado.nextLine());
         String tipo= veiculos[opcao-1];
         System.out.print("Informe a placa e o valor do veiculo");
