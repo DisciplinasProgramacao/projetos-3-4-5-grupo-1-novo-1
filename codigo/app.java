@@ -18,7 +18,7 @@ public class app {
 
     public static void main(String[] args) throws Exception {
     
-        Veiculo veiculoParaRota;
+        Veiculo veiculoParaRota = null;
         String placaVeiculo;
         Rota novaRota = null;
         double kmRota = 0;
@@ -55,15 +55,11 @@ public class app {
                         System.out.println("\nEntre com a placa do veículo para a rota:\n Procurar pela placa: ");
                         veiculoParaRota = frota.retornaVeiculoPelaPlaca(teclado.nextLine().toUpperCase());
                         novaRota = new Rota(kmRota, dtProducao, veiculoParaRota);
-                        if (frota.addRota(novaRota, veiculoParaRota) == 1) {
-                            System.out.println("Rota adicionada com sucesso.");
-                            //frota.addRota(novaRota, veiculoParaRota);
+                        switch (frota.addRota(novaRota, veiculoParaRota)) {
+                            case 1: System.out.println("Rota adicionada com sucesso."); break;
+                            case 2: System.out.println("Rota adicionada e veiculo abastecido com o combustível de maior autonomia."); break;
+                            case 3: System.out.println("O veiculo não suporta a distância da rota"); break;
                         }
-                        else if(frota.addRota(novaRota, veiculoParaRota) == 2){
-                            System.out.println("Rota adicionada e veiculo abastecido com o combustível de maior autonomia.");
-                            //frota.addRota(novaRota, veiculoParaRota);
-                        }
-                        else{System.out.println("O veiculo não suporta a distância da rota");}
                     }
                     frota.salvaRotasFrota(arquivoRota);
                     opcao = menu(opcao);
