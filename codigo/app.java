@@ -179,7 +179,7 @@ public class app {
         opcao = Integer.parseInt(teclado.nextLine());
         String tipo= veiculos[opcao-1];
         System.out.print("Informe os dados");
-        System.out.print("Placa: ");
+        System.out.print("\nPlaca: ");
         String placa = teclado.nextLine().toUpperCase();
         System.out.print("Valor: ");
         double valor = teclado.nextDouble();
